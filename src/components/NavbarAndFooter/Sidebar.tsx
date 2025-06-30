@@ -13,13 +13,13 @@ interface SidebarProps {
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: Home },
-  { name: "Buy Node", href: "/buy-node", icon: Zap },
-  { name: "Rewards", href: "/rewards", icon: Award },
-  { name: "Rank", href: "/rank", icon: TrendingUp },
-  { name: "Wallet", href: "/wallet", icon: Wallet },
-  { name: "Network", href: "/network", icon: Network },
-  { name: "Node Report", href: "/node-report", icon: FileText },
-  { name: "Profile", href: "/profile", icon: User },
+  { name: "Buy Node", href: "/dashboard/buy-node", icon: Zap },
+  { name: "Rewards", href: "/dashboard/rewards", icon: Award },
+  { name: "Rank", href: "/dashboard/rank", icon: TrendingUp },
+  { name: "Wallet", href: "/dashboard/wallet", icon: Wallet },
+  { name: "Network", href: "/dashboard/network", icon: Network },
+  { name: "Node Report", href: "/dashboard/node-report", icon: FileText },
+  { name: "Profile", href: "/dashboard/profile", icon: User },
 ]
 
 function SidebarContent() {
