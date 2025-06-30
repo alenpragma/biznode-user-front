@@ -8,12 +8,12 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex w-full bg-gray-900">
-      <div className="hidden lg:block max-w-[250px] w-full fixed h-screen bg-gray-500">
+      <div className="hidden lg:block max-w-[250px] w-full fixed h-screen bg-[#1F2937]">
         <Sidebar />
       </div>
       <div className="md:ml-[250px] w-full h-fit relative">
         <Header title="Dashboard" subtitle="Dashboard" />
-        <div className="min-h-screen w-full max-w-7xl mx-auto">{children}</div>
+        <div className="min-h-screen w-full max-w-7xl mx-auto pt-16">{children}</div>
       </div>
     </div>
   );

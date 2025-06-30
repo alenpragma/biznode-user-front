@@ -26,7 +26,7 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
     console.log("Logging out...")
   }
   return (
-    <div className="flex justify-between items-center mb-6 lg:mb-8 px-3 py-2 text-white">
+    <div className="flex justify-between items-center mb-6 lg:mb-8 px-3 py-2 text-white fixed right-0 left-[250px] border-b z-10 bg-gray-900">
       <div className="flex items-center gap-4">
         <MobileSidebar />
         <div>
