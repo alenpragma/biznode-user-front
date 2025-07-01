@@ -22,7 +22,8 @@ const navigation = [
   { name: "Profile", href: "/dashboard/profile", icon: User },
 ]
 
-function SidebarContent() {
+// ✅ Accepts optional onLinkClick
+function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
   const pathname = usePathname()
 
   return (
@@ -43,8 +44,11 @@ function SidebarContent() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={onLinkClick} // ✅ close on click
               className={`px-4 py-3 rounded-lg flex items-center gap-3 cursor-pointer transition-colors ${
-                isActive ? "bg-yellow-500 text-black" : "text-gray-300 hover:text-white hover:bg-gray-700"
+                isActive
+                  ? "bg-yellow-500 text-black"
+                  : "text-gray-300 hover:text-white hover:bg-gray-700"
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -76,7 +80,8 @@ export function MobileSidebar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-64 bg-gray-800 border-gray-700 p-4">
-        <SidebarContent />
+        {/* 👇 Pass the close function */}
+        <SidebarContent onLinkClick={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   )
