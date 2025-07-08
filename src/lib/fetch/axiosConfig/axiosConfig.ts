@@ -25,7 +25,7 @@ export interface ApiErrorResponse extends ApiResponse {
 }
 
 const axiosInstance = axios.create({
-  baseURL: `http://admin.biznode.io/api/user`,
+  baseURL: `https://admin.biznode.io/api/user`,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
