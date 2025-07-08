@@ -16,7 +16,7 @@ export type IGenericErrorMessage = {
 export interface ApiResponse<T = unknown> {
   data: T
   success: boolean
-  message?: string
+  message?: string | undefined
 }
 
 
@@ -54,15 +54,25 @@ axiosInstance.interceptors.response.use(
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       window.location.href = "/logout"
     }
-
+  
+    const errorData = error.response?.data as any;
+  
+    let dynamicMessage: string | undefined;
+    if (errorData?.errors && typeof errorData.errors === "object") {
+      const firstKey = Object.keys(errorData.errors)[0];
+      const firstMessage = errorData.errors[firstKey]?.[0];
+      dynamicMessage = firstMessage;
+    }
+  
     const responseObject: IGenericErrorResponse = {
       statusCode: error.response?.status || 500,
-      message: error.response?.data?.message || "Something went wrong",
-      success: error.response?.data?.success?.toString(),
+      message: errorData?.message || dynamicMessage || "Something went wrong",
+      success: errorData?.success?.toString(),
     }
-
-    return Promise.reject(responseObject)
-  },
+  
+    return Promise.reject(responseObject);
+  }
+  
 )
 
 export default axiosInstance

@@ -41,10 +41,13 @@ export default function LoginPage() {
       return response.data;
     },
     onSuccess: (data: LoginResponse) => {
+      console.log("Login successful", data);
+      showSuccessAlert(data?.data?.message);
+
       if (data.success === true) {
-        Cookies.set("biznode_token", data.data.token, { expires: 3 });
-        window.location.href = "/dashboard";
-        showSuccessAlert(data?.message);
+        // Cookies.set("biznode_token", data.data.token, { expires: 3 });
+        // window.location.href = "/dashboard";
+        showSuccessAlert(data?.data?.message);
       } else {
         // showErrorAlert(data.data.errors.email);
       }
@@ -95,7 +98,7 @@ export default function LoginPage() {
                 label="Email"
                 type="email"
                 placeholder="xyz@gmail.com"
-                inputClass="px-3"
+                inputClass="px-3 text-gray-900"
                 labelClass=""
               />
               <div className="relative">
@@ -104,7 +107,7 @@ export default function LoginPage() {
                   label="Password"
                   placeholder="Enter your password"
                   type={!showPass ? "password" : "text"}
-                  inputClass="px-3 text-gray-800"
+                  inputClass="px-3 text-gray-900"
                   labelClass=""
                 />
                 {!showPass ? (
