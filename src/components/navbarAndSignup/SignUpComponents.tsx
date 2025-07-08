@@ -64,19 +64,11 @@ export default function SignUpComponents() {
     },
     onSuccess: (data: LoginResponse) => {
       router.push("/login");
-      showSuccessAlert(data?.message);
+      showSuccessAlert(data?.data.message);
     },
     onError: (err: AxiosError<APIErrorResponse>) => {
       console.log("Registration failed", err);
-      const mobileError = err.response?.data?.message?.errors?.mobile?.[0];
-      const emailField = err.response?.data?.message?.errors?.email;
-      const emailError = Array.isArray(emailField) ? emailField[0] : emailField;
-
-      if (mobileError || emailError) {
-        showErrorAlert(mobileError || emailError);
-      } else {
-        showErrorAlert("Registration failed. Please try again.");
-      }
+      showErrorAlert(err.message);
     },
   });
 

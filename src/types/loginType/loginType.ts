@@ -1,8 +1,9 @@
+
 export type LoginResponse = {
+  data: {
     success: boolean;
     message: string;
-    data: {
-      token: string;
-    };
   };
-  
+  status: number;
+  success: boolean;
+};
