@@ -2,7 +2,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 import { Images } from "@/lib/images";
 import Image, { StaticImageData } from "next/image";
 

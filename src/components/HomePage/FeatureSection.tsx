@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 import { Images } from "@/lib/images";
 import Image from "next/image";
 

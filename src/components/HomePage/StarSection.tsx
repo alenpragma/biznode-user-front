@@ -1,6 +1,6 @@
 import { BarChart3, Coins, Shield, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 
 const StartSection = () => {
   return (

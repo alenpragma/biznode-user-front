@@ -1,7 +1,7 @@
 import { Coins, Shield, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 
 const GettingStartSection = () => {
   return (
@@ -68,7 +68,7 @@ const GettingStartSection = () => {
             size="lg"
             className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg"
           >
-            Buy Biz Token Now
+            Buy BIZ Node
           </Button>
         </div>
       </MainContainer>{" "}

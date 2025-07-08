@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Menu, X } from "lucide-react";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 
-const Navbar = () => {
+const Navbar = ({ token }: { token: string | undefined }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -66,9 +66,27 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-              Buy BIZT Now
-            </Button>
+            {token ? (
+              <Button
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold cursor-pointer"
+                onClick={() => {
+                  // Handle user profile or dashboard navigation
+                  window.location.href = "/dashboard";
+                }}
+              >
+                Dashboard
+              </Button>
+            ) : (
+              <Button
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold cursor-pointer"
+                onClick={() => {
+                  // Handle login or signup navigation
+                  window.location.href = "/login";
+                }}
+              >
+                Buy BIZ Node
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -142,7 +160,7 @@ const Navbar = () => {
               </a>
               <div className="px-3 py-2">
                 <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-                  Buy BIZT Now
+                  Buy BIZT Node
                 </Button>
               </div>
             </div>
