@@ -19,6 +19,10 @@ export interface ApiResponse<T = unknown> {
   message?: string | undefined
 }
 
+// Extended error response type that includes the errors field
+export interface ApiErrorResponse extends ApiResponse {
+  errors?: Record<string, string[]>
+}
 
 const axiosInstance = axios.create({
   baseURL: `http://admin.biznode.io/api/user`,
@@ -54,25 +58,25 @@ axiosInstance.interceptors.response.use(
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       window.location.href = "/logout"
     }
-  
-    const errorData = error.response?.data as any;
-  
-    let dynamicMessage: string | undefined;
+
+    // Use proper typing instead of any
+    const errorData = error.response?.data as ApiErrorResponse | undefined
+    let dynamicMessage: string | undefined
+
     if (errorData?.errors && typeof errorData.errors === "object") {
-      const firstKey = Object.keys(errorData.errors)[0];
-      const firstMessage = errorData.errors[firstKey]?.[0];
-      dynamicMessage = firstMessage;
+      const firstKey = Object.keys(errorData.errors)[0]
+      const firstMessage = errorData.errors[firstKey]?.[0]
+      dynamicMessage = firstMessage
     }
-  
+
     const responseObject: IGenericErrorResponse = {
       statusCode: error.response?.status || 500,
       message: errorData?.message || dynamicMessage || "Something went wrong",
       success: errorData?.success?.toString(),
     }
-  
-    return Promise.reject(responseObject);
-  }
-  
+
+    return Promise.reject(responseObject)
+  },
 )
 
 export default axiosInstance
