@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Cookies from "js-cookie";
 import {
   Card,
   CardContent,
@@ -24,6 +25,7 @@ import {
 import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { LoginResponse } from "@/types/loginType/loginType";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 type FormType = z.infer<typeof loginSchema>;
 
@@ -32,7 +34,10 @@ const initialValues: FormType = {
   password: "",
 };
 
+
+
 export default function LoginPage() {
+const router = useRouter();
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType | React.FormEvent<HTMLFormElement>) => {
@@ -40,12 +45,11 @@ export default function LoginPage() {
       return response.data;
     },
     onSuccess: (data: LoginResponse) => {
-      console.log("Login successful", data);
-      showSuccessAlert(data?.data?.message);
+      console.log("Login successful", data.data.data?.token);
 
       if (data.success === true) {
-        // Cookies.set("biznode_token", data.data.token, { expires: 3 });
-        // window.location.href = "/dashboard";
+        Cookies.set("biznode_token", data.data.data?.token ?? "", { expires: 3 });
+       router.push("/dashboard");
         showSuccessAlert(data?.data?.message);
       } else {
         // showErrorAlert(data.data.errors.email);
