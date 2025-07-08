@@ -1,4 +1,4 @@
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 import {
   Accordion,
   AccordionContent,

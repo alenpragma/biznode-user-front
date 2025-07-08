@@ -1,5 +1,5 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import MainContainer from "../shared/MainContainer";
+import { Mail, MapPin } from "lucide-react";
+import MainContainer from "../shared/container/MainContainer";
 import { Card, CardContent } from "../ui/card";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -28,23 +28,11 @@ const ContactSection = () => {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold">Phone</h3>
-                  <p className="text-gray-300">+23 0123 4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold">E-Mail</h3>
-                  <p className="text-gray-300">
-                    22 International Division Via G.B. Pirelli
-                  </p>
+                  <p className="text-gray-300">info@biznode.io </p>
                 </div>
               </div>
 
@@ -53,8 +41,11 @@ const ContactSection = () => {
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">Location</h3>
-                  <p className="text-gray-300">+23 0123 4567</p>
+                  <h3 className="text-white font-semibold">Address</h3>
+                  <p className="text-gray-300">
+                    71-75, Shelton Street, Covent Garden, London, WC2H 9JQ,
+                    UNITED KINGDOM
+                  </p>
                 </div>
               </div>
             </div>

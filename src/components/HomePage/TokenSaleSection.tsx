@@ -2,7 +2,7 @@ import { Badge } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Progress } from "@radix-ui/react-progress";
 import { Button } from "../ui/button";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
 
 const TokenSaleSection = () => {
   return (
@@ -67,7 +67,7 @@ const TokenSaleSection = () => {
                 <p className="text-center mt-2 text-sm">1000 remaining</p>
               </div>
               <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-                Buy Now
+                Buy BIZ Node
               </Button>
             </CardContent>
           </Card>
@@ -98,7 +98,7 @@ const TokenSaleSection = () => {
                 <p className="text-center mt-2 text-sm">5000 remaining</p>
               </div>
               <Button className="w-full bg-gray-600 text-white" disabled>
-                Buy Now
+                Buy BIZ Node
               </Button>
             </CardContent>
           </Card>
@@ -129,7 +129,7 @@ const TokenSaleSection = () => {
                 <p className="text-center mt-2 text-sm">5000 remaining</p>
               </div>
               <Button className="w-full bg-gray-600 text-white" disabled>
-                Buy Now
+                Buy BIZ Node
               </Button>
             </CardContent>
           </Card>

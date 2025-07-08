@@ -1,0 +1,25 @@
+import { z } from "zod";
+
+export const registerSchema = z
+  .object({
+    name: z.string().nonempty({ message: "Please enter your name" }),
+    email: z.string().email({ message: "Please enter a valid email address" }),
+    mobile: z
+      .string()
+      .nonempty({ message: "Please enter your mobile number" })
+      .regex(/^\d{10,15}$/, {
+        message: "Mobile number must be between 10 to 15 digits",
+      }),
+    password: z
+      .string()
+      .nonempty({ message: "Please enter your password" })
+      .min(6, { message: "Password must be at least 6 characters" }),
+    confirm_password: z
+      .string()
+      .nonempty({ message: "Please confirm your password" }),
+    refer_code: z.string().nonempty({ message: "Please enter refer code" }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    path: ["confirm_password"],
+    message: "Passwords do not match",
+  });

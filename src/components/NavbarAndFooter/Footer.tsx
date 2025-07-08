@@ -2,18 +2,19 @@ import {
   ArrowRight,
   CheckCircle,
   Facebook,
-  Instagram,
-  Linkedin,
   Mail,
   MessageCircle,
   Network,
   Send,
   Shield,
-  Twitter,
+  Youtube,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import MainContainer from "../shared/MainContainer";
+import MainContainer from "../shared/container/MainContainer";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaTelegramPlane } from "react-icons/fa";
+
 
 const FooterSection = () => {
   return (
@@ -211,35 +212,44 @@ const FooterSection = () => {
             <div className="space-y-3">
               <div className="text-sm text-gray-400">Follow Us</div>
               <div className="flex gap-3">
+                {/* Facebook */}
                 <a
-                  href="#"
-                  className="w-10 h-10 bg-slate-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
-                >
-                  <Twitter className="w-5 h-5 text-white" />
-                </a>
-                <a
-                  href="#"
+                  href="https://www.facebook.com/biztoken"
                   className="w-10 h-10 bg-slate-800 hover:bg-blue-800 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Facebook className="w-5 h-5 text-white" />
                 </a>
+
+                {/* YouTube */}
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@biztoken"
+                  className="w-10 h-10 bg-slate-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Youtube className="w-5 h-5 text-white" />
+                </a>
+
+                {/* Twitter */}
+                <a
+                  href="https://twitter.com/TokenBiz3525"
                   className="w-10 h-10 bg-slate-800 hover:bg-blue-500 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Send className="w-5 h-5 text-white" />
+                  <FaXTwitter className="w-5 h-5 text-white" />
                 </a>
+
+                {/* Telegram */}
                 <a
-                  href="#"
-                  className="w-10 h-10 bg-slate-800 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
+                  href="https://t.me/BizToken_BIZT"
+                  className="w-10 h-10 bg-slate-800 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Linkedin className="w-5 h-5 text-white" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-slate-800 hover:bg-purple-600 rounded-lg flex items-center justify-center transition-colors border border-slate-700"
-                >
-                  <Instagram className="w-5 h-5 text-white" />
+                  <FaTelegramPlane className="w-5 h-5 text-white" />
                 </a>
               </div>
             </div>
