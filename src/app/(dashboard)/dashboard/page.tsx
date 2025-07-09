@@ -18,6 +18,7 @@ import {
 } from "@/types/dashboard/dashboardType";
 import { useEffect } from "react";
 import { useUserStore } from "@/lib/store/userStore";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 
 export default function DashboardPage() {
   const recentActivities = [
@@ -78,7 +79,7 @@ export default function DashboardPage() {
     useUserStore.getState().setUserData(userProfile as TUserProfile);
   }, [dashboard]);
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingContainer />;
   }
   return (
     <div className=" text-white">
