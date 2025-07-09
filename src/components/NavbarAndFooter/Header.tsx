@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Bell, LogOut, User, Settings } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link";
+import { Bell, LogOut, User, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,20 +12,24 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { MobileSidebar } from "./Sidebar"
-import { ActivationModal } from "./ActivationModal"
+} from "@/components/ui/dropdown-menu";
+import { MobileSidebar } from "./Sidebar";
+import { ActivationModal } from "./ActivationModal";
+import { useUserStore } from "@/lib/store/userStore";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
-  title: string
-  subtitle?: string
-  breadcrumb?: string[]
+  title: string;
+  subtitle?: string;
+  breadcrumb?: string[];
 }
 
 export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
   const handleLogout = () => {
-    console.log("Logging out...")
-  }
+    console.log("Logging out...");
+  };
+
+  const { userData } = useUserStore();
 
   return (
     <>
@@ -45,7 +49,9 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
             )}
             <h2 className="text-xl lg:text-2xl font-bold">{title}</h2>
             {subtitle && (
-              <p className="text-gray-400 mt-1 text-sm lg:text-base">{subtitle}</p>
+              <p className="text-gray-400 mt-1 text-sm lg:text-base">
+                {subtitle}
+              </p>
             )}
           </div>
         </div>
@@ -53,9 +59,16 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
         <div className="flex items-center gap-2 lg:gap-4">
           <Badge
             variant="outline"
-            className="bg-red-500/10 text-red-400 border-red-500/20 hidden sm:inline-flex"
+            className={cn(
+              " hidden sm:inline-flex",
+              userData?.user?.is_active === "0"
+                ? "text-red-500 bg-red-500/10 border-red-500/20"
+                : "text-green-500 bg-green-500/10 border-green-500/20"
+            )}
           >
-            Inactive Account
+            {userData?.user?.is_active === "0"
+              ? "Inactive Account"
+              : "Active Account"}
           </Badge>
 
           {/* Wrap "Activate Now" button with ActivationModal */}
@@ -65,7 +78,11 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
             </Button>
           </ActivationModal>
 
-          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white p-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-gray-400 hover:text-white p-2"
+          >
             <Bell className="w-4 h-4 lg:w-5 lg:h-5" />
           </Button>
 
@@ -88,7 +105,9 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
               <DropdownMenuLabel className="font-normal text-white">
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">John Doe</p>
-                  <p className="text-xs leading-none text-gray-400">john.doe@example.com</p>
+                  <p className="text-xs leading-none text-gray-400">
+                    john.doe@example.com
+                  </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-gray-700" />
@@ -118,5 +137,5 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
         </div>
       </div>
     </>
-  )
+  );
 }

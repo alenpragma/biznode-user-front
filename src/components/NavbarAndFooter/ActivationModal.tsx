@@ -25,6 +25,7 @@ import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { SubmitButton } from "../form/fields/SubmitButton";
 import { TActiveAccount } from "@/types/activeAccountType/activeAccountType";
+import { showErrorAlert } from "../shared/toast/ToastSuccess";
 
 interface ActivationModalProps {
   children: React.ReactNode;
@@ -44,39 +45,34 @@ export function ActivationModal({ children }: ActivationModalProps) {
   const hasEnoughBalance =
     Number.parseFloat(walletBalance.usdt) >= activationFee;
 
-  // const handleActivation = async () => {
-  //   if (!hasEnoughBalance) return;
-  //   setIsActivating(true);
-
-  //   // Simulate API
-  //   await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  //   setIsActivating(false);
-  //   setIsOpen(false);
-  //   setShowSuccessDialog(true);
-  // };
-
   const mutation = useMutation({
     mutationFn: async () => {
-      const response = await axiosInstance.post<TActiveAccount>(`/login`);
+      const response = await axiosInstance.get<TActiveAccount>(
+        `/active-account`
+      );
       return response.data;
     },
     onSuccess: (data: TActiveAccount) => {
-      if (data.success === true) {
-        window.location.href = "/dashboard";
+      if (data?.data?.status) {
+        setShowSuccessDialog(true);
+        setIsOpen(false);
+      } else {
+        showErrorAlert(data.data.message);
       }
       setIsActivating(false);
     },
     onError: () => {
       setIsActivating(false);
+      showErrorAlert("Failed to activate account. Please try again.");
     },
   });
 
   const handleActive = () => {
+    if (!hasEnoughBalance) return;
     setIsActivating(true);
-
     mutation.mutate();
   };
+
   return (
     <>
       {/* Activation Dialog */}
@@ -174,26 +170,14 @@ export function ActivationModal({ children }: ActivationModalProps) {
           <DialogFooter className="flex flex-col gap-2 pt-2">
             <SubmitButton
               onClick={handleActive}
+              disabled={!hasEnoughBalance}
               width="full"
               label={`Activate - $${activationFee}`}
               isLoading={isActivating}
-              loadingLabel="Processing.."
+              loadingLabel="Processing..."
               className="w-full cursor-pointer bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-2.5 text-sm disabled:opacity-50"
             />
-            {/* <Button
-              onClick={handleActive}
-              disabled={!hasEnoughBalance || isActivating}
-              className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-2.5 text-sm disabled:opacity-50"
-            >
-              {isActivating ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                  Activating...
-                </div>
-              ) : (
-                `Activate - $${activationFee}`
-              )}
-            </Button> */}
+
             {!hasEnoughBalance && (
               <Button
                 variant="outline"
@@ -208,7 +192,7 @@ export function ActivationModal({ children }: ActivationModalProps) {
         </DialogContent>
       </Dialog>
 
-      {/* ✅ Success Dialog */}
+      {/* Success Dialog */}
       <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
         <DialogContent className="bg-[#1e293b] border border-gray-700 text-white max-w-sm mx-auto p-6 rounded-lg text-center">
           <div className="flex justify-center mb-4">
