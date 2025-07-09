@@ -34,7 +34,7 @@ const axiosInstance = axios.create({
 
 // Request interceptor to add the token to headers
 axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get("petroxcinToken")
+  const token = Cookies.get("biznode_token")
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

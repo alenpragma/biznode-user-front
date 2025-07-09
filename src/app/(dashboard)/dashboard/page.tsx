@@ -11,6 +11,13 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
+import {
+  TUserProfile,
+  TUserProfileResponse,
+} from "@/types/dashboard/dashboardType";
+import { useEffect } from "react";
+import { useUserStore } from "@/lib/store/userStore";
 
 export default function DashboardPage() {
   const recentActivities = [
@@ -62,6 +69,17 @@ export default function DashboardPage() {
     { month: "Dec", refer: 120, reward: 160 },
   ];
 
+  const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
+    ["products"],
+    `/profile`
+  );
+  const userProfile = dashboard?.data.data;
+  useEffect(() => {
+    useUserStore.getState().setUserData(userProfile as TUserProfile);
+  }, [dashboard]);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className=" text-white">
       <div className="flex">
@@ -75,8 +93,8 @@ export default function DashboardPage() {
                     <Cpu className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                    <p className="text-lg lg:text-2xl font-bold text-white">
-                      1203.00 BIZT
+                    <p className="text-md font-bold text-white">
+                      {userProfile?.bizt_wallet} BIZT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
                       $120.00
@@ -106,7 +124,7 @@ export default function DashboardPage() {
                       Earned Reward
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      210.00 BIZT
+                      {userProfile?.totalEarning} BIZT
                     </p>
                   </div>
                 </div>
@@ -140,7 +158,7 @@ export default function DashboardPage() {
                       Refer Income
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      123.45 BIZT
+                      {userProfile?.totalReferBonus} BIZT
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -174,7 +192,7 @@ export default function DashboardPage() {
                       Active Miners
                     </span>
                     <span className="text-white font-bold text-base lg:text-lg">
-                      20
+                      {userProfile?.total_active_team}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -182,7 +200,7 @@ export default function DashboardPage() {
                       Inactive Miners
                     </span>
                     <span className="text-white font-bold text-base lg:text-lg">
-                      12
+                      {userProfile?.total_inactive_team}
                     </span>
                   </div>
                 </div>
@@ -349,3 +367,41 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+// {
+//   "status": true,
+//   "message": "User Profile Retrieved Successfully",
+//   "data": {
+//       "user": {
+//           "id": 5,
+//           "name": "Remon Tripura",
+//           "image": null,
+//           "birthday": null,
+//           "nid_or_passport": null,
+//           "address": null,
+//           "email": "remontripura045@gmail.com",
+//           "mobile": "01518398689",
+//           "refer_code": "700EC6",
+//           "refer_by": null,
+//           "is_active": "0",
+//           "is_block": "0",
+//           "kyc_status": "0",
+//           "created_at": "2025-07-08T10:58:57.000000Z",
+//           "updated_at": "2025-07-08T10:58:57.000000Z"
+//       },
+//       "usdt_wallet": "0.00000000",
+//       "bizt_wallet": "0.00000000",
+//       "teamInvest": 0,
+//       "directRefer": 0,
+//       "totalTeam": 0,
+//       "total_active_team": 0,
+//       "total_inactive_team": 0,
+//       "reward": 0,
+//       "totalInvestment": 0,
+//       "totalWithdraw": 0,
+//       "totalTransfer": 0,
+//       "totalDeposit": 0,
+//       "totalEarning": 0,
+//       "totalReferBonus": 0
+//   }
+// }

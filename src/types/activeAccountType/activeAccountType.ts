@@ -1,5 +1,6 @@
 export type TActiveAccount = {
-    success: boolean;
+  data: {
+    status: boolean;
     message: string;
-  };
-  
+  }
+};

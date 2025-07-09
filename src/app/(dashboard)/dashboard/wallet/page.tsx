@@ -1,17 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Download, Upload, ArrowLeftRight, Copy, Eye, EyeOff } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import {
+  Download,
+  Upload,
+  ArrowLeftRight,
+  Copy,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
+import { TUserProfileResponse } from "@/types/dashboard/dashboardType";
 export default function WalletPage() {
-  const [activeTab, setActiveTab] = useState("withdraw")
-  const [showBalance, setShowBalance] = useState(true)
+  const [activeTab, setActiveTab] = useState("withdraw");
+  const [showBalance, setShowBalance] = useState(true);
 
   const transactionHistory = [
     {
@@ -78,25 +93,31 @@ export default function WalletPage() {
       details: "0x742a35...........b4C4C84C4C",
       status: "Completed",
     },
-  ]
+  ];
 
   const getStatusBadge = (status: string) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return <Badge className="bg-green-500 text-white">Completed</Badge>
+        return <Badge className="bg-green-500 text-white">Completed</Badge>;
       case "pending":
-        return <Badge className="bg-yellow-500 text-black">Pending</Badge>
+        return <Badge className="bg-yellow-500 text-black">Pending</Badge>;
       case "active":
-        return <Badge className="bg-green-500 text-white">Active</Badge>
+        return <Badge className="bg-green-500 text-white">Active</Badge>;
       default:
-        return <Badge className="bg-gray-500 text-white">{status}</Badge>
+        return <Badge className="bg-gray-500 text-white">{status}</Badge>;
     }
+  };
+  const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
+    ["products"],
+    `/profile`
+  );
+  const userProfile = dashboard?.data.data;
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
-
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="flex">
-
         {/* Main Content */}
         <div className="flex-1 p-4 lg:p-6">
           {/* Balance Cards */}
@@ -107,11 +128,17 @@ export default function WalletPage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                      <span className="text-black font-bold text-base lg:text-lg">B</span>
+                      <span className="text-black font-bold text-base lg:text-lg">
+                        B
+                      </span>
                     </div>
                     <div>
-                      <h3 className="text-base lg:text-lg font-bold text-white">BIZT Balance</h3>
-                      <p className="text-gray-300 text-xs lg:text-sm">Platform Token</p>
+                      <h3 className="text-base lg:text-lg font-bold text-white">
+                        BIZT Balance
+                      </h3>
+                      <p className="text-gray-300 text-xs lg:text-sm">
+                        Platform Token
+                      </p>
                     </div>
                   </div>
                   <Button
@@ -120,15 +147,19 @@ export default function WalletPage() {
                     onClick={() => setShowBalance(!showBalance)}
                     className="text-gray-400 hover:text-white"
                   >
-                    {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                    {showBalance ? (
+                      <Eye className="w-4 h-4" />
+                    ) : (
+                      <EyeOff className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
                 <div className="space-y-2">
                   <div className="text-2xl lg:text-3xl font-bold text-white">
-                    {showBalance ? "1247.89 BIZT" : "••••••••"}
+                    {userProfile?.bizt_wallet}
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
-                    {showBalance ? "≈ $1497.47 USD" : "≈ $••••••"}
+                    {userProfile?.bizt_wallet}
                   </div>
                 </div>
               </CardContent>
@@ -140,11 +171,17 @@ export default function WalletPage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-base lg:text-lg">$</span>
+                      <span className="text-white font-bold text-base lg:text-lg">
+                        $
+                      </span>
                     </div>
                     <div>
-                      <h3 className="text-base lg:text-lg font-bold text-white">USDT Balance</h3>
-                      <p className="text-gray-300 text-xs lg:text-sm">Stablecoin</p>
+                      <h3 className="text-base lg:text-lg font-bold text-white">
+                        USDT Balance
+                      </h3>
+                      <p className="text-gray-300 text-xs lg:text-sm">
+                        Stablecoin
+                      </p>
                     </div>
                   </div>
                   <Button
@@ -153,15 +190,19 @@ export default function WalletPage() {
                     onClick={() => setShowBalance(!showBalance)}
                     className="text-gray-400 hover:text-white"
                   >
-                    {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                    {showBalance ? (
+                      <Eye className="w-4 h-4" />
+                    ) : (
+                      <EyeOff className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
                 <div className="space-y-2">
                   <div className="text-2xl lg:text-3xl font-bold text-white">
-                    {showBalance ? "523.45 USDT" : "••••••••"}
+                    ${userProfile?.usdt_wallet}
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
-                    {showBalance ? "≈ $523.45 USD" : "≈ $••••••"}
+                    ${userProfile?.usdt_wallet}
                   </div>
                 </div>
               </CardContent>
@@ -171,10 +212,16 @@ export default function WalletPage() {
           {/* Transaction Tabs */}
           <Card className="bg-gray-800 border-2 border-gray-600 mb-6 lg:mb-8">
             <CardHeader>
-              <CardTitle className="text-white text-lg lg:text-xl font-bold">Deposit, Withdraw & Transfer</CardTitle>
+              <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                Deposit, Withdraw & Transfer
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
                 <TabsList className="grid w-full grid-cols-3 bg-gray-700 mb-6">
                   <TabsTrigger
                     value="deposit"
@@ -203,7 +250,10 @@ export default function WalletPage() {
                 <TabsContent value="deposit" className="space-y-4 lg:space-y-6">
                   <div className="max-w-md mx-auto space-y-4">
                     <div>
-                      <Label htmlFor="deposit-coin" className="text-white font-medium">
+                      <Label
+                        htmlFor="deposit-coin"
+                        className="text-white font-medium"
+                      >
                         Select Coin
                       </Label>
                       <Select defaultValue="bizt">
@@ -218,7 +268,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="deposit-network" className="text-white font-medium">
+                      <Label
+                        htmlFor="deposit-network"
+                        className="text-white font-medium"
+                      >
                         Select Network
                       </Label>
                       <Select defaultValue="bsc">
@@ -226,7 +279,9 @@ export default function WalletPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bsc">BSC (Binance Smart Chain)</SelectItem>
+                          <SelectItem value="bsc">
+                            BSC (Binance Smart Chain)
+                          </SelectItem>
                           <SelectItem value="eth">Ethereum</SelectItem>
                           <SelectItem value="polygon">Polygon</SelectItem>
                         </SelectContent>
@@ -234,7 +289,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="deposit-address" className="text-white font-medium">
+                      <Label
+                        htmlFor="deposit-address"
+                        className="text-white font-medium"
+                      >
                         Deposit Address
                       </Label>
                       <div className="flex gap-2">
@@ -256,17 +314,24 @@ export default function WalletPage() {
 
                     <div className="bg-gray-700 p-3 lg:p-4 rounded-lg">
                       <p className="text-gray-300 text-xs lg:text-sm">
-                        Send only BIZT to this address. Sending any other coin may result in permanent loss.
+                        Send only BIZT to this address. Sending any other coin
+                        may result in permanent loss.
                       </p>
                     </div>
                   </div>
                 </TabsContent>
 
                 {/* Withdraw Tab */}
-                <TabsContent value="withdraw" className="space-y-4 lg:space-y-6">
+                <TabsContent
+                  value="withdraw"
+                  className="space-y-4 lg:space-y-6"
+                >
                   <div className="max-w-md mx-auto space-y-4">
                     <div>
-                      <Label htmlFor="withdraw-coin" className="text-white font-medium">
+                      <Label
+                        htmlFor="withdraw-coin"
+                        className="text-white font-medium"
+                      >
                         Select Coin
                       </Label>
                       <Select defaultValue="bizt">
@@ -281,7 +346,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="withdraw-network" className="text-white font-medium">
+                      <Label
+                        htmlFor="withdraw-network"
+                        className="text-white font-medium"
+                      >
                         Select Network
                       </Label>
                       <Select defaultValue="bsc">
@@ -289,7 +357,9 @@ export default function WalletPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bsc">BSC (Binance Smart Chain)</SelectItem>
+                          <SelectItem value="bsc">
+                            BSC (Binance Smart Chain)
+                          </SelectItem>
                           <SelectItem value="eth">Ethereum</SelectItem>
                           <SelectItem value="polygon">Polygon</SelectItem>
                         </SelectContent>
@@ -297,7 +367,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="withdraw-amount" className="text-white font-medium">
+                      <Label
+                        htmlFor="withdraw-amount"
+                        className="text-white font-medium"
+                      >
                         Amount
                       </Label>
                       <Input
@@ -308,7 +381,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="withdraw-address" className="text-white font-medium">
+                      <Label
+                        htmlFor="withdraw-address"
+                        className="text-white font-medium"
+                      >
                         Withdrawal Address
                       </Label>
                       <Input
@@ -325,10 +401,16 @@ export default function WalletPage() {
                 </TabsContent>
 
                 {/* Transfer Tab */}
-                <TabsContent value="transfer" className="space-y-4 lg:space-y-6">
+                <TabsContent
+                  value="transfer"
+                  className="space-y-4 lg:space-y-6"
+                >
                   <div className="max-w-md mx-auto space-y-4">
                     <div>
-                      <Label htmlFor="transfer-coin" className="text-white font-medium">
+                      <Label
+                        htmlFor="transfer-coin"
+                        className="text-white font-medium"
+                      >
                         Select Coin
                       </Label>
                       <Select defaultValue="bizt">
@@ -343,7 +425,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="transfer-recipient" className="text-white font-medium">
+                      <Label
+                        htmlFor="transfer-recipient"
+                        className="text-white font-medium"
+                      >
                         Recipient Email/Username
                       </Label>
                       <Input
@@ -354,7 +439,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="transfer-amount" className="text-white font-medium">
+                      <Label
+                        htmlFor="transfer-amount"
+                        className="text-white font-medium"
+                      >
                         Amount
                       </Label>
                       <Input
@@ -365,7 +453,10 @@ export default function WalletPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="transfer-note" className="text-white font-medium">
+                      <Label
+                        htmlFor="transfer-note"
+                        className="text-white font-medium"
+                      >
                         Note (Optional)
                       </Label>
                       <Input
@@ -387,7 +478,9 @@ export default function WalletPage() {
           {/* Transaction History */}
           <Card className="bg-gray-800 border-2 border-gray-600">
             <CardHeader>
-              <CardTitle className="text-white text-lg lg:text-xl font-bold">Transaction History</CardTitle>
+              <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                Transaction History
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -413,18 +506,25 @@ export default function WalletPage() {
                   </thead>
                   <tbody>
                     {transactionHistory.map((transaction) => (
-                      <tr key={transaction.id} className="border-b border-gray-700">
+                      <tr
+                        key={transaction.id}
+                        className="border-b border-gray-700"
+                      >
                         <td className="py-3 px-2 lg:px-4 text-white font-medium text-sm lg:text-base">
                           {transaction.type}
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-white font-bold text-sm lg:text-base">
                           {transaction.amount}
                         </td>
-                        <td className="py-3 px-2 lg:px-4 text-gray-300 text-sm lg:text-base">{transaction.date}</td>
+                        <td className="py-3 px-2 lg:px-4 text-gray-300 text-sm lg:text-base">
+                          {transaction.date}
+                        </td>
                         <td className="py-3 px-2 lg:px-4 text-gray-300 font-mono text-xs lg:text-sm hidden md:table-cell">
                           {transaction.details}
                         </td>
-                        <td className="py-3 px-2 lg:px-4">{getStatusBadge(transaction.status)}</td>
+                        <td className="py-3 px-2 lg:px-4">
+                          {getStatusBadge(transaction.status)}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -435,5 +535,5 @@ export default function WalletPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
