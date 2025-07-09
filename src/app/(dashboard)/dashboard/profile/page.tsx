@@ -119,6 +119,7 @@ export default function ProfilePage() {
                 <span>
                   Referral Link :{" "}
                   <span className="text-yellow-500">
+                    https://www.biznode.io/sign-up?ref=$
                     {userData?.user.refer_code}
                   </span>
                 </span>
