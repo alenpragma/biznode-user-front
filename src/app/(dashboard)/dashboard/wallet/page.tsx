@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
 import { TUserProfileResponse } from "@/types/dashboard/dashboardType";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 export default function WalletPage() {
   const [activeTab, setActiveTab] = useState("withdraw");
   const [showBalance, setShowBalance] = useState(true);
@@ -113,7 +114,7 @@ export default function WalletPage() {
   );
   const userProfile = dashboard?.data.data;
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingContainer />;
   }
   return (
     <div className="min-h-screen bg-gray-900 text-white">
