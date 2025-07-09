@@ -26,6 +26,7 @@ import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { SubmitButton } from "../form/fields/SubmitButton";
 import { TActiveAccount } from "@/types/activeAccountType/activeAccountType";
 import { showErrorAlert } from "../shared/toast/ToastSuccess";
+import { useUserStore } from "@/lib/store/userStore";
 
 interface ActivationModalProps {
   children: React.ReactNode;
@@ -73,6 +74,8 @@ export function ActivationModal({ children }: ActivationModalProps) {
     mutation.mutate();
   };
 
+  const { userData } = useUserStore();
+
   return (
     <>
       {/* Activation Dialog */}
@@ -107,13 +110,13 @@ export function ActivationModal({ children }: ActivationModalProps) {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Available USDT:</span>
                     <span className="text-white font-bold">
-                      ${walletBalance.usdt}
+                      ${userData?.usdt_wallet}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-300">Available BIZT:</span>
                     <span className="text-white font-bold">
-                      {walletBalance.bizt}
+                      {userData?.bizt_wallet}
                     </span>
                   </div>
                 </div>

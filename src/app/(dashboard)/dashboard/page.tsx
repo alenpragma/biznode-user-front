@@ -97,7 +97,7 @@ export default function DashboardPage() {
                       {userProfile?.bizt_wallet} BIZT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      $120.00
+                      ${userProfile?.usdt_wallet}
                     </p>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export default function DashboardPage() {
             </Card>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
-            <Link href="/buy-node">
+            <Link href="/dashboard/buy-node">
               <Card className="bg-gray-800 border-2 border-yellow-500/30 hover:border-yellow-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="p-4 lg:p-6">
                   <div className="flex items-center justify-between">
@@ -230,48 +230,50 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             </Link>
-
-            <Card className="bg-gray-800 border-2 border-green-500/30 hover:border-green-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              <CardContent className="p-4 lg:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 lg:gap-4">
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
-                      <Award className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+            <Link href="/dashboard/node-report">
+              <Card className="bg-gray-800 border-2 border-green-500/30 hover:border-green-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 lg:gap-4">
+                      <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <Award className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-white text-base lg:text-lg">
+                          View Reports
+                        </p>
+                        <p className="text-gray-300 text-xs lg:text-sm">
+                          Check your earnings
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-bold text-white text-base lg:text-lg">
-                        View Rewards
-                      </p>
-                      <p className="text-gray-300 text-xs lg:text-sm">
-                        Check your earnings
-                      </p>
-                    </div>
+                    <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-300" />
                   </div>
-                  <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-300" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-800 border-2 border-blue-500/30 hover:border-blue-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              <CardContent className="p-4 lg:p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 lg:gap-4">
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                      <Wallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href="/dashboard/wallet">
+              <Card className="bg-gray-800 border-2 border-blue-500/30 hover:border-blue-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <CardContent className="p-4 lg:p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 lg:gap-4">
+                      <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <Wallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-white text-base lg:text-lg">
+                          Manage Wallet
+                        </p>
+                        <p className="text-gray-300 text-xs lg:text-sm">
+                          Deposits & withdrawals. Transfer
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-bold text-white text-base lg:text-lg">
-                        Manage Wallet
-                      </p>
-                      <p className="text-gray-300 text-xs lg:text-sm">
-                        Deposits & withdrawals. Transfer
-                      </p>
-                    </div>
+                    <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-300" />
                   </div>
-                  <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-300" />
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
             {/* Recent Activity */}

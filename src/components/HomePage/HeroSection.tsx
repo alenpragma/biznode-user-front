@@ -45,7 +45,7 @@ const HeroSection = () => {
                     size="lg"
                     className="bg-white hover:bg-[#b8b8b8] text-black font-semibold px-8 py-4 text-lg ml-5"
                   >
-                    Whitepaper
+                    Business Plan
                     <ArrowDown className="ml-2 w-5 h-5" />
                   </Button>
                 </a>

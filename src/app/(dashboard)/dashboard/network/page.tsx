@@ -1,14 +1,22 @@
-"use client"
+"use client";
 
-import { Users, TrendingUp, DollarSign, UserCheck, UserX, Search } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import {
+  Users,
+  TrendingUp,
+  DollarSign,
+  UserCheck,
+  UserX,
+  Search,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useUserStore } from "@/lib/store/userStore";
 
 export default function NetworkPage() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const networkStats = {
     totalTeamMembers: 156,
@@ -17,15 +25,40 @@ export default function NetworkPage() {
     totalTeamInvestment: "2,450,000 BIZT",
     teamEarnings: "345,000 BIZT",
     monthlyVolume: "125,000 BIZT",
-  }
+  };
 
   const levelStats = [
-    { level: 1, members: 12, investment: "150,000 BIZT", earnings: "12,500 BIZT" },
-    { level: 2, members: 24, investment: "320,000 BIZT", earnings: "28,000 BIZT" },
-    { level: 3, members: 36, investment: "480,000 BIZT", earnings: "42,000 BIZT" },
-    { level: 4, members: 48, investment: "720,000 BIZT", earnings: "65,000 BIZT" },
-    { level: 5, members: 36, investment: "780,000 BIZT", earnings: "85,000 BIZT" },
-  ]
+    {
+      level: 1,
+      members: 12,
+      investment: "150,000 BIZT",
+      earnings: "12,500 BIZT",
+    },
+    {
+      level: 2,
+      members: 24,
+      investment: "320,000 BIZT",
+      earnings: "28,000 BIZT",
+    },
+    {
+      level: 3,
+      members: 36,
+      investment: "480,000 BIZT",
+      earnings: "42,000 BIZT",
+    },
+    {
+      level: 4,
+      members: 48,
+      investment: "720,000 BIZT",
+      earnings: "65,000 BIZT",
+    },
+    {
+      level: 5,
+      members: 36,
+      investment: "780,000 BIZT",
+      earnings: "85,000 BIZT",
+    },
+  ];
 
   const activeMiners = [
     {
@@ -83,7 +116,7 @@ export default function NetworkPage() {
       joinDate: "2024-01-12",
       lastActive: "1 day ago",
     },
-  ]
+  ];
 
   const inactiveMiners = [
     {
@@ -119,24 +152,35 @@ export default function NetworkPage() {
       joinDate: "2023-12-10",
       lastActive: "3 weeks ago",
     },
-  ]
+  ];
 
   const filteredActiveMiners = activeMiners.filter(
     (miner) =>
       miner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      miner.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      miner.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const filteredInactiveMiners = inactiveMiners.filter(
     (miner) =>
       miner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      miner.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      miner.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const getLevelBadge = (level: number) => {
-    const colors = ["bg-gray-500", "bg-blue-500", "bg-green-500", "bg-yellow-500", "bg-purple-500", "bg-red-500"]
-    return <Badge className={`${colors[level]} text-white`}>Level {level}</Badge>
-  }
+    const colors = [
+      "bg-gray-500",
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-yellow-500",
+      "bg-purple-500",
+      "bg-red-500",
+    ];
+    return (
+      <Badge className={`${colors[level]} text-white`}>Level {level}</Badge>
+    );
+  };
+
+  const { userData } = useUserStore();
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -153,16 +197,20 @@ export default function NetworkPage() {
                     <Users className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                   </div>
                   <div>
-                    <p className="text-lg lg:text-2xl font-bold text-white">{networkStats.totalTeamMembers}</p>
-                    <p className="text-gray-300 text-sm lg:text-base">Total Team Members</p>
+                    <p className="text-lg lg:text-2xl font-bold text-white">
+                      {userData?.totalTeam}
+                    </p>
+                    <p className="text-gray-300 text-sm lg:text-base">
+                      Total Team Members
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-green-400 font-medium text-sm lg:text-base">
-                    Active: {networkStats.activeMiners}
+                    Active: {userData?.total_active_team}
                   </span>
                   <span className="text-red-400 font-medium text-sm lg:text-base">
-                    Inactive: {networkStats.inactiveMiners}
+                    Inactive: {userData?.total_inactive_team}
                   </span>
                 </div>
               </CardContent>
@@ -176,13 +224,21 @@ export default function NetworkPage() {
                     <DollarSign className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                    <p className="text-lg lg:text-2xl font-bold text-white">{networkStats.totalTeamInvestment}</p>
-                    <p className="text-gray-300 text-sm lg:text-base">Total Team Investment</p>
+                    <p className="text-lg lg:text-2xl font-bold text-white">
+                      {userData?.totalInvestment}
+                    </p>
+                    <p className="text-gray-300 text-sm lg:text-base">
+                      Total Team Investment
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
-                  <span className="text-gray-300 font-medium text-sm lg:text-base">Team Earnings</span>
-                  <span className="text-yellow-400 font-bold text-sm lg:text-lg">{networkStats.teamEarnings}</span>
+                  <span className="text-gray-300 font-medium text-sm lg:text-base">
+                    Team Earnings
+                  </span>
+                  <span className="text-yellow-400 font-bold text-sm lg:text-lg">
+                    {userData?.totalEarning}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -195,13 +251,21 @@ export default function NetworkPage() {
                     <TrendingUp className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                   </div>
                   <div>
-                    <p className="text-lg lg:text-2xl font-bold text-white">{networkStats.monthlyVolume}</p>
-                    <p className="text-gray-300 text-sm lg:text-base">Monthly Volume</p>
+                    <p className="text-lg lg:text-2xl font-bold text-white">
+                      {networkStats.monthlyVolume}
+                    </p>
+                    <p className="text-gray-300 text-sm lg:text-base">
+                      Monthly Volume
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
-                  <span className="text-gray-300 font-medium text-sm lg:text-base">Growth</span>
-                  <span className="text-green-400 font-bold text-sm lg:text-lg">+15.2%</span>
+                  <span className="text-gray-300 font-medium text-sm lg:text-base">
+                    Growth
+                  </span>
+                  <span className="text-green-400 font-bold text-sm lg:text-lg">
+                    +15.2%
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -210,7 +274,9 @@ export default function NetworkPage() {
           {/* Level-wise Statistics */}
           <Card className="bg-gray-800 border-2 border-gray-600 mb-6 lg:mb-8">
             <CardHeader>
-              <CardTitle className="text-white text-lg lg:text-xl font-bold">Level-wise Team Statistics</CardTitle>
+              <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                Level-wise Team Statistics
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -233,9 +299,16 @@ export default function NetworkPage() {
                   </thead>
                   <tbody>
                     {levelStats.map((level) => (
-                      <tr key={level.level} className="border-b border-gray-700">
-                        <td className="py-3 px-2 lg:px-4">{getLevelBadge(level.level)}</td>
-                        <td className="py-3 px-2 lg:px-4 text-white font-bold text-sm lg:text-base">{level.members}</td>
+                      <tr
+                        key={level.level}
+                        className="border-b border-gray-700"
+                      >
+                        <td className="py-3 px-2 lg:px-4">
+                          {getLevelBadge(level.level)}
+                        </td>
+                        <td className="py-3 px-2 lg:px-4 text-white font-bold text-sm lg:text-base">
+                          {level.members}
+                        </td>
                         <td className="py-3 px-2 lg:px-4 text-yellow-400 font-bold text-sm lg:text-base">
                           {level.investment}
                         </td>
@@ -285,12 +358,17 @@ export default function NetworkPage() {
             <TabsContent value="active">
               <Card className="bg-gray-800 border-2 border-gray-600">
                 <CardHeader>
-                  <CardTitle className="text-white text-lg lg:text-xl font-bold">Active Team Members</CardTitle>
+                  <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                    Active Team Members
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {filteredActiveMiners.map((miner) => (
-                      <Card key={miner.id} className="bg-gray-700 border border-gray-600">
+                      <Card
+                        key={miner.id}
+                        className="bg-gray-700 border border-gray-600"
+                      >
                         <CardContent className="p-4">
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
@@ -303,28 +381,52 @@ export default function NetworkPage() {
                                 </span>
                               </div>
                               <div>
-                                <h3 className="text-white font-bold text-sm lg:text-base">{miner.name}</h3>
-                                <p className="text-gray-300 text-xs lg:text-sm">{miner.email}</p>
-                                <p className="text-gray-400 text-xs">Joined: {miner.joinDate}</p>
+                                <h3 className="text-white font-bold text-sm lg:text-base">
+                                  {miner.name}
+                                </h3>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  {miner.email}
+                                </p>
+                                <p className="text-gray-400 text-xs">
+                                  Joined: {miner.joinDate}
+                                </p>
                               </div>
                             </div>
                             <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
-                              <div className="text-center lg:text-left">{getLevelBadge(miner.level)}</div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Nodes</p>
-                                <p className="text-blue-400 font-bold text-sm lg:text-base">{miner.nodes}</p>
+                                {getLevelBadge(miner.level)}
                               </div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Investment</p>
-                                <p className="text-yellow-400 font-bold text-sm lg:text-base">{miner.investment}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Nodes
+                                </p>
+                                <p className="text-blue-400 font-bold text-sm lg:text-base">
+                                  {miner.nodes}
+                                </p>
                               </div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Earnings</p>
-                                <p className="text-green-400 font-bold text-sm lg:text-base">{miner.earnings}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Investment
+                                </p>
+                                <p className="text-yellow-400 font-bold text-sm lg:text-base">
+                                  {miner.investment}
+                                </p>
+                              </div>
+                              <div className="text-center lg:text-left">
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Earnings
+                                </p>
+                                <p className="text-green-400 font-bold text-sm lg:text-base">
+                                  {miner.earnings}
+                                </p>
                               </div>
                               <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                <p className="text-gray-300 text-xs lg:text-sm">Last Active</p>
-                                <p className="text-white text-xs lg:text-sm">{miner.lastActive}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Last Active
+                                </p>
+                                <p className="text-white text-xs lg:text-sm">
+                                  {miner.lastActive}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -340,12 +442,17 @@ export default function NetworkPage() {
             <TabsContent value="inactive">
               <Card className="bg-gray-800 border-2 border-gray-600">
                 <CardHeader>
-                  <CardTitle className="text-white text-lg lg:text-xl font-bold">Inactive Team Members</CardTitle>
+                  <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                    Inactive Team Members
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {filteredInactiveMiners.map((miner) => (
-                      <Card key={miner.id} className="bg-gray-700 border border-gray-600 opacity-75">
+                      <Card
+                        key={miner.id}
+                        className="bg-gray-700 border border-gray-600 opacity-75"
+                      >
                         <CardContent className="p-4">
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
@@ -358,28 +465,52 @@ export default function NetworkPage() {
                                 </span>
                               </div>
                               <div>
-                                <h3 className="text-white font-bold text-sm lg:text-base">{miner.name}</h3>
-                                <p className="text-gray-300 text-xs lg:text-sm">{miner.email}</p>
-                                <p className="text-gray-400 text-xs">Joined: {miner.joinDate}</p>
+                                <h3 className="text-white font-bold text-sm lg:text-base">
+                                  {miner.name}
+                                </h3>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  {miner.email}
+                                </p>
+                                <p className="text-gray-400 text-xs">
+                                  Joined: {miner.joinDate}
+                                </p>
                               </div>
                             </div>
                             <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
-                              <div className="text-center lg:text-left">{getLevelBadge(miner.level)}</div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Nodes</p>
-                                <p className="text-blue-400 font-bold text-sm lg:text-base">{miner.nodes}</p>
+                                {getLevelBadge(miner.level)}
                               </div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Investment</p>
-                                <p className="text-yellow-400 font-bold text-sm lg:text-base">{miner.investment}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Nodes
+                                </p>
+                                <p className="text-blue-400 font-bold text-sm lg:text-base">
+                                  {miner.nodes}
+                                </p>
                               </div>
                               <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">Earnings</p>
-                                <p className="text-green-400 font-bold text-sm lg:text-base">{miner.earnings}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Investment
+                                </p>
+                                <p className="text-yellow-400 font-bold text-sm lg:text-base">
+                                  {miner.investment}
+                                </p>
+                              </div>
+                              <div className="text-center lg:text-left">
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Earnings
+                                </p>
+                                <p className="text-green-400 font-bold text-sm lg:text-base">
+                                  {miner.earnings}
+                                </p>
                               </div>
                               <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                <p className="text-gray-300 text-xs lg:text-sm">Last Active</p>
-                                <p className="text-red-400 text-xs lg:text-sm">{miner.lastActive}</p>
+                                <p className="text-gray-300 text-xs lg:text-sm">
+                                  Last Active
+                                </p>
+                                <p className="text-red-400 text-xs lg:text-sm">
+                                  {miner.lastActive}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -394,5 +525,5 @@ export default function NetworkPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

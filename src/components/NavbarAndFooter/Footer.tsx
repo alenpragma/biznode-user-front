@@ -4,7 +4,6 @@ import {
   Facebook,
   Mail,
   MessageCircle,
-  Network,
   Send,
   Shield,
   Youtube,
@@ -14,7 +13,8 @@ import { Button } from "../ui/button";
 import MainContainer from "../shared/container/MainContainer";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaTelegramPlane } from "react-icons/fa";
-
+import Link from "next/link";
+import Image from "next/image";
 
 const FooterSection = () => {
   return (
@@ -25,13 +25,15 @@ const FooterSection = () => {
           {/* Company Info */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                <Network className="w-6 h-6 text-black font-bold" />
-              </div>
-              <h3 className="text-3xl font-bold">
-                <span className="text-yellow-400">BIZT</span>
-                <span className="text-white"> Node</span>
-              </h3>
+              <Link href="/">
+                <Image
+                  className="md:w-44 w-28"
+                  src="/logo.png"
+                  alt="img"
+                  width={500}
+                  height={500}
+                />
+              </Link>
             </div>
             <p className="text-gray-300 text-lg leading-relaxed max-w-md">
               Building the future of decentralized utility infrastructure. Join
@@ -180,7 +182,7 @@ const FooterSection = () => {
                 </div>
                 <div>
                   <div className="text-sm text-gray-400">Email</div>
-                  <div className="text-white">support@biztnode.com</div>
+                  <div className="text-white">nfo@biznode.io</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -189,7 +191,7 @@ const FooterSection = () => {
                 </div>
                 <div>
                   <div className="text-sm text-gray-400">Telegram</div>
-                  <div className="text-white">@BiztNodeOfficial</div>
+                  <div className="text-white">@BizToken_BIZT </div>
                 </div>
               </div>
             </div>
