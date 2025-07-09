@@ -21,6 +21,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUserStore } from "@/lib/store/userStore";
+import { formatDate } from "@/components/shared/DateFormate/DateFormate";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -51,7 +54,8 @@ export default function ProfilePage() {
     setIsEditing(false);
     // Reset form data if needed
   };
-
+  const { userData } = useUserStore();
+  const { copy, copied } = CopyToClipboard();
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="flex">
@@ -79,17 +83,17 @@ export default function ProfilePage() {
                 <div className="flex-1 text-center sm:text-left">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 lg:gap-4 mb-2">
                     <h3 className="text-xl lg:text-2xl font-bold text-white">
-                      {profileData.firstName} {profileData.lastName}
+                      {userData?.user.name}
                     </h3>
                     <div className="flex justify-center sm:justify-start gap-2">
                       <Badge className="bg-yellow-500 text-black">Gold</Badge>
-                      <Badge className="bg-green-500 text-white">
-                        KYC Verified
-                      </Badge>
+                      <Badge className="bg-red-500 text-white">
+                        KYC Not Verified
+                      </Badge>{" "}
                     </div>
                   </div>
                   <p className="text-gray-300 mb-4 text-sm lg:text-base">
-                    {profileData.email}
+                    {userData?.user.email}
                   </p>
                   <div className="grid grid-cols-2 gap-4 text-center sm:text-left">
                     <div>
@@ -97,7 +101,7 @@ export default function ProfilePage() {
                         Member Since
                       </p>
                       <p className="text-white font-bold text-sm lg:text-base">
-                        {profileData.joinDate}
+                        {formatDate(userData?.user.created_at)}
                       </p>
                     </div>
                     <div>
@@ -110,6 +114,24 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="text-white font-medium flex md:justify-start justify-center gap-3 mt-5 md:pl-20 text-center">
+                <span>
+                  Referral Link :{" "}
+                  <span className="text-yellow-500">
+                    {userData?.user.refer_code}
+                  </span>
+                </span>
+                <span
+                  className=" cursor-pointer border border-red-300 rounded px-4 py-0.5 text-[12px] "
+                  onClick={() =>
+                    copy(
+                      `https://www.biznode.io/sign-up?ref=${userData?.user.refer_code}`
+                    )
+                  }
+                >
+                  {copied ? "Copied" : "Copy"}
+                </span>
               </div>
             </CardContent>
           </Card>

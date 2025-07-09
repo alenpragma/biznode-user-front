@@ -17,6 +17,7 @@ import { MobileSidebar } from "./Sidebar";
 import { ActivationModal } from "./ActivationModal";
 import { useUserStore } from "@/lib/store/userStore";
 import { cn } from "@/lib/utils";
+import { handleLogout } from "@/lib/logout/logout";
 
 interface HeaderProps {
   title: string;
@@ -25,10 +26,6 @@ interface HeaderProps {
 }
 
 export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
-  const handleLogout = () => {
-    console.log("Logging out...");
-  };
-
   const { userData } = useUserStore();
 
   return (
@@ -91,8 +88,8 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/placeholder-user.jpg" alt="User" />
-                  <AvatarFallback className="bg-gradient-to-br from-yellow-400 to-orange-500 text-black">
-                    JD
+                  <AvatarFallback className="bg-gradient-to-br from-yellow-400 to-orange-500 text-black cursor-pointer">
+                    {userData?.user.name.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -104,9 +101,11 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
             >
               <DropdownMenuLabel className="font-normal text-white">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">John Doe</p>
+                  <p className="text-sm font-medium leading-none">
+                    {userData?.user.name}
+                  </p>
                   <p className="text-xs leading-none text-gray-400">
-                    john.doe@example.com
+                    {userData?.user?.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
@@ -115,7 +114,7 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
                 asChild
                 className="text-gray-300 hover:text-white hover:bg-gray-700"
               >
-                <Link href="/profile" className="flex items-center">
+                <Link href="/dashboard/profile" className="flex items-center">
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </Link>
@@ -126,7 +125,7 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-gray-700" />
               <DropdownMenuItem
-                onClick={handleLogout}
+                onClick={() => handleLogout()}
                 className="text-red-400 hover:text-red-300 hover:bg-gray-700"
               >
                 <LogOut className="mr-2 h-4 w-4" />

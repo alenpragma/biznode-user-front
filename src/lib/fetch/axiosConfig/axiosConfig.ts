@@ -1,3 +1,4 @@
+import { handleLogout } from "@/lib/logout/logout"
 import axios, { type AxiosResponse, type AxiosError } from "axios"
 import Cookies from "js-cookie"
 
@@ -56,7 +57,7 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError<ApiResponse>) => {
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      window.location.href = "/logout"
+      handleLogout()
     }
 
     // Use proper typing instead of any
