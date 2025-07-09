@@ -34,10 +34,8 @@ const initialValues: FormType = {
   password: "",
 };
 
-
-
 export default function LoginPage() {
-const router = useRouter();
+  const router = useRouter();
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType | React.FormEvent<HTMLFormElement>) => {
@@ -45,14 +43,14 @@ const router = useRouter();
       return response.data;
     },
     onSuccess: (data: LoginResponse) => {
-      console.log("Login successful", data.data.data?.token);
-
       if (data.success === true) {
-        Cookies.set("biznode_token", data.data.data?.token ?? "", { expires: 3 });
-       router.push("/dashboard");
+        Cookies.set("biznode_token", data.data.data?.token ?? "", {
+          expires: 3,
+        });
+        router.push("/dashboard");
         showSuccessAlert(data?.data?.message);
       } else {
-        // showErrorAlert(data.data.errors.email);
+        showErrorAlert(data?.data?.errors?.email);
       }
     },
 

@@ -4,6 +4,9 @@ export type LoginResponse = {
     data?: {
       token: string;
     }
+    errors?: {
+      email: string
+    }
     success: boolean;
     message?: string | undefined;
   };

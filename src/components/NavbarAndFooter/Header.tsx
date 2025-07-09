@@ -69,11 +69,13 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
           </Badge>
 
           {/* Wrap "Activate Now" button with ActivationModal */}
-          <ActivationModal>
-            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium text-sm lg:text-base px-3 lg:px-4">
-              Activate Now
-            </Button>
-          </ActivationModal>
+          {userData?.user?.is_active === "0" && (
+            <ActivationModal>
+              <Button className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium text-sm lg:text-base px-3 lg:px-4">
+                Activate Now
+              </Button>
+            </ActivationModal>
+          )}
 
           <Button
             variant="ghost"
