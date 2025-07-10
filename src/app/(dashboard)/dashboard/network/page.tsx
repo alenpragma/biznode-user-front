@@ -14,6 +14,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useUserStore } from "@/lib/store/userStore";
+import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
+import { TUserResponse } from "@/types/myTeam/myTeamType";
+import { formatDate } from "@/components/shared/DateFormate/DateFormate";
+import { cn } from "@/lib/utils";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 
 export default function NetworkPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,63 +65,63 @@ export default function NetworkPage() {
     },
   ];
 
-  const activeMiners = [
-    {
-      id: 1,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      level: 1,
-      nodes: 3,
-      investment: "15,000 BIZT",
-      earnings: "2,500 BIZT",
-      joinDate: "2024-01-15",
-      lastActive: "2 hours ago",
-    },
-    {
-      id: 2,
-      name: "Bob Smith",
-      email: "bob@example.com",
-      level: 2,
-      nodes: 5,
-      investment: "25,000 BIZT",
-      earnings: "4,200 BIZT",
-      joinDate: "2024-01-10",
-      lastActive: "1 hour ago",
-    },
-    {
-      id: 3,
-      name: "Carol Davis",
-      email: "carol@example.com",
-      level: 1,
-      nodes: 2,
-      investment: "10,000 BIZT",
-      earnings: "1,800 BIZT",
-      joinDate: "2024-01-20",
-      lastActive: "30 minutes ago",
-    },
-    {
-      id: 4,
-      name: "David Wilson",
-      email: "david@example.com",
-      level: 3,
-      nodes: 8,
-      investment: "40,000 BIZT",
-      earnings: "7,500 BIZT",
-      joinDate: "2024-01-05",
-      lastActive: "5 minutes ago",
-    },
-    {
-      id: 5,
-      name: "Eva Brown",
-      email: "eva@example.com",
-      level: 2,
-      nodes: 4,
-      investment: "20,000 BIZT",
-      earnings: "3,600 BIZT",
-      joinDate: "2024-01-12",
-      lastActive: "1 day ago",
-    },
-  ];
+  // const activeMiners = [
+  //   {
+  //     id: 1,
+  //     name: "Alice Johnson",
+  //     email: "alice@example.com",
+  //     level: 1,
+  //     nodes: 3,
+  //     investment: "15,000 BIZT",
+  //     earnings: "2,500 BIZT",
+  //     joinDate: "2024-01-15",
+  //     lastActive: "2 hours ago",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Bob Smith",
+  //     email: "bob@example.com",
+  //     level: 2,
+  //     nodes: 5,
+  //     investment: "25,000 BIZT",
+  //     earnings: "4,200 BIZT",
+  //     joinDate: "2024-01-10",
+  //     lastActive: "1 hour ago",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Carol Davis",
+  //     email: "carol@example.com",
+  //     level: 1,
+  //     nodes: 2,
+  //     investment: "10,000 BIZT",
+  //     earnings: "1,800 BIZT",
+  //     joinDate: "2024-01-20",
+  //     lastActive: "30 minutes ago",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "David Wilson",
+  //     email: "david@example.com",
+  //     level: 3,
+  //     nodes: 8,
+  //     investment: "40,000 BIZT",
+  //     earnings: "7,500 BIZT",
+  //     joinDate: "2024-01-05",
+  //     lastActive: "5 minutes ago",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Eva Brown",
+  //     email: "eva@example.com",
+  //     level: 2,
+  //     nodes: 4,
+  //     investment: "20,000 BIZT",
+  //     earnings: "3,600 BIZT",
+  //     joinDate: "2024-01-12",
+  //     lastActive: "1 day ago",
+  //   },
+  // ];
 
   const inactiveMiners = [
     {
@@ -154,12 +159,6 @@ export default function NetworkPage() {
     },
   ];
 
-  const filteredActiveMiners = activeMiners.filter(
-    (miner) =>
-      miner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      miner.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const filteredInactiveMiners = inactiveMiners.filter(
     (miner) =>
       miner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -181,6 +180,13 @@ export default function NetworkPage() {
   };
 
   const { userData } = useUserStore();
+  const { data: teamHistory, isLoading } = useGetData<TUserResponse>(
+    ["team"],
+    `/team`
+  );
+  if (isLoading) {
+    return <LoadingContainer />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -364,16 +370,16 @@ export default function NetworkPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {filteredActiveMiners.map((miner) => (
+                    {teamHistory?.team.map((miner, index) => (
                       <Card
-                        key={miner.id}
+                        key={index}
                         className="bg-gray-700 border border-gray-600"
                       >
                         <CardContent className="p-4">
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
                               <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">
+                                <span className="text-white font-bold text-lg uppercase">
                                   {miner.name
                                     .split(" ")
                                     .map((n) => n[0])
@@ -388,7 +394,7 @@ export default function NetworkPage() {
                                   {miner.email}
                                 </p>
                                 <p className="text-gray-400 text-xs">
-                                  Joined: {miner.joinDate}
+                                  Joined: {formatDate(miner.created_at)}
                                 </p>
                               </div>
                             </div>
@@ -398,34 +404,27 @@ export default function NetworkPage() {
                               </div>
                               <div className="text-center lg:text-left">
                                 <p className="text-gray-300 text-xs lg:text-sm">
-                                  Nodes
-                                </p>
-                                <p className="text-blue-400 font-bold text-sm lg:text-base">
-                                  {miner.nodes}
-                                </p>
-                              </div>
-                              <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">
                                   Investment
                                 </p>
                                 <p className="text-yellow-400 font-bold text-sm lg:text-base">
                                   {miner.investment}
                                 </p>
                               </div>
-                              <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">
-                                  Earnings
-                                </p>
-                                <p className="text-green-400 font-bold text-sm lg:text-base">
-                                  {miner.earnings}
-                                </p>
-                              </div>
                               <div className="text-center lg:text-left col-span-2 lg:col-span-1">
                                 <p className="text-gray-300 text-xs lg:text-sm">
-                                  Last Active
+                                  Status
                                 </p>
-                                <p className="text-white text-xs lg:text-sm">
-                                  {miner.lastActive}
+                                <p
+                                  className={cn(
+                                    "text-xs lg:text-sm",
+                                    miner.is_active !== "0"
+                                      ? "text-green-400"
+                                      : "text-red-400"
+                                  )}
+                                >
+                                  {miner.is_active !== "0"
+                                    ? "Active"
+                                    : "Inactive"}
                                 </p>
                               </div>
                             </div>

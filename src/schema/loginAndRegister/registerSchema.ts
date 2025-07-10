@@ -17,7 +17,7 @@ export const registerSchema = z
     confirm_password: z
       .string()
       .nonempty({ message: "Please confirm your password" }),
-    refer_code: z.string().optional(),
+      referCode: z.string().optional(),
   })
   .refine((data) => data.password === data.confirm_password, {
     path: ["confirm_password"],

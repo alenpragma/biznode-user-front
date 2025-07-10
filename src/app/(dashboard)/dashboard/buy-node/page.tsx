@@ -15,8 +15,8 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/components/shared/toast/ToastSuccess";
-import { TBuyNodeResponse } from "@/types/buynode/buyNodeType";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
+import { TBuyNode } from "@/types/buynode/buyNodeType";
 
 export default function BuyNodePage() {
   const [activeTab, setActiveTab] = useState("master");
@@ -25,20 +25,18 @@ export default function BuyNodePage() {
     ["node"],
     `/package`
   );
-  const node = nodePackage?.data.data;
+  const node = nodePackage?.data;
 
   const { mutate } = useMutation({
     mutationFn: async (id: number) => {
-      const response = await axiosInstance.post<TBuyNodeResponse>(
-        `/buy-package`,
-        {
-          package_id: id,
-        }
-      );
+      const response = await axiosInstance.post<TBuyNode>(`/buy-package`, {
+        package_id: id,
+      });
       return response.data;
     },
-    onSuccess: (data: TBuyNodeResponse) => {
-      if (data.data.status === false) {
+    onSuccess: (data: TBuyNode) => {
+      console.log(data);
+      if (data?.data.status === false) {
         showErrorAlert(data?.data?.message);
       } else {
         showSuccessAlert(data?.data?.message);

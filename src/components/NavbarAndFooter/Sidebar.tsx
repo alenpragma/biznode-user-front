@@ -25,11 +25,11 @@ interface SidebarProps {
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
   { name: "Buy Node", href: "/dashboard/buy-node", icon: Zap },
+  { name: "Rewards", href: "/dashboard/rewards", icon: Award },
+  { name: "Rank", href: "/dashboard/rank", icon: TrendingUp },
   { name: "Wallet", href: "/dashboard/wallet", icon: Wallet },
   { name: "Network", href: "/dashboard/network", icon: Network },
   { name: "Node Report", href: "/dashboard/node-report", icon: FileText },
-  { name: "Rewards", href: "/dashboard/rewards", icon: Award },
-  { name: "Rank", href: "/dashboard/rank", icon: TrendingUp },
   { name: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
@@ -41,7 +41,7 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
     <div className="flex flex-col h-full">
       <Link href="/dashboard">
         <Image
-          className="md:w-44 w-28 mb-5"
+          className="md:w-44 w-28"
           src="/logo.png"
           alt="img"
           width={500}

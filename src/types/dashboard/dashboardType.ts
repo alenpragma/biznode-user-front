@@ -1,12 +1,8 @@
 export type TUserProfileResponse = {
-    data: TuserProfileData
-};
-
-export type TuserProfileData = {
     status: boolean;
     message: string;
     data: TUserProfile
-}
+};
 
 export type TUserProfile = {
     user: {

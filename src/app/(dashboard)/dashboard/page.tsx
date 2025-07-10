@@ -19,6 +19,7 @@ import {
 import { useEffect } from "react";
 import { useUserStore } from "@/lib/store/userStore";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 
 export default function DashboardPage() {
   const recentActivities = [
@@ -74,13 +75,16 @@ export default function DashboardPage() {
     ["products"],
     `/profile`
   );
-  const userProfile = dashboard?.data.data;
+  const userProfile = dashboard?.data;
   useEffect(() => {
     useUserStore.getState().setUserData(userProfile as TUserProfile);
   }, [dashboard]);
+  const { copy, copied } = CopyToClipboard();
+
   if (isLoading) {
     return <LoadingContainer />;
   }
+
   return (
     <div className=" text-white">
       <div className="flex">
@@ -95,10 +99,10 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <p className="text-md font-bold text-white">
-                      {userProfile?.bizt_wallet} BIZT
+                      {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      ${userProfile?.usdt_wallet}
+                      ${Number(userProfile?.usdt_wallet).toFixed(2)} USDT
                     </p>
                   </div>
                 </div>
@@ -362,6 +366,25 @@ export default function DashboardPage() {
                     </span>
                   </div>
                 </div>
+                <div className="text-white font-medium flex justify-start gap-3 mt-5 text-center border border-gray-300 p-3 rounded-lg">
+                  <span>
+                    Referral Link :{" "}
+                    <span className="text-yellow-500">
+                      https://www.biznode.io/sign-up?ref=$
+                      {dashboard?.data.user.refer_code}
+                    </span>
+                  </span>
+                  <span
+                    className=" cursor-pointer border border-gray-300 rounded px-4 py-0.5 text-[12px] "
+                    onClick={() =>
+                      copy(
+                        `https://www.biznode.io/sign-up?ref=${dashboard?.data.user.refer_code}`
+                      )
+                    }
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </span>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -370,41 +393,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-// {
-//   "status": true,
-//   "message": "User Profile Retrieved Successfully",
-//   "data": {
-//       "user": {
-//           "id": 5,
-//           "name": "Remon Tripura",
-//           "image": null,
-//           "birthday": null,
-//           "nid_or_passport": null,
-//           "address": null,
-//           "email": "remontripura045@gmail.com",
-//           "mobile": "01518398689",
-//           "refer_code": "700EC6",
-//           "refer_by": null,
-//           "is_active": "0",
-//           "is_block": "0",
-//           "kyc_status": "0",
-//           "created_at": "2025-07-08T10:58:57.000000Z",
-//           "updated_at": "2025-07-08T10:58:57.000000Z"
-//       },
-//       "usdt_wallet": "0.00000000",
-//       "bizt_wallet": "0.00000000",
-//       "teamInvest": 0,
-//       "directRefer": 0,
-//       "totalTeam": 0,
-//       "total_active_team": 0,
-//       "total_inactive_team": 0,
-//       "reward": 0,
-//       "totalInvestment": 0,
-//       "totalWithdraw": 0,
-//       "totalTransfer": 0,
-//       "totalDeposit": 0,
-//       "totalEarning": 0,
-//       "totalReferBonus": 0
-//   }
-// }
