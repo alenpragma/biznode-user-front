@@ -204,13 +204,12 @@ export function ActivationModal({ children }: ActivationModalProps) {
             </div>
           </div>
           <DialogTitle className="text-2xl font-bold text-white">
-            Congratulations! 🎉
+            Congratulations!
           </DialogTitle>
           <DialogDescription className="text-green-400 mt-1 text-sm font-semibold">
-            Account Successfully Activated!
+            Account Successfully Activated.
           </DialogDescription>
           <p className="text-gray-300 mt-2 text-sm">
-            Welcome to <span className="font-medium text-white">BIZNODE</span>!
             You can now purchase nodes and start earning rewards.
           </p>
           <DialogFooter className="mt-4">

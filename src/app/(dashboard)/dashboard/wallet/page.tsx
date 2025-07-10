@@ -8,6 +8,7 @@ import {
   Copy,
   Eye,
   EyeOff,
+  AlertTriangle,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,8 +26,13 @@ import {
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
 import { TUserProfileResponse } from "@/types/dashboard/dashboardType";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
+import QRCode from "react-qr-code";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { SubmitButton } from "@/components/form/fields/SubmitButton";
+
 export default function WalletPage() {
-  const [activeTab, setActiveTab] = useState("withdraw");
+  const [activeTab, setActiveTab] = useState("deposit");
   const [showBalance, setShowBalance] = useState(true);
 
   const transactionHistory = [
@@ -108,6 +114,10 @@ export default function WalletPage() {
         return <Badge className="bg-gray-500 text-white">{status}</Badge>;
     }
   };
+
+  const walletAddress = "345834583984573895734";
+  const { copy, copied } = CopyToClipboard();
+
   const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
     ["products"],
     `/profile`
@@ -159,12 +169,14 @@ export default function WalletPage() {
                   <div className="text-2xl lg:text-3xl font-bold text-white">
                     {Number(userProfile?.bizt_wallet)
                       .toFixed(3)
-                      .toLocaleString()} BIZT
+                      .toLocaleString()}{" "}
+                    BIZT
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
                     {Number(userProfile?.bizt_wallet)
                       .toFixed(3)
-                      .toLocaleString()} BIZT
+                      .toLocaleString()}{" "}
+                    BIZT
                   </div>
                 </div>
               </CardContent>
@@ -204,10 +216,18 @@ export default function WalletPage() {
                 </div>
                 <div className="space-y-2">
                   <div className="text-2xl lg:text-3xl font-bold text-white">
-                    ${Number(userProfile?.usdt_wallet).toFixed(2).toLocaleString()} USDT
+                    $
+                    {Number(userProfile?.usdt_wallet)
+                      .toFixed(2)
+                      .toLocaleString()}{" "}
+                    USDT
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
-                    ${Number(userProfile?.usdt_wallet).toFixed(2).toLocaleString()} USDT
+                    $
+                    {Number(userProfile?.usdt_wallet)
+                      .toFixed(2)
+                      .toLocaleString()}{" "}
+                    USDT
                   </div>
                 </div>
               </CardContent>
@@ -252,47 +272,33 @@ export default function WalletPage() {
                 </TabsList>
 
                 {/* Deposit Tab */}
-                <TabsContent value="deposit" className="space-y-4 lg:space-y-6">
-                  <div className="max-w-md mx-auto space-y-4">
-                    <div>
-                      <Label
-                        htmlFor="deposit-coin"
-                        className="text-white font-medium"
-                      >
-                        Select Coin
-                      </Label>
-                      <Select defaultValue="bizt">
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bizt">BIZT</SelectItem>
-                          <SelectItem value="usdt">USDT</SelectItem>
-                        </SelectContent>
-                      </Select>
+
+                <TabsContent value="deposit" className="space-y-6">
+                  <div className="max-w-md mx-auto space-y-5">
+                    {/* QR Code */}
+                    <div className="flex justify-center">
+                      <div className="bg-white p-2 rounded-md">
+                        <QRCode value={walletAddress} size={150} />
+                      </div>
                     </div>
 
+                    {/* Deposit Address Input and Copy */}
                     <div>
                       <Label
-                        htmlFor="deposit-network"
+                        htmlFor="deposit-address"
                         className="text-white font-medium"
                       >
-                        Select Network
+                        Network
                       </Label>
-                      <Select defaultValue="bsc">
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bsc">
-                            BSC (Binance Smart Chain)
-                          </SelectItem>
-                          <SelectItem value="eth">Ethereum</SelectItem>
-                          <SelectItem value="polygon">Polygon</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="flex gap-2 mt-3">
+                        <Input
+                          id="deposit-address"
+                          value={"BEP20"}
+                          readOnly
+                          className="bg-gray-700 border-gray-600 text-white text-xs lg:text-sm"
+                        />
+                      </div>
                     </div>
-
                     <div>
                       <Label
                         htmlFor="deposit-address"
@@ -300,10 +306,10 @@ export default function WalletPage() {
                       >
                         Deposit Address
                       </Label>
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 mt-3">
                         <Input
                           id="deposit-address"
-                          value="0x742a35Cc6Db50e532D5536FD93a4C4C84C4C"
+                          value={walletAddress}
                           readOnly
                           className="bg-gray-700 border-gray-600 text-white text-xs lg:text-sm"
                         />
@@ -311,18 +317,33 @@ export default function WalletPage() {
                           variant="outline"
                           size="icon"
                           className="border-gray-600 hover:bg-gray-700 bg-transparent"
+                          onClick={() => copy(walletAddress)}
                         >
-                          <Copy className="w-4 h-4" />
+                          {copied ? (
+                            <IoCheckmarkDoneOutline className="w-4 h-4 text-white" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-white" />
+                          )}
                         </Button>
                       </div>
                     </div>
 
-                    <div className="bg-gray-700 p-3 lg:p-4 rounded-lg">
-                      <p className="text-gray-300 text-xs lg:text-sm">
-                        Send only BIZT to this address. Sending any other coin
-                        may result in permanent loss.
+                    {/* Warning Section */}
+                    <div className="bg-yellow-100/10 border border-yellow-500 text-yellow-300 p-4 rounded-lg flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 mt-0.5" />
+                      <p className="text-xs lg:text-sm">
+                        Send only BIZT or USDT using the Binance Smart Chain
+                        (BEP20) network to this address. Sending any other token
+                        may result in the permanent loss of your funds.
                       </p>
                     </div>
+                    <SubmitButton
+                      width="full"
+                      label="Deposit"
+                      // isLoading={isPending}
+                      loadingLabel="Processing.."
+                      className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 text-base lg:text-lg"
+                    />
                   </div>
                 </TabsContent>
 
