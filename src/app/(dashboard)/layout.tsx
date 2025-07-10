@@ -13,7 +13,7 @@ export default function DashboardLayout({
       </div>
       <div className="md:ml-[250px] w-full h-fit relative">
         <Header title="Dashboard" subtitle="Dashboard" />
-        <div className="min-h-screen w-full max-w-7xl mx-auto pt-16">{children}</div>
+        <div className="min-h-screen w-full max-w-7xl mx-auto pt-16 p-3">{children}</div>
       </div>
     </div>
   );

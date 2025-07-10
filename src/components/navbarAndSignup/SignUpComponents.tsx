@@ -28,6 +28,7 @@ import { registerSchema } from "@/schema/loginAndRegister/registerSchema";
 import { LoginResponse } from "@/types/loginType/loginType";
 import { AxiosError } from "axios";
 import { APIErrorResponse } from "@/types/signUpType/signUpType";
+import Image from "next/image";
 
 export default function SignUpComponents() {
   const router = useRouter();
@@ -83,11 +84,14 @@ export default function SignUpComponents() {
     <div className="min-h-screen flex items-center justify-center bg-[#000D2E] p-4 text-white">
       <div className="w-full max-w-md">
         <div className="flex justify-center w-full">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-lg font-bold mb-5 text-white"
-          >
-            <h6>Biz node</h6>
+          <Link href="/">
+            <Image
+              className="md:w-44 w-28"
+              src="/logo.png"
+              alt="img"
+              width={500}
+              height={500}
+            />
           </Link>
         </div>
 

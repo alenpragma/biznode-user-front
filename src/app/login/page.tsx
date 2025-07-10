@@ -26,6 +26,7 @@ import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { LoginResponse } from "@/types/loginType/loginType";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type FormType = z.infer<typeof loginSchema>;
 
@@ -71,12 +72,17 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-[#000D2E] text-white">
-      <Link
-        href="/"
-        className="flex items-center gap-2 text-lg font-bold text-white mb-5"
-      >
-        <h2>BizNode</h2>
-      </Link>
+      <div className="flex justify-center w-full">
+        <Link href="/">
+          <Image
+            className="md:w-44 w-28"
+            src="/logo.png"
+            alt="img"
+            width={500}
+            height={500}
+          />
+        </Link>
+      </div>
 
       <Card className="w-full max-w-md bg-[#041746] text-white">
         <CardHeader className="space-y-1">
