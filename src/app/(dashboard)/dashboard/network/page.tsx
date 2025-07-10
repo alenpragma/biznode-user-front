@@ -45,24 +45,6 @@ export default function NetworkPage() {
       investment: "320,000 BIZT",
       earnings: "28,000 BIZT",
     },
-    {
-      level: 3,
-      members: 36,
-      investment: "480,000 BIZT",
-      earnings: "42,000 BIZT",
-    },
-    {
-      level: 4,
-      members: 48,
-      investment: "720,000 BIZT",
-      earnings: "65,000 BIZT",
-    },
-    {
-      level: 5,
-      members: 36,
-      investment: "780,000 BIZT",
-      earnings: "85,000 BIZT",
-    },
   ];
 
   // const activeMiners = [
