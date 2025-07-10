@@ -112,7 +112,7 @@ export default function WalletPage() {
     ["products"],
     `/profile`
   );
-  const userProfile = dashboard?.data.data;
+  const userProfile = dashboard?.data;
   if (isLoading) {
     return <LoadingContainer />;
   }
@@ -157,10 +157,14 @@ export default function WalletPage() {
                 </div>
                 <div className="space-y-2">
                   <div className="text-2xl lg:text-3xl font-bold text-white">
-                    {userProfile?.bizt_wallet}
+                    {Number(userProfile?.bizt_wallet)
+                      .toFixed(3)
+                      .toLocaleString()} BIZT
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
-                    {userProfile?.bizt_wallet}
+                    {Number(userProfile?.bizt_wallet)
+                      .toFixed(3)
+                      .toLocaleString()} BIZT
                   </div>
                 </div>
               </CardContent>
@@ -200,10 +204,10 @@ export default function WalletPage() {
                 </div>
                 <div className="space-y-2">
                   <div className="text-2xl lg:text-3xl font-bold text-white">
-                    ${userProfile?.usdt_wallet}
+                    ${Number(userProfile?.usdt_wallet).toFixed(2).toLocaleString()} USDT
                   </div>
                   <div className="text-gray-300 text-sm lg:text-base">
-                    ${userProfile?.usdt_wallet}
+                    ${Number(userProfile?.usdt_wallet).toFixed(2).toLocaleString()} USDT
                   </div>
                 </div>
               </CardContent>

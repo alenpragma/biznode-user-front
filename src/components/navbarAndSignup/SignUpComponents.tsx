@@ -49,7 +49,7 @@ export default function SignUpComponents() {
     mobile: "",
     password: "",
     confirm_password: "",
-    refer_code: referCode || "",
+    referCode: referCode || "",
   };
 
   const { mutate, isPending } = useMutation({
@@ -167,7 +167,7 @@ export default function SignUpComponents() {
                 />
 
                 <TextField
-                  name="refer_code"
+                  name="referCode"
                   label="Refer Code"
                   placeholder="Refer code"
                   type="text"

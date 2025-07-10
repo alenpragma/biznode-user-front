@@ -14,8 +14,7 @@ export type TNode = {
 };
 
 export type TNodeResponse = {
-  data: {
-    status: boolean;
-    data: TNode[];
-  }
+  status: boolean;
+  data: TNode[];
+
 };
