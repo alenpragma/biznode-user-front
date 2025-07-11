@@ -80,7 +80,7 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="text-gray-400 hover:text-white p-2"
+            className="text-gray-400 hover:text-black cursor-pointer p-2"
           >
             <Bell className="w-4 h-4 lg:w-5 lg:h-5" />
           </Button>

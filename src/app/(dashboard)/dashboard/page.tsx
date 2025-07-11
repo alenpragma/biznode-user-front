@@ -20,42 +20,10 @@ import { useEffect } from "react";
 import { useUserStore } from "@/lib/store/userStore";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import { TTransactionResponse } from "@/types/transactionsHistory/transactionHistory";
+import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
-  const recentActivities = [
-    {
-      id: 1,
-      type: "DEV-1Daily Reward Received042",
-      time: "2 hours ago",
-      amount: "254 BIZT",
-    },
-    { id: 2, type: "New Referral", time: "8 hours ago", amount: "254 BIZT" },
-    {
-      id: 3,
-      type: "DEV-1Daily Reward Received042",
-      time: "12 hours ago",
-      amount: "254 BIZT",
-    },
-    {
-      id: 4,
-      type: "Receive Redward",
-      time: "18 hours ago",
-      amount: "254 BIZT",
-    },
-    {
-      id: 5,
-      type: "Master Node Purchased",
-      time: "22 hours ago",
-      amount: "254 BIZT",
-    },
-    {
-      id: 6,
-      type: "DEV-1Daily Reward Received042",
-      time: "1 Days ago",
-      amount: "254 BIZT",
-    },
-  ];
-
   const chartData = [
     { month: "Jan", refer: 50, reward: 80 },
     { month: "Feb", refer: 70, reward: 90 },
@@ -75,13 +43,15 @@ export default function DashboardPage() {
     ["products"],
     `/profile`
   );
+  const { data: transactionHistory, isLoading: transactionLoading } =
+    useGetData<TTransactionResponse>(["transactionHistory"], `/transactions`);
   const userProfile = dashboard?.data;
   useEffect(() => {
     useUserStore.getState().setUserData(userProfile as TUserProfile);
   }, [dashboard]);
   const { copy, copied } = CopyToClipboard();
 
-  if (isLoading) {
+  if (isLoading && transactionLoading) {
     return <LoadingContainer />;
   }
 
@@ -285,25 +255,36 @@ export default function DashboardPage() {
             <Card className="bg-gray-800 border-2 border-gray-600">
               <CardHeader>
                 <CardTitle className="text-white text-lg lg:text-xl font-bold">
-                  Recent Activity
+                  Recent Transaction
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentActivities.map((activity) => (
+                  {transactionHistory?.data.map((activity) => (
                     <div
                       key={activity.id}
                       className="flex justify-between items-center py-3 border-b border-gray-600 last:border-b-0"
                     >
                       <div>
                         <p className="text-white font-semibold text-sm lg:text-base">
-                          {activity.type}
+                          {activity.remark}
                         </p>
                         <p className="text-gray-300 text-xs lg:text-sm">
-                          {activity.time}
+                          {activity.details}
                         </p>
                       </div>
-                      <span className="text-yellow-400 font-bold text-sm lg:text-lg">
+                      <span
+                        className={cn(
+                          "font-medium",
+                          activity.type === "+"
+                            ? "text-green-500"
+                            : "text-yellow-500"
+                        )}
+                      >
+                        {`(${activity.type})`}{" "}
+                        {activity.remark !== "referral_commission"
+                          ? "$"
+                          : "BIZT"}{" "}
                         {activity.amount}
                       </span>
                     </div>
@@ -366,24 +347,24 @@ export default function DashboardPage() {
                     </span>
                   </div>
                 </div>
-                <div className="text-white font-medium flex justify-start gap-3 mt-5 text-center border border-gray-300 p-3 rounded-lg">
-                  <span>
-                    Referral Link :{" "}
+                <div className="text-white font-medium  gap-3 mt-5 border border-gray-300 p-3 rounded-lg">
+                  Referral Link : <br />
+                  <p className="">
                     <span className="text-yellow-500">
                       https://www.biznode.io/sign-up?ref=$
                       {dashboard?.data.user.refer_code}
                     </span>
-                  </span>
-                  <span
-                    className=" cursor-pointer border border-gray-300 rounded px-4 py-0.5 text-[12px] "
-                    onClick={() =>
-                      copy(
-                        `https://www.biznode.io/sign-up?ref=${dashboard?.data.user.refer_code}`
-                      )
-                    }
-                  >
-                    {copied ? "Copied" : "Copy"}
-                  </span>
+                    <span
+                      className=" cursor-pointer border border-gray-300 rounded px-4 py-1 text-[12px] ml-5"
+                      onClick={() =>
+                        copy(
+                          `https://www.biznode.io/sign-up?ref=${dashboard?.data.user.refer_code}`
+                        )
+                      }
+                    >
+                      {copied ? "Copied" : "Copy"}
+                    </span>
+                  </p>
                 </div>
               </CardContent>
             </Card>
