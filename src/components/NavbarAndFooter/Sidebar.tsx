@@ -42,7 +42,7 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
     <div className="flex flex-col h-full">
       <Link href="/dashboard">
         <Image
-          className="md:w-44 w-28"
+          className="md:w-44 w-28 mb-4"
           src="/logo.png"
           alt="img"
           width={500}
