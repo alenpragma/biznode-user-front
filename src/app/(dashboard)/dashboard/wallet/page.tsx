@@ -47,9 +47,9 @@ export default function WalletPage() {
     `/deposit-check`
   );
   console.log(payment);
-  const walletAddress = deposit?.data;
   const userProfile = dashboard?.data;
-  if (isLoading && walletLoading && paymentLoading) {
+  const walletAddress = deposit?.data;
+  if (paymentLoading && isLoading && walletLoading) {
     return <LoadingContainer />;
   }
   return (
@@ -204,7 +204,9 @@ export default function WalletPage() {
                     {/* QR Code */}
                     <div className="flex justify-center">
                       <div className="bg-white p-2 rounded-md">
-                        <QRCode value={walletAddress} size={150} />
+                        {walletAddress && (
+                          <QRCode value={walletAddress} size={150} />
+                        )}
                       </div>
                     </div>
 
