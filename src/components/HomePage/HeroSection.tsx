@@ -4,8 +4,9 @@ import { ArrowDown, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import MainContainer from "@/components/shared/container/MainContainer";
 import { FaFireFlameCurved } from "react-icons/fa6";
+import Link from "next/link";
 
-const HeroSection = () => {
+const HeroSection = ({ token }: { token: string | undefined }) => {
   return (
     <section
       id="home"
@@ -19,7 +20,7 @@ const HeroSection = () => {
               <div className="space-y-8">
                 <div className="bg-[#003F63] text-white px-4 py-2 font-medium w-fit flex items-center gap-2 rounded-full">
                   <FaFireFlameCurved className="text-yellow-500 size-6" />
-                  Over 1000 BIZT Already Sale
+                  Over BIZT Node Already Sale
                 </div>
                 <h1 className="text-5xl lg:text-5xl font-bold text-white leading-tight">
                   Secure Your Share in the Future of Crypto Utility
@@ -29,13 +30,16 @@ const HeroSection = () => {
                   ecosystem powering 20+ utility coins, nodes, and staking
                   income.
                 </p>
-                <Button
-                  size="lg"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg"
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <Link href={!token ? "/sign-up" : "/dashboard"}>
+                  {" "}
+                  <Button
+                    size="lg"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
                 <a
                   href="/biznode_whitepaper.pdf"
                   target="_blank"

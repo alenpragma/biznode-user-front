@@ -51,7 +51,9 @@ export default function LoginPage() {
         router.push("/dashboard");
         showSuccessAlert(data?.data?.message);
       } else {
-        showErrorAlert(data?.data?.errors?.email);
+        showErrorAlert(
+          data?.data?.errors?.email || data?.data?.message || "Login failed"
+        );
       }
     },
 
@@ -150,8 +152,8 @@ export default function LoginPage() {
 
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-center text-sm text-white/70">
-            {`Don't have an account?`}
-            <Link href="/sign-up" className="text-white hover:underline">
+            {`Don't have an account? `}
+            <Link href="/sign-up" className="text-blue-500 hover:underline">
               Join Now
             </Link>
           </div>

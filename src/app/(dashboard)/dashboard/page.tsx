@@ -108,7 +108,7 @@ export default function DashboardPage() {
                     Total Value
                   </span>
                   <span className="text-white font-bold text-base lg:text-lg">
-                    $44.24
+                    ${Number(userProfile?.totalEarning.toFixed(2)) * 2}
                   </span>
                 </div>
               </CardContent>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                       Generation Income
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      123 BIZT
+                      {userProfile?.totalEarning} BIZT
                     </span>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function DashboardPage() {
                       May 2025
                     </span>
                     <span className="text-yellow-400 font-bold text-base lg:text-lg">
-                      110 BIZT
+                      0 BIZT
                     </span>
                   </div>
                 </div>

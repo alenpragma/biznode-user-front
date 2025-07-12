@@ -22,7 +22,7 @@ const StartSection = () => {
               <div className="text-3xl font-bold text-white mb-2">
                 12,500,000
               </div>
-              <p className="text-gray-300">Total Tokens Sold</p>
+              <p className="text-gray-300">Total BIZT Node Sale</p>
             </CardContent>
           </Card>
 
@@ -38,7 +38,7 @@ const StartSection = () => {
             <CardContent className="pt-8">
               <BarChart3 className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-white mb-2">$1.2M+</div>
-              <p className="text-gray-300">Rewards Distributed</p>
+              <p className="text-gray-300">Rewards</p>
             </CardContent>
           </Card>
 

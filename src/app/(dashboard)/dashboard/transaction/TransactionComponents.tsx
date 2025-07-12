@@ -16,46 +16,52 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
     `/transactions?page=${pageNumber}`
   );
   return (
-    <div className="py-5">
-      <h6 className="text-[20px] pb-5 text-white">Transaction Hitory</h6>
-      <UseTable headers={headers} className="rounded-md">
-        {transactionHistory?.data.map((item) => (
-          <tr key={item.id}>
-            <TData>{formatDate(item.created_at)}</TData>
+    <>
+      {transactionHistory?.total === 0 ? (
+        <p className="text-center text-gray-400">No transaction history</p>
+      ) : (
+        <div className="py-5">
+          <h6 className="text-[20px] pb-5 text-white">Transaction Hitory</h6>
+          <UseTable headers={headers} className="rounded-md">
+            {transactionHistory?.data.map((item) => (
+              <tr key={item.id}>
+                <TData>{formatDate(item.created_at)}</TData>
 
-            <TData>{item.remark}</TData>
-            <TData
-              className={cn(
-                "font-medium",
-                item.type === "+" ? "text-green-500" : "text-red-500"
-              )}
-            >
-              {`(${item.type})`}{" "}
-              {item.remark !== "referral_commission" ? "$" : "BIZT"}{" "}
-              {item.amount}
-            </TData>
-            <TData>
-              {item.status === "Completed" ? (
-                <Status title="Completed" />
-              ) : item.status === "Completed" ? (
-                <Status title="Pending" />
-              ) : (
-                <Status title="Rejected" />
-              )}
-            </TData>
-            <TData>{item.details}</TData>
-          </tr>
-        ))}
-      </UseTable>
-      <Pagination
-        total={transactionHistory?.total || 0}
-        perPage={10}
-        route="/dashboard/transaction"
-        currentPage={
-          transactionHistory?.current_page ? parseInt(pageNumber) : 1
-        }
-      />
-    </div>
+                <TData>{item.remark}</TData>
+                <TData
+                  className={cn(
+                    "font-medium",
+                    item.type === "+" ? "text-green-500" : "text-red-500"
+                  )}
+                >
+                  {`(${item.type})`}{" "}
+                  {item.remark !== "referral_commission" ? "$" : "BIZT"}{" "}
+                  {item.amount}
+                </TData>
+                <TData>
+                  {item.status === "Completed" ? (
+                    <Status title="Completed" />
+                  ) : item.status === "Completed" ? (
+                    <Status title="Pending" />
+                  ) : (
+                    <Status title="Rejected" />
+                  )}
+                </TData>
+                <TData>{item.details}</TData>
+              </tr>
+            ))}
+          </UseTable>
+          <Pagination
+            total={transactionHistory?.total || 0}
+            perPage={10}
+            route="/dashboard/transaction"
+            currentPage={
+              transactionHistory?.current_page ? parseInt(pageNumber) : 1
+            }
+          />
+        </div>
+      )}
+    </>
   );
 };
 export default TransactionHistory;

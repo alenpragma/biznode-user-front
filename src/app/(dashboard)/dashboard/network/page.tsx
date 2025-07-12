@@ -37,76 +37,16 @@ export default function NetworkPage() {
     {
       level: 1,
       members: 0,
-      investment: "150,000 BIZT",
-      earnings: "12,500 BIZT",
+      investment: "0,00 BIZT",
+      earnings: "0.00 BIZT",
     },
     {
       level: 2,
       members: 0,
-      investment: "320,000 BIZT",
-      earnings: "28,000 BIZT",
+      investment: "0.00 BIZT",
+      earnings: "0.00 BIZT",
     },
   ];
-
-  // const activeMiners = [
-  //   {
-  //     id: 1,
-  //     name: "Alice Johnson",
-  //     email: "alice@example.com",
-  //     level: 1,
-  //     nodes: 3,
-  //     investment: "15,000 BIZT",
-  //     earnings: "2,500 BIZT",
-  //     joinDate: "2024-01-15",
-  //     lastActive: "2 hours ago",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Bob Smith",
-  //     email: "bob@example.com",
-  //     level: 2,
-  //     nodes: 5,
-  //     investment: "25,000 BIZT",
-  //     earnings: "4,200 BIZT",
-  //     joinDate: "2024-01-10",
-  //     lastActive: "1 hour ago",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Carol Davis",
-  //     email: "carol@example.com",
-  //     level: 1,
-  //     nodes: 2,
-  //     investment: "10,000 BIZT",
-  //     earnings: "1,800 BIZT",
-  //     joinDate: "2024-01-20",
-  //     lastActive: "30 minutes ago",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "David Wilson",
-  //     email: "david@example.com",
-  //     level: 3,
-  //     nodes: 8,
-  //     investment: "40,000 BIZT",
-  //     earnings: "7,500 BIZT",
-  //     joinDate: "2024-01-05",
-  //     lastActive: "5 minutes ago",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Eva Brown",
-  //     email: "eva@example.com",
-  //     level: 2,
-  //     nodes: 4,
-  //     investment: "20,000 BIZT",
-  //     earnings: "3,600 BIZT",
-  //     joinDate: "2024-01-12",
-  //     lastActive: "1 day ago",
-  //   },
-  // ];
-
-
 
   // const filteredInactiveMiners = inactiveMiners.filter(
   //   (miner) =>
@@ -322,100 +262,27 @@ export default function NetworkPage() {
 
             {/* Active Miners Tab */}
             <TabsContent value="refer">
-              <Card className="bg-gray-800 border-2 border-gray-600">
-                <CardHeader>
-                  <CardTitle className="text-white text-lg lg:text-xl font-bold">
-                    Direct Refer Team Members
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {directRefer?.data.map((miner, index) => (
-                      <Card
-                        key={index}
-                        className="bg-gray-700 border border-gray-600"
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                            <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                                <span className="text-white font-bold text-lg uppercase">
-                                  {miner.name
-                                    .split(" ")
-                                    .map((n) => n[0])
-                                    .join("")}
-                                </span>
-                              </div>
-                              <div>
-                                <h3 className="text-white font-bold text-sm lg:text-base">
-                                  {miner.name}
-                                </h3>
-                                <p className="text-gray-300 text-xs lg:text-sm">
-                                  {miner.email}
-                                </p>
-                                <p className="text-gray-400 text-xs">
-                                  Joined: {formatDate(miner.created_at)}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
-                              <div className="text-center lg:text-left">
-                                <p className="text-gray-300 text-xs lg:text-sm">
-                                  Investment
-                                </p>
-                                <p className="text-yellow-400 font-bold text-sm lg:text-base">
-                                  {miner.investment}
-                                </p>
-                              </div>
-                              <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                <p className="text-gray-300 text-xs lg:text-sm">
-                                  Status
-                                </p>
-                                <p
-                                  className={cn(
-                                    "text-xs lg:text-sm",
-                                    miner.is_active !== "0"
-                                      ? "text-green-400"
-                                      : "text-red-400"
-                                  )}
-                                >
-                                  {miner.is_active !== "0"
-                                    ? "Active"
-                                    : "Inactive"}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Inactive Miners Tab */}
-            <TabsContent value="team">
-              <Card className="bg-gray-800 border-2 border-gray-600">
-                <CardHeader>
-                  <CardTitle className="text-white text-lg lg:text-xl font-bold">
-                    Team Members
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {teamMember?.team.map((miner, index) => (
-                      <div key={index}>
-                        {/* Parent Card */}
+              {directRefer?.data.length === 0 ? (
+                <p>No direct referrals found.</p>
+              ) : (
+                <Card className="bg-gray-800 border-2 border-gray-600">
+                  <CardHeader>
+                    <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                      Direct Refer Team Members
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {directRefer?.data.map((miner, index) => (
                         <Card
-                          className="bg-gray-700 border border-gray-600 opacity-75 cursor-pointer"
-                          onClick={() => toggleExpand(index)}
+                          key={index}
+                          className="bg-gray-700 border border-gray-600"
                         >
                           <CardContent className="p-4">
                             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                               <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
-                                  <span className="text-white font-bold text-lg">
+                                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
+                                  <span className="text-white font-bold text-lg uppercase">
                                     {miner.name
                                       .split(" ")
                                       .map((n) => n[0])
@@ -436,38 +303,11 @@ export default function NetworkPage() {
                               </div>
                               <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
                                 <div className="text-center lg:text-left">
-                                  {getLevelBadge(miner.level)}
-                                </div>
-                                <div className="text-center lg:text-left">
-                                  <p className="text-gray-300 text-xs lg:text-sm">
-                                    Nodes
-                                  </p>
-                                  <p className="text-blue-400 font-bold text-sm lg:text-base">
-                                    {miner.team?.length || 0}
-                                  </p>
-                                </div>
-                                <div className="text-center lg:text-left">
                                   <p className="text-gray-300 text-xs lg:text-sm">
                                     Investment
                                   </p>
                                   <p className="text-yellow-400 font-bold text-sm lg:text-base">
                                     {miner.investment}
-                                  </p>
-                                </div>
-                                <div className="text-center lg:text-left">
-                                  <p className="text-gray-300 text-xs lg:text-sm">
-                                    Earnings
-                                  </p>
-                                  <p className="text-green-400 font-bold text-sm lg:text-base">
-                                    {0}
-                                  </p>
-                                </div>
-                                <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                  <p className="text-gray-300 text-xs lg:text-sm">
-                                    Last Active
-                                  </p>
-                                  <p className="text-red-400 text-xs lg:text-sm">
-                                    1 hour
                                   </p>
                                 </div>
                                 <div className="text-center lg:text-left col-span-2 lg:col-span-1">
@@ -491,103 +331,213 @@ export default function NetworkPage() {
                             </div>
                           </CardContent>
                         </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
 
-                        {/* Child Cards (Level 2) */}
-                        {expanded.includes(index) && miner.team?.length > 0 && (
-                          <div className="ml-6 mt-2 space-y-3">
-                            {miner.team.map((child, childIndex) => (
-                              <Card
-                                key={childIndex}
-                                className="bg-gray-800 border border-gray-600 opacity-70"
-                              >
-                                <CardContent className="p-4">
-                                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                                    <div className="flex items-center gap-4">
-                                      <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
-                                        <span className="text-white font-bold text-lg">
-                                          {miner.name
-                                            .split(" ")
-                                            .map((n) => n[0])
-                                            .join("")}
-                                        </span>
-                                      </div>
-                                      <div>
-                                        <h3 className="text-white font-bold text-sm lg:text-base">
-                                          {miner.name}
-                                        </h3>
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          {miner.email}
-                                        </p>
-                                        <p className="text-gray-400 text-xs">
-                                          Joined: {formatDate(miner.created_at)}
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
-                                      <div className="text-center lg:text-left">
-                                        {getLevelBadge(miner.level)}
-                                      </div>
-                                      <div className="text-center lg:text-left">
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          Nodes
-                                        </p>
-                                        <p className="text-blue-400 font-bold text-sm lg:text-base">
-                                          {miner.team?.length || 0}
-                                        </p>
-                                      </div>
-                                      <div className="text-center lg:text-left">
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          Investment
-                                        </p>
-                                        <p className="text-yellow-400 font-bold text-sm lg:text-base">
-                                          {miner.investment}
-                                        </p>
-                                      </div>
-                                      <div className="text-center lg:text-left">
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          Earnings
-                                        </p>
-                                        <p className="text-green-400 font-bold text-sm lg:text-base">
-                                          {0}
-                                        </p>
-                                      </div>
-                                      <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          Last Active
-                                        </p>
-                                        <p className="text-red-400 text-xs lg:text-sm">
-                                          1 hour
-                                        </p>
-                                      </div>
-                                      <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                        <p className="text-gray-300 text-xs lg:text-sm">
-                                          Status
-                                        </p>
-                                        <p
-                                          className={cn(
-                                            "text-xs lg:text-sm",
-                                            miner.is_active !== "0"
-                                              ? "text-green-400"
-                                              : "text-red-400"
-                                          )}
-                                        >
-                                          {miner.is_active !== "0"
-                                            ? "Active"
-                                            : "Inactive"}
-                                        </p>
-                                      </div>
-                                    </div>
+            {/* Inactive Miners Tab */}
+            <TabsContent value="team">
+              {directRefer?.data.length === 0 ? (
+                <p>No direct teams found.</p>
+              ) : (
+                <Card className="bg-gray-800 border-2 border-gray-600">
+                  <CardHeader>
+                    <CardTitle className="text-white text-lg lg:text-xl font-bold">
+                      Team Members
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {teamMember?.team.map((miner, index) => (
+                        <div key={index}>
+                          {/* Parent Card */}
+                          <Card
+                            className="bg-gray-700 border border-gray-600 opacity-75 cursor-pointer"
+                            onClick={() => toggleExpand(index)}
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                  <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
+                                    <span className="text-white font-bold text-lg">
+                                      {miner.name
+                                        .split(" ")
+                                        .map((n) => n[0])
+                                        .join("")}
+                                    </span>
                                   </div>
-                                </CardContent>
-                              </Card>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                                  <div>
+                                    <h3 className="text-white font-bold text-sm lg:text-base">
+                                      {miner.name}
+                                    </h3>
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      {miner.email}
+                                    </p>
+                                    <p className="text-gray-400 text-xs">
+                                      Joined: {formatDate(miner.created_at)}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
+                                  <div className="text-center lg:text-left">
+                                    {getLevelBadge(miner.level)}
+                                  </div>
+                                  <div className="text-center lg:text-left">
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      Nodes
+                                    </p>
+                                    <p className="text-blue-400 font-bold text-sm lg:text-base">
+                                      {miner.team?.length || 0}
+                                    </p>
+                                  </div>
+                                  <div className="text-center lg:text-left">
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      Investment
+                                    </p>
+                                    <p className="text-yellow-400 font-bold text-sm lg:text-base">
+                                      {miner.investment}
+                                    </p>
+                                  </div>
+                                  <div className="text-center lg:text-left">
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      Earnings
+                                    </p>
+                                    <p className="text-green-400 font-bold text-sm lg:text-base">
+                                      {0}
+                                    </p>
+                                  </div>
+                                  <div className="text-center lg:text-left col-span-2 lg:col-span-1">
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      Last Active
+                                    </p>
+                                    <p className="text-red-400 text-xs lg:text-sm">
+                                      1 hour
+                                    </p>
+                                  </div>
+                                  <div className="text-center lg:text-left col-span-2 lg:col-span-1">
+                                    <p className="text-gray-300 text-xs lg:text-sm">
+                                      Status
+                                    </p>
+                                    <p
+                                      className={cn(
+                                        "text-xs lg:text-sm",
+                                        miner.is_active !== "0"
+                                          ? "text-green-400"
+                                          : "text-red-400"
+                                      )}
+                                    >
+                                      {miner.is_active !== "0"
+                                        ? "Active"
+                                        : "Inactive"}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+
+                          {/* Child Cards (Level 2) */}
+                          {expanded.includes(index) &&
+                            miner.team?.length > 0 && (
+                              <div className="ml-6 mt-2 space-y-3">
+                                {miner.team.map((child, childIndex) => (
+                                  <Card
+                                    key={childIndex}
+                                    className="bg-gray-800 border border-gray-600 opacity-70"
+                                  >
+                                    <CardContent className="p-4">
+                                      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                                        <div className="flex items-center gap-4">
+                                          <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold text-lg">
+                                              {miner.name
+                                                .split(" ")
+                                                .map((n) => n[0])
+                                                .join("")}
+                                            </span>
+                                          </div>
+                                          <div>
+                                            <h3 className="text-white font-bold text-sm lg:text-base">
+                                              {miner.name}
+                                            </h3>
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              {miner.email}
+                                            </p>
+                                            <p className="text-gray-400 text-xs">
+                                              Joined:{" "}
+                                              {formatDate(miner.created_at)}
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
+                                          <div className="text-center lg:text-left">
+                                            {getLevelBadge(miner.level)}
+                                          </div>
+                                          <div className="text-center lg:text-left">
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              Nodes
+                                            </p>
+                                            <p className="text-blue-400 font-bold text-sm lg:text-base">
+                                              {miner.team?.length || 0}
+                                            </p>
+                                          </div>
+                                          <div className="text-center lg:text-left">
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              Investment
+                                            </p>
+                                            <p className="text-yellow-400 font-bold text-sm lg:text-base">
+                                              {miner.investment}
+                                            </p>
+                                          </div>
+                                          <div className="text-center lg:text-left">
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              Earnings
+                                            </p>
+                                            <p className="text-green-400 font-bold text-sm lg:text-base">
+                                              {0}
+                                            </p>
+                                          </div>
+                                          <div className="text-center lg:text-left col-span-2 lg:col-span-1">
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              Last Active
+                                            </p>
+                                            <p className="text-red-400 text-xs lg:text-sm">
+                                              1 hour
+                                            </p>
+                                          </div>
+                                          <div className="text-center lg:text-left col-span-2 lg:col-span-1">
+                                            <p className="text-gray-300 text-xs lg:text-sm">
+                                              Status
+                                            </p>
+                                            <p
+                                              className={cn(
+                                                "text-xs lg:text-sm",
+                                                miner.is_active !== "0"
+                                                  ? "text-green-400"
+                                                  : "text-red-400"
+                                              )}
+                                            >
+                                              {miner.is_active !== "0"
+                                                ? "Active"
+                                                : "Inactive"}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                ))}
+                              </div>
+                            )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
           </Tabs>
         </div>
