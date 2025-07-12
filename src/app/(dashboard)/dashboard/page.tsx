@@ -72,7 +72,7 @@ export default function DashboardPage() {
                       {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      ${Number(userProfile?.usdt_wallet).toFixed(2)} USDT
+                      ${Number(userProfile?.bizt_wallet) * 0.02} USDT
                     </p>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                     Total Value
                   </span>
                   <span className="text-white font-bold text-base lg:text-lg">
-                    ${Number(userProfile?.totalEarning.toFixed(2)) * 2}
+                    ${Number(userProfile?.totalEarning.toFixed(2)) * 0.02}
                   </span>
                 </div>
               </CardContent>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                       Generation Income
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      {userProfile?.totalEarning} BIZT
+                      {0} BIZT
                     </span>
                   </div>
                 </div>
@@ -351,7 +351,7 @@ export default function DashboardPage() {
                   Referral Link : <br />
                   <p className="">
                     <span className="text-yellow-500">
-                      https://www.biznode.io/sign-up?ref=$
+                      https://www.biznode.io/sign-up?ref=
                       {dashboard?.data.user.refer_code}
                     </span>
                     <span

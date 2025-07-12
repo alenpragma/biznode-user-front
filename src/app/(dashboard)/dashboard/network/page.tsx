@@ -30,23 +30,8 @@ export default function NetworkPage() {
     inactiveMiners: 58,
     totalTeamInvestment: "2,450,000 BIZT",
     teamEarnings: "345,000 BIZT",
-    monthlyVolume: "125,000 BIZT",
+    monthlyVolume: "0.00 BIZT",
   };
-
-  const levelStats = [
-    {
-      level: 1,
-      members: 0,
-      investment: "0,00 BIZT",
-      earnings: "0.00 BIZT",
-    },
-    {
-      level: 2,
-      members: 0,
-      investment: "0.00 BIZT",
-      earnings: "0.00 BIZT",
-    },
-  ];
 
   // const filteredInactiveMiners = inactiveMiners.filter(
   //   (miner) =>
@@ -83,7 +68,20 @@ export default function NetworkPage() {
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
-
+  const levelStats = [
+    {
+      level: 1,
+      members: userData?.directRefer,
+      investment: "0,00 BIZT",
+      earnings: "0.00 BIZT",
+    },
+    {
+      level: 2,
+      members: 0,
+      investment: "0.00 BIZT",
+      earnings: "0.00 BIZT",
+    },
+  ];
   if (isLoading && teamLoading) {
     return <LoadingContainer />;
   }
@@ -131,7 +129,7 @@ export default function NetworkPage() {
                   </div>
                   <div>
                     <p className="text-lg lg:text-2xl font-bold text-white">
-                      {userData?.totalInvestment}
+                      ${userData?.totalInvestment}
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
                       Total Team Investment
@@ -143,7 +141,7 @@ export default function NetworkPage() {
                     Team Earnings
                   </span>
                   <span className="text-yellow-400 font-bold text-sm lg:text-lg">
-                    {userData?.totalEarning}
+                    {userData?.totalEarning} BIZT
                   </span>
                 </div>
               </CardContent>
@@ -198,9 +196,6 @@ export default function NetworkPage() {
                       <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
                         Investment
                       </th>
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Earnings
-                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -217,9 +212,6 @@ export default function NetworkPage() {
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-yellow-400 font-bold text-sm lg:text-base">
                           {level.investment}
-                        </td>
-                        <td className="py-3 px-2 lg:px-4 text-green-400 font-bold text-sm lg:text-base">
-                          {level.earnings}
                         </td>
                       </tr>
                     ))}
@@ -307,7 +299,7 @@ export default function NetworkPage() {
                                     Investment
                                   </p>
                                   <p className="text-yellow-400 font-bold text-sm lg:text-base">
-                                    {miner.investment}
+                                    ${miner.investment}
                                   </p>
                                 </div>
                                 <div className="text-center lg:text-left col-span-2 lg:col-span-1">
@@ -358,7 +350,7 @@ export default function NetworkPage() {
                             className="bg-gray-700 border border-gray-600 opacity-75 cursor-pointer"
                             onClick={() => toggleExpand(index)}
                           >
-                            <CardContent className="p-4">
+                            <CardContent className="px-3">
                               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
                                   <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
@@ -385,14 +377,14 @@ export default function NetworkPage() {
                                   <div className="text-center lg:text-left">
                                     {getLevelBadge(miner.level)}
                                   </div>
-                                  <div className="text-center lg:text-left">
+                                  {/* <div className="text-center lg:text-left">
                                     <p className="text-gray-300 text-xs lg:text-sm">
                                       Nodes
                                     </p>
                                     <p className="text-blue-400 font-bold text-sm lg:text-base">
                                       {miner.team?.length || 0}
                                     </p>
-                                  </div>
+                                  </div> */}
                                   <div className="text-center lg:text-left">
                                     <p className="text-gray-300 text-xs lg:text-sm">
                                       Investment
@@ -401,22 +393,7 @@ export default function NetworkPage() {
                                       {miner.investment}
                                     </p>
                                   </div>
-                                  <div className="text-center lg:text-left">
-                                    <p className="text-gray-300 text-xs lg:text-sm">
-                                      Earnings
-                                    </p>
-                                    <p className="text-green-400 font-bold text-sm lg:text-base">
-                                      {0}
-                                    </p>
-                                  </div>
-                                  <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                    <p className="text-gray-300 text-xs lg:text-sm">
-                                      Last Active
-                                    </p>
-                                    <p className="text-red-400 text-xs lg:text-sm">
-                                      1 hour
-                                    </p>
-                                  </div>
+
                                   <div className="text-center lg:text-left col-span-2 lg:col-span-1">
                                     <p className="text-gray-300 text-xs lg:text-sm">
                                       Status
@@ -448,12 +425,12 @@ export default function NetworkPage() {
                                     key={childIndex}
                                     className="bg-gray-800 border border-gray-600 opacity-70"
                                   >
-                                    <CardContent className="p-4">
+                                    <CardContent className="px-3">
                                       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                         <div className="flex items-center gap-4">
                                           <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
                                             <span className="text-white font-bold text-lg">
-                                              {miner.name
+                                              {child.name
                                                 .split(" ")
                                                 .map((n) => n[0])
                                                 .join("")}
@@ -461,51 +438,35 @@ export default function NetworkPage() {
                                           </div>
                                           <div>
                                             <h3 className="text-white font-bold text-sm lg:text-base">
-                                              {miner.name}
+                                              {child.name}
                                             </h3>
                                             <p className="text-gray-300 text-xs lg:text-sm">
-                                              {miner.email}
+                                              {child.email}
                                             </p>
                                             <p className="text-gray-400 text-xs">
                                               Joined:{" "}
-                                              {formatDate(miner.created_at)}
+                                              {formatDate(child.created_at)}
                                             </p>
                                           </div>
                                         </div>
                                         <div className="grid grid-cols-2 lg:flex lg:items-center gap-4 lg:gap-6">
                                           <div className="text-center lg:text-left">
-                                            {getLevelBadge(miner.level)}
+                                            {getLevelBadge(child.level)}
                                           </div>
-                                          <div className="text-center lg:text-left">
+                                          {/* <div className="text-center lg:text-left">
                                             <p className="text-gray-300 text-xs lg:text-sm">
                                               Nodes
                                             </p>
                                             <p className="text-blue-400 font-bold text-sm lg:text-base">
-                                              {miner.team?.length || 0}
+                                              {0}
                                             </p>
-                                          </div>
+                                          </div> */}
                                           <div className="text-center lg:text-left">
                                             <p className="text-gray-300 text-xs lg:text-sm">
                                               Investment
                                             </p>
                                             <p className="text-yellow-400 font-bold text-sm lg:text-base">
-                                              {miner.investment}
-                                            </p>
-                                          </div>
-                                          <div className="text-center lg:text-left">
-                                            <p className="text-gray-300 text-xs lg:text-sm">
-                                              Earnings
-                                            </p>
-                                            <p className="text-green-400 font-bold text-sm lg:text-base">
-                                              {0}
-                                            </p>
-                                          </div>
-                                          <div className="text-center lg:text-left col-span-2 lg:col-span-1">
-                                            <p className="text-gray-300 text-xs lg:text-sm">
-                                              Last Active
-                                            </p>
-                                            <p className="text-red-400 text-xs lg:text-sm">
-                                              1 hour
+                                              ${child.investment}
                                             </p>
                                           </div>
                                           <div className="text-center lg:text-left col-span-2 lg:col-span-1">
@@ -515,12 +476,12 @@ export default function NetworkPage() {
                                             <p
                                               className={cn(
                                                 "text-xs lg:text-sm",
-                                                miner.is_active !== "0"
+                                                child.is_active !== "0"
                                                   ? "text-green-400"
                                                   : "text-red-400"
                                               )}
                                             >
-                                              {miner.is_active !== "0"
+                                              {child.is_active !== "0"
                                                 ? "Active"
                                                 : "Inactive"}
                                             </p>

@@ -32,8 +32,6 @@ export default function HodeHisotoryComponents({
 }: {
   pageNumber: string;
 }) {
-
-
   // const getNodeIcon = (nodeType: string) => {
   //   return nodeType === "Master Node" ? (
   //     <Crown className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-400" />
@@ -101,7 +99,7 @@ export default function HodeHisotoryComponents({
                 Total Rewards
               </span>
               <span className="text-yellow-400 font-bold text-base lg:text-lg">
-                {Number(userData?.totalEarning) * 2 || 0}
+                {Number(userData?.totalEarning)} BIZT
               </span>
             </div>
           </CardContent>

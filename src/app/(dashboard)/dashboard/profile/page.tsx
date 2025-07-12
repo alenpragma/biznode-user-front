@@ -86,7 +86,7 @@ export default function ProfilePage() {
                       {userData?.user.name}
                     </h3>
                     <div className="flex justify-center sm:justify-start gap-2">
-                      <Badge className="bg-yellow-500 text-black">Gold</Badge>
+                      <Badge className="bg-yellow-500 text-black">Validator</Badge>
                       <Badge className="bg-red-500 text-white">
                         KYC Not Verified
                       </Badge>{" "}

@@ -4,8 +4,6 @@ import { useState } from "react";
 import {
   Home,
   Zap,
-  Award,
-  TrendingUp,
   Wallet,
   FileText,
   User,
@@ -29,8 +27,8 @@ const navigation = [
   { name: "Network", href: "/dashboard/network", icon: Network },
   { name: "Node Report", href: "/dashboard/node-report", icon: FileText },
   { name: "Transaction", href: "/dashboard/transaction", icon: FileText },
-  { name: "Rewards", href: "/dashboard/rewards", icon: Award },
-  { name: "Rank", href: "/dashboard/rank", icon: TrendingUp },
+  // { name: "Rewards", href: "/dashboard/rewards", icon: Award },
+  // { name: "Rank", href: "/dashboard/rank", icon: TrendingUp },
   { name: "Profile", href: "/dashboard/profile", icon: User },
 ];
 

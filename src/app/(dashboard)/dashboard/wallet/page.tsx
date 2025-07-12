@@ -42,9 +42,14 @@ export default function WalletPage() {
     ["deposit"],
     `/deposit`
   );
+  const { data: payment, isLoading: paymentLoading } = useGetData<TWallet>(
+    ["payment"],
+    `/deposit-check`
+  );
+  console.log(payment);
   const walletAddress = deposit?.data;
   const userProfile = dashboard?.data;
-  if (isLoading && walletLoading) {
+  if (isLoading && walletLoading && paymentLoading) {
     return <LoadingContainer />;
   }
   return (
@@ -159,7 +164,7 @@ export default function WalletPage() {
           <Card className="bg-gray-800 border-2 border-gray-600 mb-6 lg:mb-8">
             <CardHeader>
               <CardTitle className="text-white text-lg lg:text-xl font-bold">
-                Deposit, Withdraw & Transfer
+                Deposit, Withdraw
               </CardTitle>
             </CardHeader>
             <CardContent>
