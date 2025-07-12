@@ -5,7 +5,6 @@ import Pagination from "@/components/shared/pagination/Pagination";
 import Status from "@/components/shared/Status/Status";
 import UseTable, { TData } from "@/components/shared/table/UseTable";
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
-import { cn } from "@/lib/utils";
 import { TransactionResponse } from "@/types/deposit-history/depositHistory";
 
 const DepossitHistory = ({ pageNumber }: { pageNumber: string }) => {
