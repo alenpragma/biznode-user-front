@@ -15,6 +15,7 @@ import Status from "@/components/shared/Status/Status";
 import Pagination from "@/components/shared/pagination/Pagination";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import UseTable, { TData } from "@/components/shared/table/UseTable";
+import { useUserStore } from "@/lib/store/userStore";
 
 const headers = [
   "data",
@@ -31,14 +32,7 @@ export default function HodeHisotoryComponents({
 }: {
   pageNumber: string;
 }) {
-  const nodeStats = {
-    totalNodes: 5,
-    activeNodes: 5,
-    totalInvested: "25,150 BIZT",
-    totalRewards: "2,740 BIZT",
-    averageUptime: "99.4%",
-    monthlyEarnings: "450 BIZT",
-  };
+
 
   // const getNodeIcon = (nodeType: string) => {
   //   return nodeType === "Master Node" ? (
@@ -51,6 +45,8 @@ export default function HodeHisotoryComponents({
     ["nodeHistory", pageNumber],
     `/invest-history?page=${pageNumber}`
   );
+  const { userData } = useUserStore();
+
   if (isLoading) {
     return <LoadingContainer />;
   }
@@ -66,7 +62,7 @@ export default function HodeHisotoryComponents({
               </div>
               <div>
                 <p className="text-xl lg:text-2xl font-bold text-white">
-                  {nodeStats.totalNodes}
+                  {nodeHistory?.data.length || 0}
                 </p>
                 <p className="text-gray-300 text-sm lg:text-base">
                   Total Nodes
@@ -78,7 +74,7 @@ export default function HodeHisotoryComponents({
                 Active Nodes
               </span>
               <span className="text-green-400 font-bold text-base lg:text-lg">
-                {nodeStats.activeNodes}
+                {nodeHistory?.data.length || 0}
               </span>
             </div>
           </CardContent>
@@ -93,7 +89,7 @@ export default function HodeHisotoryComponents({
               </div>
               <div>
                 <p className="text-xl lg:text-2xl font-bold text-white">
-                  {nodeStats.totalInvested}
+                  ${userData?.totalInvestment || 0}
                 </p>
                 <p className="text-gray-300 text-sm lg:text-base">
                   Total Invested
@@ -105,7 +101,7 @@ export default function HodeHisotoryComponents({
                 Total Rewards
               </span>
               <span className="text-yellow-400 font-bold text-base lg:text-lg">
-                {nodeStats.totalRewards}
+                {Number(userData?.totalEarning) * 2 || 0}
               </span>
             </div>
           </CardContent>
@@ -119,9 +115,7 @@ export default function HodeHisotoryComponents({
                 <Activity className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
               <div>
-                <p className="text-xl lg:text-2xl font-bold text-white">
-                  {nodeStats.averageUptime}
-                </p>
+                <p className="text-xl lg:text-2xl font-bold text-white">{}</p>
                 <p className="text-gray-300 text-sm lg:text-base">
                   Average Uptime
                 </p>
@@ -132,7 +126,7 @@ export default function HodeHisotoryComponents({
                 Monthly Earnings
               </span>
               <span className="text-green-400 font-bold text-base lg:text-lg">
-                {nodeStats.monthlyEarnings}
+                {0}
               </span>
             </div>
           </CardContent>
@@ -140,53 +134,57 @@ export default function HodeHisotoryComponents({
       </div>
 
       {/* Node Report Tabs */}
-      <Card className="bg-gray-800 border-2 border-gray-600">
-        <CardHeader>
-          <CardTitle className="text-white text-lg lg:text-xl font-bold">
-            Node Purchase History
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-2">
-          <UseTable headers={headers} className="rounded-md">
-            {nodeHistory?.data.map((item) => (
-              <tr key={item.id}>
-                <TData className="  font-medium">
-                  {formatDate(item.created_at)}
-                </TData>
+      {nodeHistory?.data.length === 0 ? (
+        <p className="text-center text-gray-400">No node history</p>
+      ) : (
+        <Card className="bg-gray-800 border-2 border-gray-600">
+          <CardHeader>
+            <CardTitle className="text-white text-lg lg:text-xl font-bold">
+              Node Purchase History
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-2">
+            <UseTable headers={headers} className="rounded-md">
+              {nodeHistory?.data.map((item) => (
+                <tr key={item.id}>
+                  <TData className="  font-medium">
+                    {formatDate(item.created_at)}
+                  </TData>
 
-                <TData className="  font-medium">{item.package_name}</TData>
-                <TData className="font-medium">${item.investment}</TData>
-                <TData className="font-medium text-yellow-500">
-                  {item.daily_roi} BIZT
-                </TData>
-                <TData className=" text-green-400 font-medium">
-                  {" "}
-                  {item.total_receive_day} days
-                </TData>
-                <TData className=" text-green-400 font-medium">
-                  {" "}
-                  {item.total_due_day} days
-                </TData>
-                <TData>
-                  {" "}
-                  {item.status === "0" ? (
-                    <Status title="In Active" />
-                  ) : (
-                    <Status title="Active" />
-                  )}
-                </TData>
-              </tr>
-            ))}
-          </UseTable>
+                  <TData className="  font-medium">{item.package_name}</TData>
+                  <TData className="font-medium">${item.investment}</TData>
+                  <TData className="font-medium text-yellow-500">
+                    {item.daily_roi} BIZT
+                  </TData>
+                  <TData className=" text-green-400 font-medium">
+                    {" "}
+                    {item.total_receive_day} days
+                  </TData>
+                  <TData className=" text-green-400 font-medium">
+                    {" "}
+                    {item.total_due_day} days
+                  </TData>
+                  <TData>
+                    {" "}
+                    {item.status === "0" ? (
+                      <Status title="In Active" />
+                    ) : (
+                      <Status title="Active" />
+                    )}
+                  </TData>
+                </tr>
+              ))}
+            </UseTable>
 
-          <Pagination
-            total={nodeHistory?.total || 0}
-            perPage={10}
-            route="/dashboard/node-report"
-            currentPage={nodeHistory?.current_page ? parseInt(pageNumber) : 1}
-          />
-        </CardContent>
-      </Card>
+            <Pagination
+              total={nodeHistory?.total || 0}
+              perPage={10}
+              route="/dashboard/node-report"
+              currentPage={nodeHistory?.current_page ? parseInt(pageNumber) : 1}
+            />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

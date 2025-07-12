@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Download,
   Upload,
-  ArrowLeftRight,
   Copy,
   Eye,
   EyeOff,
@@ -12,7 +11,6 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,101 +27,24 @@ import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import QRCode from "react-qr-code";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
-import { SubmitButton } from "@/components/form/fields/SubmitButton";
+import { TWallet } from "@/types/wallet/wallet";
 
 export default function WalletPage() {
   const [activeTab, setActiveTab] = useState("deposit");
   const [showBalance, setShowBalance] = useState(true);
-
-  const transactionHistory = [
-    {
-      id: 1,
-      type: "Deposit",
-      amount: "100 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      type: "Purchase",
-      amount: "12,500 BIZT",
-      date: "2024-01-18",
-      details: "Master Node Purchase",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      type: "Withdrawal",
-      amount: "150 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Completed",
-    },
-    {
-      id: 4,
-      type: "Deposit",
-      amount: "200 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Completed",
-    },
-    {
-      id: 5,
-      type: "Deposit",
-      amount: "200 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Completed",
-    },
-    {
-      id: 6,
-      type: "Purchase",
-      amount: "12,200 BIZT",
-      date: "2024-01-18",
-      details: "Mini Node Purchase",
-      status: "Completed",
-    },
-    {
-      id: 7,
-      type: "Deposit",
-      amount: "12,200 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Pending",
-    },
-    {
-      id: 8,
-      type: "Withdrawal",
-      amount: "12,200 BIZT",
-      date: "2024-01-18",
-      details: "0x742a35...........b4C4C84C4C",
-      status: "Completed",
-    },
-  ];
-
-  const getStatusBadge = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return <Badge className="bg-green-500 text-white">Completed</Badge>;
-      case "pending":
-        return <Badge className="bg-yellow-500 text-black">Pending</Badge>;
-      case "active":
-        return <Badge className="bg-green-500 text-white">Active</Badge>;
-      default:
-        return <Badge className="bg-gray-500 text-white">{status}</Badge>;
-    }
-  };
-
-  const walletAddress = "345834583984573895734";
   const { copy, copied } = CopyToClipboard();
 
   const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
     ["products"],
     `/profile`
   );
+  const { data: deposit, isLoading: walletLoading } = useGetData<TWallet>(
+    ["deposit"],
+    `/deposit`
+  );
+  const walletAddress = deposit?.data;
   const userProfile = dashboard?.data;
-  if (isLoading) {
+  if (isLoading && walletLoading) {
     return <LoadingContainer />;
   }
   return (
@@ -247,28 +168,28 @@ export default function WalletPage() {
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-3 bg-gray-700 mb-6">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-700 mb-6">
                   <TabsTrigger
                     value="deposit"
-                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-xs lg:text-sm"
+                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
                   >
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Deposit</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="withdraw"
-                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-xs lg:text-sm"
+                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
                   >
                     <Upload className="w-4 h-4" />
                     <span className="hidden sm:inline">Withdraw</span>
                   </TabsTrigger>
-                  <TabsTrigger
+                  {/* <TabsTrigger
                     value="transfer"
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-xs lg:text-sm"
                   >
                     <ArrowLeftRight className="w-4 h-4" />
                     <span className="hidden sm:inline">Transfer</span>
-                  </TabsTrigger>
+                  </TabsTrigger> */}
                 </TabsList>
 
                 {/* Deposit Tab */}
@@ -337,13 +258,6 @@ export default function WalletPage() {
                         may result in the permanent loss of your funds.
                       </p>
                     </div>
-                    <SubmitButton
-                      width="full"
-                      label="Deposit"
-                      // isLoading={isPending}
-                      loadingLabel="Processing.."
-                      className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 text-base lg:text-lg"
-                    />
                   </div>
                 </TabsContent>
 
@@ -427,7 +341,7 @@ export default function WalletPage() {
                 </TabsContent>
 
                 {/* Transfer Tab */}
-                <TabsContent
+                {/* <TabsContent
                   value="transfer"
                   className="space-y-4 lg:space-y-6"
                 >
@@ -496,66 +410,8 @@ export default function WalletPage() {
                       Transfer Now
                     </Button>
                   </div>
-                </TabsContent>
+                </TabsContent> */}
               </Tabs>
-            </CardContent>
-          </Card>
-
-          {/* Transaction History */}
-          <Card className="bg-gray-800 border-2 border-gray-600">
-            <CardHeader>
-              <CardTitle className="text-white text-lg lg:text-xl font-bold">
-                Transaction History
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-600">
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Type
-                      </th>
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Amount
-                      </th>
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Date
-                      </th>
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base hidden md:table-cell">
-                        Details
-                      </th>
-                      <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {transactionHistory.map((transaction) => (
-                      <tr
-                        key={transaction.id}
-                        className="border-b border-gray-700"
-                      >
-                        <td className="py-3 px-2 lg:px-4 text-white font-medium text-sm lg:text-base">
-                          {transaction.type}
-                        </td>
-                        <td className="py-3 px-2 lg:px-4 text-white font-bold text-sm lg:text-base">
-                          {transaction.amount}
-                        </td>
-                        <td className="py-3 px-2 lg:px-4 text-gray-300 text-sm lg:text-base">
-                          {transaction.date}
-                        </td>
-                        <td className="py-3 px-2 lg:px-4 text-gray-300 font-mono text-xs lg:text-sm hidden md:table-cell">
-                          {transaction.details}
-                        </td>
-                        <td className="py-3 px-2 lg:px-4">
-                          {getStatusBadge(transaction.status)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </CardContent>
           </Card>
         </div>

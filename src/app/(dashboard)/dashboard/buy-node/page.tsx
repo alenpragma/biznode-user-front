@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Crown, Zap, Timer } from "lucide-react";
+import { Crown, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -19,7 +19,7 @@ import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { TBuyNode } from "@/types/buynode/buyNodeType";
 
 export default function BuyNodePage() {
-  const [activeTab, setActiveTab] = useState("master");
+  const [activeTab, setActiveTab] = useState("mini");
 
   const { data: nodePackage, isLoading } = useGetData<TNodeResponse>(
     ["node"],
@@ -60,7 +60,7 @@ export default function BuyNodePage() {
 
   if (isLoading) return <LoadingContainer />;
 
-  const nodeTypes = [...new Set(node?.map((item) => item.type))];
+  const nodeTypes = [...new Set(node?.map((item) => item.type))].reverse();
   const filteredNodes = node?.filter((item) => item.type === activeTab);
 
   return (
@@ -79,7 +79,7 @@ export default function BuyNodePage() {
                 <TabsTrigger
                   key={type}
                   value={type}
-                  className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-sm capitalize"
+                  className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-sm capitalize"
                 >
                   {type === "master" ? (
                     <Crown className="w-4 h-4" />
@@ -107,13 +107,13 @@ export default function BuyNodePage() {
                   filteredNodes.map((item) => (
                     <Card
                       key={item.id}
-                      className="bg-gray-800 border-3 border-yellow-500 relative overflow-hidden shadow-2xl"
+                      className="bg-gray-800 border-3 border-yellow-500 relative overflow-hidden shadow-2xl gap-4"
                     >
                       <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 to-orange-500" />
 
-                      <CardHeader className="text-center pb-4">
-                        <div className="flex justify-center mb-4">
-                          <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+                      <CardHeader className="text-center">
+                        <div className="flex justify-center">
+                          <div className="w-16 lg:w-20  bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
                             {item.type === "master" ? (
                               <Crown className="w-8 h-8 lg:w-10 lg:h-10 text-black" />
                             ) : (
@@ -131,13 +131,6 @@ export default function BuyNodePage() {
                             item.type.slice(1)}{" "}
                           Node
                         </CardTitle>
-
-                        <div className="flex items-center justify-center gap-2 text-red-400 mt-3">
-                          <Timer className="w-4 h-4 lg:w-5 lg:h-5" />
-                          <span className="text-sm lg:text-base font-semibold">
-                            Ends in: {item.duration} Days
-                          </span>
-                        </div>
                       </CardHeader>
 
                       <CardContent className="text-center space-y-3">

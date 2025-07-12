@@ -12,7 +12,7 @@ export default function DashboardLayout({
         <Sidebar />
       </div>
       <div className="md:ml-[250px] w-full h-fit relative">
-        <Header title="Dashboard" subtitle="Dashboard" />
+        <Header />
         <div className="min-h-screen w-full max-w-7xl mx-auto pt-16 p-3">{children}</div>
       </div>
     </div>

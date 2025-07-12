@@ -18,15 +18,25 @@ import { ActivationModal } from "./ActivationModal";
 import { useUserStore } from "@/lib/store/userStore";
 import { cn } from "@/lib/utils";
 import { handleLogout } from "@/lib/logout/logout";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
-  title: string;
-  subtitle?: string;
   breadcrumb?: string[];
 }
 
-export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
+export function Header({ breadcrumb }: HeaderProps) {
   const { userData } = useUserStore();
+  const pathname = usePathname();
+
+  const getDashboardSegment = () => {
+    const pathParts = pathname.split("/").filter(Boolean);
+    const dashboardIndex = pathParts.indexOf("dashboard");
+
+    if (dashboardIndex !== -1 && pathParts[dashboardIndex + 1]) {
+      return pathParts[dashboardIndex + 1];
+    }
+    return "dashboard";
+  };
 
   return (
     <>
@@ -44,12 +54,9 @@ export function Header({ title, subtitle, breadcrumb }: HeaderProps) {
                 ))}
               </div>
             )}
-            <h2 className="text-xl lg:text-2xl font-bold">{title}</h2>
-            {subtitle && (
-              <p className="text-gray-400 mt-1 text-sm lg:text-base">
-                {subtitle}
-              </p>
-            )}
+            <h2 className="text-xl lg:text-2xl font-bold capitalize">
+              {getDashboardSegment()}
+            </h2>
           </div>
         </div>
 
