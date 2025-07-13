@@ -1,6 +1,4 @@
-import { X } from "lucide-react";
-import { ReactNode } from "react";
-import { FieldValues, Path, useFormContext } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
@@ -9,9 +7,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
+import { ReactNode } from "react";
+import { FieldValues, Path, useFormContext } from "react-hook-form";
 
 type TextFieldProps<T extends FieldValues> = {
   name: Path<T>;
@@ -66,7 +66,7 @@ export const TextField = <T extends FieldValues>({
   disabled = false,
   readOnly,
   onChange,
-  labelClass,
+  labelClass = "text-white",
 }: TextFieldProps<T>) => {
   const { control } = useFormContext<T>();
 

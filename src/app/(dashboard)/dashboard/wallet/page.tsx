@@ -1,33 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Download,
-  Upload,
-  Copy,
-  Eye,
-  EyeOff,
-  AlertTriangle,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Swap from "@/components/wallet/Swap";
+import Withraw from "@/components/wallet/Withraw";
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
 import { TUserProfileResponse } from "@/types/dashboard/dashboardType";
-import LoadingContainer from "@/components/shared/loading/LoadingComponents";
-import QRCode from "react-qr-code";
-import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { TWallet } from "@/types/wallet/wallet";
+
+import {
+  AlertTriangle,
+  Copy,
+  Download,
+  Eye,
+  EyeOff,
+  Upload,
+} from "lucide-react";
+import { useState } from "react";
+import { IoCheckmarkDoneOutline, IoSwapHorizontal } from "react-icons/io5";
+import QRCode from "react-qr-code";
 
 export default function WalletPage() {
   const [activeTab, setActiveTab] = useState("deposit");
@@ -35,7 +32,7 @@ export default function WalletPage() {
   const { copy, copied } = CopyToClipboard();
 
   const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
-    ["products"],
+    ["profile"],
     `/profile`
   );
   const { data: deposit, isLoading: walletLoading } = useGetData<TWallet>(
@@ -43,7 +40,7 @@ export default function WalletPage() {
     `/deposit`
   );
   const { data: payment, isLoading: paymentLoading } = useGetData<TWallet>(
-    ["payment"],
+    ["deposit-check"],
     `/deposit-check`
   );
   console.log(payment);
@@ -52,6 +49,14 @@ export default function WalletPage() {
   if (paymentLoading && isLoading && walletLoading) {
     return <LoadingContainer />;
   }
+
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: async (data: FormType | React.FormEvent<HTMLFormElement>) => {
+  //     const response = await axiosInstance.post<any>(`/`, data);
+  //     return response.data;
+  //   },
+  // });
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="flex">
@@ -173,7 +178,7 @@ export default function WalletPage() {
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-2 bg-gray-700 mb-6">
+                <TabsList className="grid w-full grid-cols-3 bg-gray-700 mb-6">
                   <TabsTrigger
                     value="deposit"
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
@@ -188,13 +193,22 @@ export default function WalletPage() {
                     <Upload className="w-4 h-4" />
                     <span className="hidden sm:inline">Withdraw</span>
                   </TabsTrigger>
-                  {/* <TabsTrigger
+                  {/* 
+                  <TabsTrigger
                     value="transfer"
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-xs lg:text-sm"
                   >
                     <ArrowLeftRight className="w-4 h-4" />
                     <span className="hidden sm:inline">Transfer</span>
                   </TabsTrigger> */}
+
+                  <TabsTrigger
+                    value="swap-now"
+                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
+                  >
+                    <IoSwapHorizontal className="w-4 h-4" />
+                    <span className="hidden sm:inline">Swap Now</span>
+                  </TabsTrigger>
                 </TabsList>
 
                 {/* Deposit Tab */}
@@ -230,7 +244,7 @@ export default function WalletPage() {
                     <div>
                       <Label
                         htmlFor="deposit-address"
-                        className="text-white font-medium"
+                        className="text-white font-medium mb-1"
                       >
                         Deposit Address
                       </Label>
@@ -273,151 +287,17 @@ export default function WalletPage() {
                   value="withdraw"
                   className="space-y-4 lg:space-y-6"
                 >
-                  <div className="max-w-md mx-auto space-y-4">
-                    <div>
-                      <Label
-                        htmlFor="withdraw-coin"
-                        className="text-white font-medium"
-                      >
-                        Select Coin
-                      </Label>
-                      <Select defaultValue="bizt">
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bizt">BIZT</SelectItem>
-                          <SelectItem value="usdt">USDT</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="withdraw-network"
-                        className="text-white font-medium"
-                      >
-                        Select Network
-                      </Label>
-                      <Select defaultValue="bsc">
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bsc">
-                            BSC (Binance Smart Chain)
-                          </SelectItem>
-                          <SelectItem value="eth">Ethereum</SelectItem>
-                          <SelectItem value="polygon">Polygon</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="withdraw-amount"
-                        className="text-white font-medium"
-                      >
-                        Amount
-                      </Label>
-                      <Input
-                        id="withdraw-amount"
-                        placeholder="50.00"
-                        className="bg-gray-700 border-gray-600 text-white"
-                      />
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="withdraw-address"
-                        className="text-white font-medium"
-                      >
-                        Withdrawal Address
-                      </Label>
-                      <Input
-                        id="withdraw-address"
-                        placeholder="0x742a35Cc6Db50e532D5536FD93a4C4C84C4C"
-                        className="bg-gray-700 border-gray-600 text-white"
-                      />
-                    </div>
-
-                    <Button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 text-base lg:text-lg">
-                      Withdraw Now
-                    </Button>
-                  </div>
+                  <Withraw />
                 </TabsContent>
 
-                {/* Transfer Tab */}
-                {/* <TabsContent
-                  value="transfer"
+                {/* swap Tab */}
+                <TabsContent
+                  value="swap-now"
                   className="space-y-4 lg:space-y-6"
                 >
-                  <div className="max-w-md mx-auto space-y-4">
-                    <div>
-                      <Label
-                        htmlFor="transfer-coin"
-                        className="text-white font-medium"
-                      >
-                        Select Coin
-                      </Label>
-                      <Select defaultValue="bizt">
-                        <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-700 border-gray-600">
-                          <SelectItem value="bizt">BIZT</SelectItem>
-                          <SelectItem value="usdt">USDT</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="transfer-recipient"
-                        className="text-white font-medium"
-                      >
-                        Recipient Email/Username
-                      </Label>
-                      <Input
-                        id="transfer-recipient"
-                        placeholder="user@example.com"
-                        className="bg-gray-700 border-gray-600 text-white"
-                      />
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="transfer-amount"
-                        className="text-white font-medium"
-                      >
-                        Amount
-                      </Label>
-                      <Input
-                        id="transfer-amount"
-                        placeholder="100.00"
-                        className="bg-gray-700 border-gray-600 text-white"
-                      />
-                    </div>
-
-                    <div>
-                      <Label
-                        htmlFor="transfer-note"
-                        className="text-white font-medium"
-                      >
-                        Note (Optional)
-                      </Label>
-                      <Input
-                        id="transfer-note"
-                        placeholder="Transfer note..."
-                        className="bg-gray-700 border-gray-600 text-white"
-                      />
-                    </div>
-
-                    <Button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-3 text-base lg:text-lg">
-                      Transfer Now
-                    </Button>
-                  </div>
-                </TabsContent> */}
+                  {/* swap */}
+                  <Swap />
+                </TabsContent>
               </Tabs>
             </CardContent>
           </Card>
