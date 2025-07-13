@@ -19,7 +19,7 @@ export const initialSwapValues: FormType = {
 const Swap = () => {
   const formRef = useRef<GenericFormRef<FormType>>(null);
 
-  const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
+  const { data: dashboard, } = useGetData<TUserProfileResponse>(
     ["profile"],
     `/profile`
   );
