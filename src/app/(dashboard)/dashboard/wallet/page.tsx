@@ -61,7 +61,7 @@ export default function WalletPage() {
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="flex">
         {/* Main Content */}
-        <div className="flex-1 p-4 lg:p-6">
+        <div className="flex-1  lg:p-6">
           {/* Balance Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6 lg:mb-8">
             <Card className="bg-gray-800 border-2 border-yellow-500/30 relative overflow-hidden">
@@ -184,30 +184,23 @@ export default function WalletPage() {
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
                   >
                     <Download className="w-4 h-4" />
-                    <span className="hidden sm:inline">Deposit</span>
+                    <span className="  sm:inline">Deposit</span>
                   </TabsTrigger>
+
                   <TabsTrigger
                     value="withdraw"
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
                   >
                     <Upload className="w-4 h-4" />
-                    <span className="hidden sm:inline">Withdraw</span>
+                    <span className="  sm:inline">Withdraw</span>
                   </TabsTrigger>
-                  {/* 
-                  <TabsTrigger
-                    value="transfer"
-                    className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-xs lg:text-sm"
-                  >
-                    <ArrowLeftRight className="w-4 h-4" />
-                    <span className="hidden sm:inline">Transfer</span>
-                  </TabsTrigger> */}
 
                   <TabsTrigger
                     value="swap-now"
                     className="flex items-center gap-2 data-[state=active]:bg-yellow-500 data-[state=active]:text-black text-white text-xs lg:text-sm"
                   >
                     <IoSwapHorizontal className="w-4 h-4" />
-                    <span className="hidden sm:inline">Swap Now</span>
+                    <span className="  sm:inline">Swap Now</span>
                   </TabsTrigger>
                 </TabsList>
 

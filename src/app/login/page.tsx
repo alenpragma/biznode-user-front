@@ -1,7 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import Cookies from "js-cookie";
+import { SubmitButton } from "@/components/form/fields/SubmitButton";
+import { TextField } from "@/components/form/fields/TextField";
+import { GenericForm, GenericFormRef } from "@/components/form/GenericForm";
+import {
+  showErrorAlert,
+  showSuccessAlert,
+} from "@/components/shared/toast/ToastSuccess";
 import {
   Card,
   CardContent,
@@ -10,23 +15,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { GenericForm, GenericFormRef } from "@/components/form/GenericForm";
-import { loginSchema } from "@/schema/loginAndRegister/loginSchema";
-import { z } from "zod";
-import { useRef, useState } from "react";
-import { TextField } from "@/components/form/fields/TextField";
-import { SubmitButton } from "@/components/form/fields/SubmitButton";
-import { useMutation } from "@tanstack/react-query";
-import { GoEye, GoEyeClosed } from "react-icons/go";
-import {
-  showErrorAlert,
-  showSuccessAlert,
-} from "@/components/shared/toast/ToastSuccess";
 import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
+import { loginSchema } from "@/schema/loginAndRegister/loginSchema";
 import { LoginResponse } from "@/types/loginType/loginType";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import { GoEye, GoEyeClosed } from "react-icons/go";
+import { z } from "zod";
 
 type FormType = z.infer<typeof loginSchema>;
 
@@ -86,7 +86,7 @@ export default function LoginPage() {
         </Link>
       </div>
 
-      <Card className="w-full max-w-md bg-[#041746] text-white">
+      <Card className="w-full max-w-md bg-[#041746] text-white rounded-sm mt-5">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-white">Login</CardTitle>
           <CardDescription className="text-white/70">
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 name="email"
                 label="Email"
                 type="email"
-                placeholder="xyz@gmail.com"
+                placeholder="Enter your email"
                 inputClass="px-3 text-gray-900"
                 labelClass=""
               />

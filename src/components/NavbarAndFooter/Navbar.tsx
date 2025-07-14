@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "../ui/button";
-import { Menu, X } from "lucide-react";
-import MainContainer from "../shared/container/MainContainer";
-import Link from "next/link";
-import Image from "next/image";
 import clsx from "clsx";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import MainContainer from "../shared/container/MainContainer";
+import { Button } from "../ui/button";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -104,7 +104,7 @@ const Navbar = ({ token }: { token: string | undefined }) => {
               className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold text-sm"
               onClick={handleRedirect}
             >
-              {token ? "Dashboard" : "Buy BIZ Node"}
+              {token ? "Dashboard" : "Login"}
             </Button>
           </div>
         </div>
