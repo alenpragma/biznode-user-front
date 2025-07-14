@@ -1,10 +1,10 @@
+import MainContainer from "@/components/shared/container/MainContainer";
 import { Button } from "@/components/ui/button";
 import { Images } from "@/lib/images";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import MainContainer from "@/components/shared/container/MainContainer";
-import { FaFireFlameCurved } from "react-icons/fa6";
 import Link from "next/link";
+import { FaFireFlameCurved } from "react-icons/fa6";
 
 const HeroSection = ({ token }: { token: string | undefined }) => {
   return (
@@ -30,29 +30,31 @@ const HeroSection = ({ token }: { token: string | undefined }) => {
                   ecosystem powering 20+ utility coins, nodes, and staking
                   income.
                 </p>
-                <Link href={!token ? "/sign-up" : "/dashboard"}>
-                  {" "}
-                  <Button
-                    size="lg"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg"
+                <div className="flex flex-col md:flex-row gap-2">
+                  <Link href={!token ? "/sign-up" : "/dashboard"}>
+                    {" "}
+                    <Button
+                      size="lg"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 text-lg"
+                    >
+                      Get Started
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </Link>
+                  <a
+                    href="/biznode_whitepaper.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-                <a
-                  href="/biznode_whitepaper.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    size="lg"
-                    className="bg-white hover:bg-[#b8b8b8] text-black font-semibold px-8 py-4 text-lg ml-5"
-                  >
-                    Business Plan
-                    <ArrowDown className="ml-2 w-5 h-5" />
-                  </Button>
-                </a>
+                    <Button
+                      size="lg"
+                      className="bg-white hover:bg-[#b8b8b8] text-black font-semibold px-8 py-4 text-lg"
+                    >
+                      Business Plan
+                      <ArrowDown className="ml-2 w-5 h-5" />
+                    </Button>
+                  </a>
+                </div>
               </div>
               <div className="">
                 <Image
