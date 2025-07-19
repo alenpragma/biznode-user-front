@@ -31,7 +31,7 @@ export default function WalletPage() {
   const [showBalance, setShowBalance] = useState(true);
   const { copy, copied } = CopyToClipboard();
 
-  const { data: dashboard, isLoading } = useGetData<TUserProfileResponse>(
+  const { data: dashboard, isLoading, refetch } = useGetData<TUserProfileResponse>(
     ["profile"],
     `/profile`
   );
@@ -280,7 +280,7 @@ export default function WalletPage() {
                   value="withdraw"
                   className="space-y-4 lg:space-y-6"
                 >
-                  <Withraw />
+                  <Withraw refetch={refetch}/>
                 </TabsContent>
 
                 {/* swap Tab */}
@@ -289,7 +289,7 @@ export default function WalletPage() {
                   className="space-y-4 lg:space-y-6"
                 >
                   {/* swap */}
-                  <Swap />
+                  <Swap refetch={refetch}/>
                 </TabsContent>
               </Tabs>
             </CardContent>

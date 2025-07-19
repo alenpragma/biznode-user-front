@@ -16,7 +16,7 @@ export const initialSwapValues: FormType = {
   amount: "",
 };
 
-const Swap = () => {
+const Swap = ({ refetch }: { refetch: () => void }) => {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType | React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +29,7 @@ const Swap = () => {
     onSuccess: (data: ConversionResponse) => {
       if (data.data.status === true) {
         showSuccessAlert(data?.data?.message);
+        refetch();
         formRef.current?.reset();
       } else {
         showErrorAlert(data.data.message);
