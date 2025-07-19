@@ -59,7 +59,7 @@ export default function LoginPage() {
 
     onError: (err: AxiosError<{ message: string }>) => {
       console.error("Login failed", err);
-      showErrorAlert(err.response?.data.message || err.message);
+      showErrorAlert(err.response?.data.message || "Something went wrong");
     },
   });
 

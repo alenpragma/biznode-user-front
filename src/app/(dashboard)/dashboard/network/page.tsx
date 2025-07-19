@@ -21,6 +21,19 @@ import { cn } from "@/lib/utils";
 import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { TReferralType } from "@/types/my-referral/myReferralType";
 
+export type LevelInfo = {
+  total: number;
+  totalInvestment: number;
+};
+
+export type LevelDataResponse = {
+  status: true;
+  data: {
+    Level1: LevelInfo;
+    Level2: LevelInfo;
+  };
+};
+
 export default function NetworkPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -58,6 +71,9 @@ export default function NetworkPage() {
     ["directRefer"],
     `/direct-refer`
   );
+  const { data: network, isLoading: networkLoading } =
+    useGetData<LevelDataResponse>(["network"], `/network`);
+  const networkData = network?.data;
   const { data: teamMember, isLoading: teamLoading } =
     useGetData<TUserResponse>(["team"], `/team`);
 
@@ -72,17 +88,17 @@ export default function NetworkPage() {
     {
       level: 1,
       members: userData?.directRefer,
-      investment: "0,00 BIZT",
-      earnings: "0.00 BIZT",
+      investment: `${networkData?.Level1.total} BIZT`,
+      earnings: `${networkData?.Level1.totalInvestment} BIZT`,
     },
     {
       level: 2,
       members: 0,
-      investment: "0.00 BIZT",
-      earnings: "0.00 BIZT",
+      investment: `${networkData?.Level2.total} BIZT`,
+      earnings: `${networkData?.Level2.totalInvestment} BIZT`,
     },
   ];
-  if (isLoading && teamLoading) {
+  if (isLoading && teamLoading && networkLoading) {
     return <LoadingContainer />;
   }
 

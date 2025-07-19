@@ -127,3 +127,22 @@
  padding: auto;
 }
 /* ********************* toast style */
+
+
+
+/* -----------------------------swal */
+.swal2-html-container {
+  padding: 8px !important;
+  background: transparent;
+}
+.swal2-show {
+  padding: 0px !important;
+}
+.swal2-popup {
+  width: auto !important;
+  max-width: none !important;
+}
+.custom-swal {
+  background-color: #7878781c !important;
+}
+/* -----------------------------swal */
