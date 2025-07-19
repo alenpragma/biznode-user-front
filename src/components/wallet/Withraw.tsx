@@ -20,7 +20,7 @@ import { SubmitButton } from "../form/fields/SubmitButton";
 
 export type FormType = z.infer<typeof withdrawSchema>;
 
-const Withraw = () => {
+const Withraw = ({ refetch }: { refetch: () => void }) => {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType | React.FormEvent<HTMLFormElement>) => {
@@ -32,6 +32,7 @@ const Withraw = () => {
     },
     onSuccess: (data: WithdrawalResponse) => {
       showSuccessAlert(data?.data?.message);
+      refetch()
       formRef.current?.reset();
     },
 
