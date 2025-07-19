@@ -404,7 +404,7 @@ export default function NetworkPage() {
                                       Investment
                                     </p>
                                     <p className="text-yellow-400 font-bold text-sm lg:text-base">
-                                      {miner.investment}
+                                      ${miner.investment}
                                     </p>
                                   </div>
 
