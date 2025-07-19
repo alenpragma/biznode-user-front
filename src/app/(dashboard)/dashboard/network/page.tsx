@@ -87,15 +87,13 @@ export default function NetworkPage() {
   const levelStats = [
     {
       level: 1,
-      members: userData?.directRefer,
-      investment: `${networkData?.Level1.total} BIZT`,
-      earnings: `${networkData?.Level1.totalInvestment} BIZT`,
+      members: `${networkData?.Level2.total}`,
+      investment: `${networkData?.Level1.totalInvestment}`,
     },
     {
       level: 2,
-      members: 0,
-      investment: `${networkData?.Level2.total} BIZT`,
-      earnings: `${networkData?.Level2.totalInvestment} BIZT`,
+      members: `${networkData?.Level2.total}`,
+      investment: `${networkData?.Level2.totalInvestment}`,
     },
   ];
   if (isLoading && teamLoading && networkLoading) {
@@ -227,7 +225,7 @@ export default function NetworkPage() {
                           {level.members}
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-yellow-400 font-bold text-sm lg:text-base">
-                          {level.investment}
+                          {level.investment} BIZT
                         </td>
                       </tr>
                     ))}
