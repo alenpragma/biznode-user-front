@@ -8,134 +8,130 @@ import {
 
 const FaqSection = () => {
   return (
-    <section id="faq" className="py-20 bg-gray-50">
+    <section id="faq" className="py-20 bg-gray-900">
       <MainContainer>
-        {" "}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-50 mb-6">
             Frequently Asked Questions
           </h2>
         </div>
         <div className="max-w-4xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
+            {/* FAQ 1 */}
             <AccordionItem
               value="item-1"
-              className="bg-white border border-gray-200 rounded-lg px-6"
+              className="bg-gray-700 text-white border border-gray-200 rounded-lg px-6"
             >
               <AccordionTrigger className="text-left">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">
                     ?
                   </div>
                   <span className="text-lg font-semibold">
-                    What is ICO Biz Node
+                    Why should I buy BIZ Node?
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pt-4 pb-6">
                 <div className="pl-9 border-l-4 border-blue-500 ml-3">
-                  <p className="text-gray-600">
-                    Join our limited-time token sale and be part of the Biz Node
-                    ecosystem powering 20+ utility coins, nodes, and staking
-                    income. Join our limited-time token sale and be part of the
-                    Biz Node ecosystem powering 20+ utility coins, nodes, and
-                    staking income.
+                  <p className="text-gray-300">
+                    Because early movers earn the most! BIZ Node is your opportunity to secure a spot in a growing blockchain ecosystem and start earning passive crypto rewards from day one.
                   </p>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
+            {/* FAQ 2 */}
             <AccordionItem
               value="item-2"
-              className="bg-white border border-gray-200 rounded-lg px-6"
+              className="bg-gray-700 text-white border border-gray-200 rounded-lg px-6"
             >
               <AccordionTrigger className="text-left">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">
                     ?
                   </div>
                   <span className="text-lg font-semibold">
-                    Which cryptocurrency is best to buy today?
+                    Can I really earn daily rewards?
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pt-4 pb-6">
                 <div className="pl-9 border-l-4 border-blue-500 ml-3">
-                  <p className="text-gray-600">
-                    BIZT offers unique utility and staking opportunities in the
-                    current market.
+                  <p className="text-gray-300">
+                    Yes! With a one-time node purchase, you unlock daily BIZT income for up to 3/5 years—no tech skills needed, just smart buy.
                   </p>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
+            {/* FAQ 3 */}
             <AccordionItem
               value="item-3"
-              className="bg-white border border-gray-200 rounded-lg px-6"
+              className="bg-gray-700 text-white border border-gray-200 rounded-lg px-6"
             >
               <AccordionTrigger className="text-left">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">
                     ?
                   </div>
                   <span className="text-lg font-semibold">
-                    How about day trading crypto?
+                    What makes BIZ Node different?
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pt-4 pb-6">
                 <div className="pl-9 border-l-4 border-blue-500 ml-3">
-                  <p className="text-gray-600">
-                    Our platform supports various trading strategies including
-                    day trading with advanced tools.
+                  <p className="text-gray-300">
+                    BIZ Node combines real utility, a powerful ecosystem, and rewarding incentives—making it one of the most accessible and profitable node-based platforms today.
                   </p>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
+            {/* FAQ 4 */}
             <AccordionItem
               value="item-4"
-              className="bg-white border border-gray-200 rounded-lg px-6"
+              className="bg-gray-700 text-white border border-gray-200 rounded-lg px-6"
             >
               <AccordionTrigger className="text-left">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">
                     ?
                   </div>
                   <span className="text-lg font-semibold">
-                    When to sell a cryptocurrency?
+                    Is this a long-term opportunity?
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pt-4 pb-6">
                 <div className="pl-9 border-l-4 border-blue-500 ml-3">
-                  <p className="text-gray-600">
-                    Timing depends on your investment strategy and market
-                    conditions. Our platform provides analytics to help.
+                  <p className="text-gray-300">
+                    Absolutely. Our 3–5 year reward cycles, expanding ecosystem, and validator program are built for sustainable, long-term income and growth.
                   </p>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
+            {/* FAQ 5 */}
             <AccordionItem
               value="item-5"
-              className="bg-white border border-gray-200 rounded-lg px-6"
+              className="bg-gray-700 text-white border border-gray-200 rounded-lg px-6"
             >
               <AccordionTrigger className="text-left">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-black">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">
                     ?
                   </div>
                   <span className="text-lg font-semibold">
-                    What is ICO Crypto?
+                    Who is BIZ Node perfect for?
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pt-4 pb-6">
                 <div className="pl-9 border-l-4 border-blue-500 ml-3">
-                  <p className="text-gray-600">
-                    ICO stands for Initial Coin Offering, a fundraising method
-                    for new cryptocurrency projects.
+                  <p className="text-gray-300">
+                    Anyone with big dreams and bold goals—entrepreneurs, crypto believers, team builders, or anyone ready to create financial freedom through blockchain.
                   </p>
                 </div>
               </AccordionContent>
@@ -146,4 +142,5 @@ const FaqSection = () => {
     </section>
   );
 };
+
 export default FaqSection;
