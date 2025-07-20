@@ -160,7 +160,7 @@ export default function HodeHisotoryComponents({
                   </TData>
                   <TData className=" text-green-400 font-medium">
                     {" "}
-                    {item.total_due_day} days
+                    {Number(item.total_due_day).toLocaleString()} days
                   </TData>
                   <TData>
                     {" "}

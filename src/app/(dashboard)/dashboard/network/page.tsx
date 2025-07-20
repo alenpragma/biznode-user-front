@@ -87,7 +87,7 @@ export default function NetworkPage() {
   const levelStats = [
     {
       level: 1,
-      members: `${networkData?.Level2.total}`,
+      members: `${networkData?.Level1.total}`,
       investment: `${networkData?.Level1.totalInvestment}`,
     },
     {
