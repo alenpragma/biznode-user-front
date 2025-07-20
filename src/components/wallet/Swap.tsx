@@ -1,5 +1,5 @@
 import { swapSchema } from "@/schema/wallet";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import z from "zod";
 import { TextField } from "../form/fields/TextField";
 import { GenericForm, GenericFormRef } from "../form/GenericForm";
@@ -44,6 +44,14 @@ const Swap = ({ refetch }: { refetch: () => void }) => {
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
     mutate(data);
   };
+  const [amount, setAmount] = useState<number | undefined>(undefined);
+
+  const handleChange = (value: string | File | undefined) => {
+    if (typeof value === "string") {
+      const num = Number(value);
+      setAmount(isNaN(num) ? undefined : num);
+    }
+  };
   return (
     <div>
       <GenericForm
@@ -59,8 +67,11 @@ const Swap = ({ refetch }: { refetch: () => void }) => {
             type="number"
             placeholder="00.00"
             inputClass="bg-gray-700 border-gray-600 text-white"
+            onChange={handleChange}
           />
-
+          <p className="text-white font-medium text-[14px]">
+            You'll receive amount : {Number(amount) * 0.02} USDT
+          </p>
           <SubmitButton
             width="full"
             label="Swap Now"
