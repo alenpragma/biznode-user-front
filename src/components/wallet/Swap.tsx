@@ -70,7 +70,7 @@ const Swap = ({ refetch }: { refetch: () => void }) => {
             onChange={handleChange}
           />
           <p className="text-white font-medium text-[14px]">
-            You'll receive amount : {Number(amount) * 0.02} USDT
+            {`You'll receive amount`} : {Number(amount) * 0.02} USDT
           </p>
           <SubmitButton
             width="full"
