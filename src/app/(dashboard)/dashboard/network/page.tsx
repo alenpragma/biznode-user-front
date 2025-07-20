@@ -155,7 +155,7 @@ export default function NetworkPage() {
                     Team Earnings
                   </span>
                   <span className="text-yellow-400 font-bold text-sm lg:text-lg">
-                    {userData?.totalEarning} BIZT
+                    {userData?.totalEarning.toLocaleString()} BIZT
                   </span>
                 </div>
               </CardContent>
