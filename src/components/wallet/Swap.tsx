@@ -44,7 +44,7 @@ const Swap = ({ refetch }: { refetch: () => void }) => {
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
     mutate(data);
   };
-  const [amount, setAmount] = useState<number | undefined>(undefined);
+  const [amount, setAmount] = useState<number | undefined>(0);
 
   const handleChange = (value: string | File | undefined) => {
     if (typeof value === "string") {
