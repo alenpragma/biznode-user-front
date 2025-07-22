@@ -33,9 +33,8 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
                     item.type === "+" ? "text-green-500" : "text-red-500"
                   )}
                 >
-                  {`(${item.type})`}{" "}
-                  {item.remark !== "referral_commission" ? "$" : "BIZT"}{" "}
-                  {item.amount}
+                  {`(${item.type})`} {item.amount}
+                  {` `} {item.currency}
                 </TData>
                 <TData>
                   {item.status === "Completed" ? (
