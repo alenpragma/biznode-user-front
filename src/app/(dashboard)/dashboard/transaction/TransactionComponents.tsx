@@ -26,7 +26,9 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
             {transactionHistory?.data.map((item) => (
               <tr key={item.id}>
                 <TData>{formatDate(item.created_at)}</TData>
-                <TData>{item.remark}</TData>
+                <TData>
+                  {item.remark === "interest" ? "Block Reward" : item.remark}
+                </TData>
                 <TData
                   className={cn(
                     "font-medium",
