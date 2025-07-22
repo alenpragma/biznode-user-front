@@ -12,7 +12,7 @@ const Status = ({ title }: { title: string }) => {
           (title === "In Active" &&
             "text-[#FFA800]   w-fit"),
         title === "Completed" && " border-[#7EDAC5] text-[#21a439] w-fit",
-        title === "paid" && "text-[#21a439] w-fit",
+        title === "Paid" && "text-[#21a439] w-fit",
         title === "Pending" && "text-[#FFA800] w-fit",
         title === "Expired" && "text-[#f62d2d] w-fit",
         title === "Canceled" && "text-[#f62d2d] w-fit",

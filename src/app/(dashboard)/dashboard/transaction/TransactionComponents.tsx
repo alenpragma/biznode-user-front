@@ -26,7 +26,6 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
             {transactionHistory?.data.map((item) => (
               <tr key={item.id}>
                 <TData>{formatDate(item.created_at)}</TData>
-
                 <TData>{item.remark}</TData>
                 <TData
                   className={cn(
@@ -41,8 +40,10 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
                 <TData>
                   {item.status === "Completed" ? (
                     <Status title="Completed" />
-                  ) : item.status === "Completed" ? (
+                  ) : item.status === "Pending" ? (
                     <Status title="Pending" />
+                  ) : item.status === "Paid" ? (
+                    <Status title="Paid" />
                   ) : (
                     <Status title="Rejected" />
                   )}
