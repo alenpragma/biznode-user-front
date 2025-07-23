@@ -27,7 +27,11 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
               <tr key={item.id}>
                 <TData>{formatDate(item.created_at)}</TData>
                 <TData>
-                  {item.remark === "interest" ? "Block Reward" : item.remark}
+                  {item.remark === "interest"
+                    ? "Block Reward"
+                    : item.remark === "referral_commission"
+                    ? "Generation Income"
+                    : item.remark}
                 </TData>
                 <TData
                   className={cn(
