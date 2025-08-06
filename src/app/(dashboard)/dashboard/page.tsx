@@ -69,9 +69,9 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <p className="text-[14px] font-bold text-white">
-                  Available:  {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
+                      Available: {Number(userProfile?.bizt_wallet).toFixed(3)}{" "}
+                      BIZT
                     </p>
-              
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
@@ -84,10 +84,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="mt-1 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                   Value
+                    Value
                   </span>
                   <span className="text-yellow-400 font-bold text-base">
-                   ${Number(userProfile?.bizt_wallet) * 0.02}
+                    ${Number(userProfile?.bizt_wallet) * 0.02}
                   </span>
                 </div>
               </CardContent>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <p className="text-lg lg:text-xl font-bold text-white">
-                     Available USDT
+                      Available USDT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
                       {Number(userProfile?.usdt_wallet).toFixed(3)} USDT
@@ -273,7 +273,11 @@ export default function DashboardPage() {
                     >
                       <div>
                         <p className="text-white font-semibold text-sm lg:text-base">
-                          {activity.remark}
+                          {activity.remark === "interest"
+                            ? "Block Reward"
+                            : activity.remark === "referral_commission"
+                            ? "Generation Income"
+                            : activity.remark}{" "}
                         </p>
                         <p className="text-gray-300 text-xs lg:text-sm">
                           {activity.details}
