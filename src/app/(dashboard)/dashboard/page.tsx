@@ -68,8 +68,8 @@ export default function DashboardPage() {
                     <Cpu className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                    <p className="text-md font-bold text-white">
-                      {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
+                    <p className="text-[16px] font-bold text-white">
+                    {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
                       ${Number(userProfile?.bizt_wallet) * 0.02} USDT
@@ -347,25 +347,27 @@ export default function DashboardPage() {
                     </span>
                   </div>
                 </div>
-                <div className="text-white font-medium  gap-3 mt-5 border border-gray-300 p-3 rounded-lg">
-                  Referral Link : <br />
-                  <p className="">
-                    <span className="text-yellow-500">
-                      https://www.biznode.io/sign-up?ref=
-                      {dashboard?.data.user.refer_code}
-                    </span>
-                    <span
-                      className=" cursor-pointer border border-gray-300 rounded px-4 py-1 text-[12px] ml-5"
-                      onClick={() =>
-                        copy(
-                          `https://www.biznode.io/sign-up?ref=${dashboard?.data.user.refer_code}`
-                        )
-                      }
-                    >
-                      {copied ? "Copied" : "Copy"}
-                    </span>
-                  </p>
-                </div>
+                {dashboard?.data.user.is_active === "1" && (
+                  <div className="text-white font-medium  gap-3 mt-5 border border-gray-300 p-3 rounded-lg">
+                    Referral Link : <br />
+                    <p className="">
+                      <span className="text-yellow-500">
+                        https://www.biznode.io/sign-up?ref=
+                        {dashboard?.data.user.refer_code}
+                      </span>
+                      <span
+                        className=" cursor-pointer border border-gray-300 rounded px-4 py-1 text-[12px] ml-5"
+                        onClick={() =>
+                          copy(
+                            `https://www.biznode.io/sign-up?ref=${dashboard?.data.user.refer_code}`
+                          )
+                        }
+                      >
+                        {copied ? "Copied" : "Copy"}
+                      </span>
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

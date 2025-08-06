@@ -86,7 +86,9 @@ export default function ProfilePage() {
                       {userData?.user.name}
                     </h3>
                     <div className="flex justify-center sm:justify-start gap-2">
-                      <Badge className="bg-yellow-500 text-black">Validator</Badge>
+                      <Badge className="bg-yellow-500 text-black">
+                        Validator
+                      </Badge>
                       <Badge className="bg-red-500 text-white">
                         KYC Not Verified
                       </Badge>{" "}
@@ -104,36 +106,38 @@ export default function ProfilePage() {
                         {formatDate(userData?.user.created_at)}
                       </p>
                     </div>
-                    <div>
+                    {/* <div>
                       <p className="text-gray-400 text-xs lg:text-sm">
                         Last Login
                       </p>
                       <p className="text-white font-bold text-sm lg:text-base">
                         {profileData.lastLogin}
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
-              <div className="text-white font-medium flex md:justify-start justify-center gap-3 mt-5 md:pl-20 text-center">
-                <span>
-                  Referral Link :{" "}
-                  <span className="text-yellow-500">
-                    https://www.biznode.io/sign-up?ref=$
-                    {userData?.user.refer_code}
+              {userData?.user.is_active === "1" && (
+                <div className="text-white font-medium flex md:justify-start justify-center gap-3 mt-5 md:pl-20 text-center">
+                  <span>
+                    Referral Link :{" "}
+                    <span className="text-yellow-500">
+                      https://www.biznode.io/sign-up?ref=$
+                      {userData?.user.refer_code}
+                    </span>
                   </span>
-                </span>
-                <span
-                  className=" cursor-pointer border border-red-300 rounded px-4 py-0.5 text-[12px] "
-                  onClick={() =>
-                    copy(
-                      `https://www.biznode.io/sign-up?ref=${userData?.user.refer_code}`
-                    )
-                  }
-                >
-                  {copied ? "Copied" : "Copy"}
-                </span>
-              </div>
+                  <span
+                    className=" cursor-pointer border border-red-300 rounded px-4 py-0.5 text-[12px] "
+                    onClick={() =>
+                      copy(
+                        `https://www.biznode.io/sign-up?ref=${userData?.user.refer_code}`
+                      )
+                    }
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </span>
+                </div>
+              )}
             </CardContent>
           </Card>
 
