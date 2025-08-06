@@ -68,20 +68,17 @@ export default function DashboardPage() {
                     <Cpu className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                    <p className="text-[14px] font-bold text-white">
-                      Available: {Number(userProfile?.bizt_wallet).toFixed(3)}{" "}
-                      BIZT
+                  <div>
+                    <p className="text-lg lg:text-xl font-bold text-white">
+                      Available BIZT
+                    </p>
+                    <p className="text-gray-300 text-sm lg:text-base">
+                      {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </p>
                   </div>
+                  </div>
                 </div>
-                <div className="mt-3 lg:mt-4 flex justify-between items-center">
-                  <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    BIZT Price
-                  </span>
-                  <span className="text-yellow-400 font-bold text-base">
-                    $0.02
-                  </span>
-                </div>
+       
                 <div className="mt-1 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
                     Value
@@ -105,16 +102,16 @@ export default function DashboardPage() {
                       Available USDT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      {Number(userProfile?.usdt_wallet).toFixed(3)} USDT
+                      ${Number(userProfile?.usdt_wallet).toFixed(3)} USDT
                     </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    Total Value
+                    BIZT Price
                   </span>
-                  <span className="text-white font-bold text-base lg:text-lg">
-                    ${Number(userProfile?.totalEarning.toFixed(2)) * 0.02}
+                  <span className="text-yellow-400 font-bold text-base">
+                    $0.02
                   </span>
                 </div>
               </CardContent>
@@ -131,6 +128,9 @@ export default function DashboardPage() {
                     <p className="text-lg lg:text-xl font-bold text-white">
                       Total Earned
                     </p>
+                    <p className="text-gray-300 text-sm lg:text-base">
+                      {Number(userProfile?.totalEarning).toFixed(3)} BIZT
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 space-y-2">
@@ -145,6 +145,14 @@ export default function DashboardPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-300 font-medium text-sm lg:text-base">
                       Generation Income
+                    </span>
+                    <span className="text-white font-bold text-sm lg:text-base">
+                      {0} BIZT
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300 font-medium text-sm lg:text-base">
+                      Total Block Reward
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
                       {0} BIZT
