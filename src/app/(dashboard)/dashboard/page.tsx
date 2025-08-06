@@ -68,20 +68,26 @@ export default function DashboardPage() {
                     <Cpu className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                    <p className="text-[16px] font-bold text-white">
-                    {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
+                    <p className="text-[14px] font-bold text-white">
+                  Available:  {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </p>
-                    <p className="text-gray-300 text-sm lg:text-base">
-                      ${Number(userProfile?.bizt_wallet) * 0.02} USDT
-                    </p>
+              
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
                     BIZT Price
                   </span>
-                  <span className="text-yellow-400 font-bold text-base lg:text-lg">
+                  <span className="text-yellow-400 font-bold text-base">
                     $0.02
+                  </span>
+                </div>
+                <div className="mt-1 flex justify-between items-center">
+                  <span className="text-gray-300 font-medium text-sm lg:text-base">
+                   Value
+                  </span>
+                  <span className="text-yellow-400 font-bold text-base">
+                   ${Number(userProfile?.bizt_wallet) * 0.02}
                   </span>
                 </div>
               </CardContent>
@@ -96,10 +102,10 @@ export default function DashboardPage() {
                   </div>
                   <div>
                     <p className="text-lg lg:text-xl font-bold text-white">
-                      Earned Reward
+                     Available USDT
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      {userProfile?.totalEarning} BIZT
+                      {Number(userProfile?.usdt_wallet).toFixed(3)} USDT
                     </p>
                   </div>
                 </div>
@@ -132,8 +138,8 @@ export default function DashboardPage() {
                     <span className="text-gray-300 font-medium text-sm lg:text-base">
                       Refer Income
                     </span>
-                    <span className="text-white font-bold text-sm lg:text-base">
-                      {userProfile?.totalReferBonus} BIZT
+                    <span className="text-white font-bold text-sm">
+                      {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -281,11 +287,8 @@ export default function DashboardPage() {
                             : "text-yellow-500"
                         )}
                       >
-                        {`(${activity.type})`}{" "}
-                        {activity.remark !== "referral_commission"
-                          ? "$"
-                          : "BIZT"}{" "}
-                        {activity.amount}
+                        {`(${activity.type})`} {activity.amount}
+                        {` `} {activity.currency}
                       </span>
                     </div>
                   ))}
