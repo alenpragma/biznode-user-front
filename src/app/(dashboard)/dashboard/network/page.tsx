@@ -37,14 +37,6 @@ export type LevelDataResponse = {
 export default function NetworkPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const networkStats = {
-    totalTeamMembers: 156,
-    activeMiners: 98,
-    inactiveMiners: 58,
-    totalTeamInvestment: "2,450,000 BIZT",
-    teamEarnings: "345,000 BIZT",
-    monthlyVolume: "0.00 BIZT",
-  };
 
   // const filteredInactiveMiners = inactiveMiners.filter(
   //   (miner) =>
@@ -146,13 +138,13 @@ export default function NetworkPage() {
                       ${userData?.totalInvestment}
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      Total Team Investment
+                      Personal Investment
                     </p>
                   </div>
                 </div>
                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    Team Earnings
+                    Total Earnings
                   </span>
                   <span className="text-yellow-400 font-bold text-sm lg:text-lg">
                     {userData?.totalEarning.toLocaleString()} BIZT
@@ -170,10 +162,10 @@ export default function NetworkPage() {
                   </div>
                   <div>
                     <p className="text-lg lg:text-2xl font-bold text-white">
-                      {networkStats.monthlyVolume}
+                    ${Number(Number(userData?.teamInvest ?? 0).toFixed(2)).toLocaleString()}
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      Monthly Volume
+                      Total Team Investment
                     </p>
                   </div>
                 </div>
@@ -225,7 +217,7 @@ export default function NetworkPage() {
                           {level.members}
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-yellow-400 font-bold text-sm lg:text-base">
-                          {level.investment} BIZT
+                          ${level.investment} USDT
                         </td>
                       </tr>
                     ))}

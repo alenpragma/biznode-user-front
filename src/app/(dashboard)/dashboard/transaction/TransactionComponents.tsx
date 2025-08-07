@@ -21,7 +21,7 @@ const TransactionHistory = ({ pageNumber }: { pageNumber: string }) => {
         <p className="text-center text-gray-400">No transaction history</p>
       ) : (
         <div className="py-5">
-          <h6 className="text-[20px] pb-5 text-white">Transaction Hitory</h6>
+          <h6 className="text-[20px] pb-5 text-white">Transaction History</h6>
           <UseTable headers={headers} className="rounded-md">
             {transactionHistory?.data.map((item) => (
               <tr key={item.id}>

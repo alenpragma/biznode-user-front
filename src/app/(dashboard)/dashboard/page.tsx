@@ -84,7 +84,7 @@ export default function DashboardPage() {
                     Value
                   </span>
                   <span className="text-yellow-400 font-bold text-base">
-                    ${Number(userProfile?.bizt_wallet) * 0.02}
+                    ${(Number(userProfile?.bizt_wallet) * 0.02).toFixed(3)}
                   </span>
                 </div>
               </CardContent>
@@ -147,7 +147,7 @@ export default function DashboardPage() {
                       Generation Income
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      {0} BIZT
+                      {userProfile?.generation_income} BIZT
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -284,6 +284,8 @@ export default function DashboardPage() {
                           {activity.remark === "interest"
                             ? "Block Reward"
                             : activity.remark === "referral_commission"
+                            ? "Referral Income"
+                            : activity.remark === "generation_income"
                             ? "Generation Income"
                             : activity.remark}{" "}
                         </p>

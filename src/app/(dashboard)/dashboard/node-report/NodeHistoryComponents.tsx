@@ -96,10 +96,11 @@ export default function HodeHisotoryComponents({
             </div>
             <div className="mt-3 lg:mt-4 flex justify-between items-center">
               <span className="text-gray-300 font-medium text-sm lg:text-base">
-                Total Rewards
+                Earned Block Rewards
               </span>
               <span className="text-yellow-400 font-bold text-base lg:text-lg">
-                {Number(userData?.totalEarning)} BIZT
+              {Number(Number(userData?.reward).toFixed(3)).toLocaleString()} BIZT
+
               </span>
             </div>
           </CardContent>
@@ -113,9 +114,14 @@ export default function HodeHisotoryComponents({
                 <Activity className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
               </div>
               <div>
-                <p className="text-xl lg:text-2xl font-bold text-white">{}</p>
+                <p className="text-xl lg:text-2xl font-bold text-white">
+                  Total Earned
+                </p>
                 <p className="text-gray-300 text-sm lg:text-base">
-                  Average Uptime
+                  {userData?.totalEarning != null
+                    ? Number(userData.totalEarning.toFixed(3)).toLocaleString()
+                    : "0.000"}{" "}
+                  BIZT
                 </p>
               </div>
             </div>

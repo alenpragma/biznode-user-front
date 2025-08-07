@@ -36,4 +36,5 @@ export type TUserProfile = {
     totalDeposit: number;
     totalEarning: number;
     totalReferBonus: number;
+    generation_income : number
 };

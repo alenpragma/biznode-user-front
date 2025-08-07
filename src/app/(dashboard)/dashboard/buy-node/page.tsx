@@ -173,15 +173,15 @@ export default function BuyNodePage() {
                             </span>{" "}
                             {item.interest_rate}%
                           </div>
-                          <div>
-                            <span className="font-semibold text-white">
+                          <div className="capitalize">
+                            <span className="font-semibold text-white ">
                               Return:
                             </span>{" "}
                             {item.return_type}
                           </div>
                           <div>
                             <span className="font-semibold text-white">
-                              Status:
+                              Node Status:
                             </span>{" "}
                             <span
                               className={
@@ -191,6 +191,14 @@ export default function BuyNodePage() {
                               }
                             >
                               {item.active === "1" ? "Active" : "Inactive"}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-white">
+                              Duration:
+                            </span>{" "}
+                            <span>
+                              {item.type === "master" ? "5 Year" : "3 Years"}
                             </span>
                           </div>
                         </div>
