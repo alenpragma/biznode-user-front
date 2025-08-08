@@ -144,10 +144,10 @@ export default function NetworkPage() {
                 </div>
                <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    Growth
+                    Earned Block Reward
                   </span>
                   <span className="text-green-400 font-bold text-sm lg:text-lg">
-                    +15.2%
+                    {userData?.reward.toLocaleString()} BIZT
                   </span>
                 </div>
               </CardContent>
