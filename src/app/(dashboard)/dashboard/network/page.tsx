@@ -138,16 +138,16 @@ export default function NetworkPage() {
                       ${userData?.totalInvestment}
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      Personal Investment
+                      Personal Purchase
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 lg:mt-4 flex justify-between items-center">
+               <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    Total Earnings
+                    Growth
                   </span>
-                  <span className="text-yellow-400 font-bold text-sm lg:text-lg">
-                    {userData?.totalEarning.toLocaleString()} BIZT
+                  <span className="text-green-400 font-bold text-sm lg:text-lg">
+                    +15.2%
                   </span>
                 </div>
               </CardContent>
@@ -165,18 +165,19 @@ export default function NetworkPage() {
                     ${Number(Number(userData?.teamInvest ?? 0).toFixed(2)).toLocaleString()}
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
-                      Total Team Investment
+                      Total Team Sales
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 lg:mt-4 flex justify-between items-center">
+                 <div className="mt-3 lg:mt-4 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
-                    Growth
+                    Total Earnings
                   </span>
-                  <span className="text-green-400 font-bold text-sm lg:text-lg">
-                    +15.2%
+                  <span className="text-yellow-400 font-bold text-sm lg:text-lg">
+                    {userData?.totalEarning.toLocaleString()} BIZT
                   </span>
                 </div>
+                
               </CardContent>
             </Card>
           </div>
