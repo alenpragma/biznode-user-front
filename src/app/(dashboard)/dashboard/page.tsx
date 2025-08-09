@@ -155,7 +155,7 @@ export default function DashboardPage() {
                       Total Block Reward
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      {0} BIZT
+                      {(userProfile?.reward)?.toLocaleString()} BIZT
                     </span>
                   </div>
                 </div>

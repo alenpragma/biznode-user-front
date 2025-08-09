@@ -218,7 +218,7 @@ export default function NetworkPage() {
                           {level.members}
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-yellow-400 font-bold text-sm lg:text-base">
-                          ${level.investment} USDT
+                          ${Number(level.investment).toLocaleString()} USDT
                         </td>
                       </tr>
                     ))}
