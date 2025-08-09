@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Crown, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+// import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
 import { TNodeResponse } from "@/types/package/packageType";
@@ -143,7 +143,7 @@ export default function BuyNodePage() {
                           </div>
                         </div>
 
-                        <div className="space-y-1">
+                        {/* <div className="space-y-1">
                           <div className="flex justify-between text-sm lg:text-base">
                             <span className="text-gray-300 font-medium">
                               Progress
@@ -164,7 +164,7 @@ export default function BuyNodePage() {
                             {parseInt(item.stock) - parseInt(item.total_sell)}{" "}
                             remaining
                           </div>
-                        </div>
+                        </div> */}
 
                         <div className="grid grid-cols-2 text-sm lg:text-base gap-y-2 text-gray-300">
                           <div>

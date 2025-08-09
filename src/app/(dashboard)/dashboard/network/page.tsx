@@ -65,7 +65,6 @@ export default function NetworkPage() {
   );
   const { data: network, isLoading: networkLoading } =
     useGetData<LevelDataResponse>(["network"], `/network`);
-  const networkData = network?.data;
   const { data: teamMember, isLoading: teamLoading } =
     useGetData<TUserResponse>(["team"], `/team`);
 
@@ -76,18 +75,17 @@ export default function NetworkPage() {
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
-  const levelStats = [
-    {
-      level: 1,
-      members: `${networkData?.Level1.total}`,
-      investment: `${networkData?.Level1.totalInvestment}`,
-    },
-    {
-      level: 2,
-      members: `${networkData?.Level2.total}`,
-      investment: `${networkData?.Level2.totalInvestment}`,
-    },
-  ];
+  type LevelData = {
+    total: number;
+    totalInvestment: number;
+  };
+  
+  const networkData: Record<string, LevelData> = network?.data || {};
+  const levelStats = Object.keys(networkData).map((key) => ({
+    level: key,
+    members: networkData[key]?.total ?? 0,
+    investment: networkData[key]?.totalInvestment ?? 0,
+  }));
   if (isLoading && teamLoading && networkLoading) {
     return <LoadingContainer />;
   }
@@ -201,7 +199,7 @@ export default function NetworkPage() {
                         Members
                       </th>
                       <th className="text-left py-3 px-2 lg:px-4 text-gray-300 font-medium text-sm lg:text-base">
-                        Investment
+                        Sales
                       </th>
                     </tr>
                   </thead>
@@ -211,8 +209,8 @@ export default function NetworkPage() {
                         key={level.level}
                         className="border-b border-gray-700"
                       >
-                        <td className="py-3 px-2 lg:px-4">
-                          {getLevelBadge(level.level)}
+                        <td className="py-3 px-2 lg:px-4 text-white">
+                          {(level.level)}
                         </td>
                         <td className="py-3 px-2 lg:px-4 text-white font-bold text-sm lg:text-base">
                           {level.members}
