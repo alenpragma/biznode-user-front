@@ -178,18 +178,18 @@ export default function DashboardPage() {
                 <div className="mt-3 lg:mt-4 space-y-2">
                   <div className="flex justify-between">
                     <span className="text-green-400 font-medium text-sm lg:text-base">
-                      Active Miners
+                      Total Team
                     </span>
                     <span className="text-white font-bold text-base lg:text-lg">
-                      {userProfile?.total_active_team}
+                      {userProfile?.totalTeam}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-red-400 font-medium text-sm lg:text-base">
-                      Inactive Miners
+                      Direct Team
                     </span>
                     <span className="text-white font-bold text-base lg:text-lg">
-                      {userProfile?.total_inactive_team}
+                      {userProfile?.directRefer}
                     </span>
                   </div>
                 </div>
