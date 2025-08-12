@@ -69,6 +69,7 @@ export const SelectField = <T extends FieldValues>({
             </FormLabel>
           )}
           <Select
+          
             value={field.value}
             disabled={readOnly}
             onValueChange={(value) => {
@@ -77,12 +78,12 @@ export const SelectField = <T extends FieldValues>({
             }}
           >
             <FormControl>
-              <SelectTrigger className="bg-[#F5F5F6]">
+              <SelectTrigger className="bg-[#F5F5F6] w-full">
                 <SelectValue placeholder={placeholder ?? "Select an item"} />
               </SelectTrigger>
             </FormControl>
 
-            <SelectContent>
+            <SelectContent className="w-full">
               {options.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.text}
