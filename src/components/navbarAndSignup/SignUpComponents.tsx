@@ -3,6 +3,8 @@
 import type React from "react";
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Cookies from "js-cookie";
+
 import {
   Card,
   CardContent,
@@ -25,7 +27,7 @@ import {
 } from "@/components/shared/toast/ToastSuccess";
 import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { registerSchema } from "@/schema/loginAndRegister/registerSchema";
-import { LoginResponse } from "@/types/loginType/loginType";
+import { LoginResponse, signUpResponse } from "@/types/loginType/loginType";
 import { AxiosError } from "axios";
 import { APIErrorResponse } from "@/types/signUpType/signUpType";
 import Image from "next/image";
@@ -57,15 +59,20 @@ export default function SignUpComponents() {
     mutationFn: async (
       data: RegisterPayload | React.FormEvent<HTMLFormElement>
     ) => {
-      const response = await axiosInstance.post<LoginResponse>(
+      const response = await axiosInstance.post<signUpResponse>(
         `/register`,
         data
       );
       return response.data;
     },
-    onSuccess: (data: LoginResponse) => {
-      router.push("/login");
-      showSuccessAlert(data?.data.message);
+    onSuccess: (data: signUpResponse) => {
+      if (data.success === true) {
+        Cookies.set("biznode_token", data.data?.token ?? "", {
+          expires: 3,
+        });
+        showSuccessAlert(data.data?.message);
+        router.push("/dashboard")
+      }
     },
     onError: (err: AxiosError<APIErrorResponse>) => {
       console.log("Registration failed", err);
