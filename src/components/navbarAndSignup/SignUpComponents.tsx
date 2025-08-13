@@ -27,7 +27,7 @@ import {
 } from "@/components/shared/toast/ToastSuccess";
 import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
 import { registerSchema } from "@/schema/loginAndRegister/registerSchema";
-import { LoginResponse, signUpResponse } from "@/types/loginType/loginType";
+import { signUpResponse } from "@/types/loginType/loginType";
 import { AxiosError } from "axios";
 import { APIErrorResponse } from "@/types/signUpType/signUpType";
 import Image from "next/image";
