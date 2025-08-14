@@ -169,7 +169,7 @@ export default function BuyNodePage() {
                         <div className="grid grid-cols-2 text-sm lg:text-base gap-y-2 text-gray-300">
                           <div>
                             <span className="font-semibold text-white">
-                              Interest Rate:
+                              Block Reward:
                             </span>{" "}
                             {item.interest_rate}%
                           </div>

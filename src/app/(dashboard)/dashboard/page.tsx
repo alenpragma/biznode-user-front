@@ -70,7 +70,7 @@ export default function DashboardPage() {
                   <div>
                   <div>
                     <p className="text-lg lg:text-xl font-bold text-white">
-                      Available BIZT
+                      BIZT Balance
                     </p>
                     <p className="text-gray-300 text-sm lg:text-base">
                       {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
