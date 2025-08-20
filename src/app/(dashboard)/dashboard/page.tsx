@@ -22,6 +22,7 @@ import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { TTransactionResponse } from "@/types/transactionsHistory/transactionHistory";
 import { cn } from "@/lib/utils";
+import { FaChartPie, FaSellsy } from "react-icons/fa6";
 
 export default function DashboardPage() {
   const chartData = [
@@ -68,17 +69,17 @@ export default function DashboardPage() {
                     <Cpu className="w-6 h-6 lg:w-7 lg:h-7 text-black" />
                   </div>
                   <div>
-                  <div>
-                    <p className="text-lg lg:text-xl font-bold text-white">
-                      BIZT Balance
-                    </p>
-                    <p className="text-gray-300 text-sm lg:text-base">
-                      {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
-                    </p>
-                  </div>
+                    <div>
+                      <p className="text-lg lg:text-xl font-bold text-white">
+                        BIZT Balance
+                      </p>
+                      <p className="text-gray-300 text-sm lg:text-base">
+                        {Number(userProfile?.bizt_wallet).toFixed(3)} BIZT
+                      </p>
+                    </div>
                   </div>
                 </div>
-       
+
                 <div className="mt-1 flex justify-between items-center">
                   <span className="text-gray-300 font-medium text-sm lg:text-base">
                     Value
@@ -155,7 +156,7 @@ export default function DashboardPage() {
                       Total Block Reward
                     </span>
                     <span className="text-white font-bold text-sm lg:text-base">
-                      {(userProfile?.reward)?.toLocaleString()} BIZT
+                      {userProfile?.reward?.toLocaleString()} BIZT
                     </span>
                   </div>
                 </div>
@@ -196,6 +197,66 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
+            {[
+              {
+                id: 1,
+                title: "Current Rank",
+                subtitle: "No Rank",
+                icon: (
+                  <FaChartPie className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                ),
+                link: "/dashboard/buy-node",
+                gradient: "from-pink-400 to-red-500",
+                border: "red-500",
+              },
+              {
+                id: 2,
+                title: "Inactive",
+                subtitle: "00",
+                icon: <Wallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
+                link: "/dashboard/node-report",
+                gradient: "from-indigo-400 to-cyan-500",
+                border: "blue-500",
+              },
+              {
+                id: 3,
+                title: "Current Salary",
+                subtitle: "00",
+                icon: <FaSellsy className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
+                link: "/dashboard/wallet",
+                gradient: "from-amber-400 to-lime-500",
+                border: "cyan-500",
+              },
+            ].map((card) => (
+              <Link key={card.id} href={card.link}>
+                <Card
+                  className={`bg-gray-800 border- py-3 border-${card.border}/30 hover:border-${card.border}/60 cursor-pointer transition-all duration-300 hover:shadow-xl`}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 lg:gap-4">
+                        <div
+                          className={`w-12 h-12 bg-gradient-to-br ${card.gradient} rounded-xl flex items-center justify-center shadow-lg`}
+                        >
+                          {card.icon}
+                        </div>
+                        <div>
+                          <p className="font-bold text-white text-base lg:text-lg">
+                            {card.title}
+                          </p>
+                          <p className="text-gray-300 text-xs lg:text-sm">
+                            {card.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
             <Link href="/dashboard/buy-node">
               <Card className="bg-gray-800 border-2 border-yellow-500/30 hover:border-yellow-500/60 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl">
