@@ -212,8 +212,8 @@ export default function DashboardPage() {
               },
               {
                 id: 2,
-                title: "InCentive",
-                subtitle: "0",
+                title: "Incentive",
+                subtitle: "$0.00",
                 icon: <Wallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
                 link: "/dashboard/node-report",
                 gradient: "from-indigo-400 to-cyan-500",
@@ -222,7 +222,7 @@ export default function DashboardPage() {
               {
                 id: 3,
                 title: "Current Salary",
-                subtitle: "$0",
+                subtitle: "$0.00",
                 icon: <FaSellsy className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
                 link: "/dashboard/wallet",
                 gradient: "from-amber-400 to-lime-500",
