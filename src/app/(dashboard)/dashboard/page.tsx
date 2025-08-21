@@ -22,7 +22,9 @@ import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { TTransactionResponse } from "@/types/transactionsHistory/transactionHistory";
 import { cn } from "@/lib/utils";
-import { FaChartPie, FaSellsy } from "react-icons/fa6";
+import {  FaMoneyCheckDollar, FaRankingStar, FaSellsy } from "react-icons/fa6";
+import { GrMoney } from "react-icons/gr";
+
 
 export default function DashboardPage() {
   const chartData = [
@@ -204,7 +206,7 @@ export default function DashboardPage() {
                 title: "Current Rank",
                 subtitle: "No Rank",
                 icon: (
-                  <FaChartPie className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                  <FaRankingStar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                 ),
                 link: "/dashboard/buy-node",
                 gradient: "from-pink-400 to-red-500",
@@ -212,9 +214,9 @@ export default function DashboardPage() {
               },
               {
                 id: 2,
-                title: "InCentive",
-                subtitle: "0",
-                icon: <Wallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
+                title: "Incentive",
+                subtitle: "$0",
+                icon: <GrMoney className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
                 link: "/dashboard/node-report",
                 gradient: "from-indigo-400 to-cyan-500",
                 border: "blue-500",
@@ -223,7 +225,7 @@ export default function DashboardPage() {
                 id: 3,
                 title: "Current Salary",
                 subtitle: "$0",
-                icon: <FaSellsy className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
+                icon: <FaMoneyCheckDollar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
                 link: "/dashboard/wallet",
                 gradient: "from-amber-400 to-lime-500",
                 border: "cyan-500",
