@@ -18,7 +18,7 @@ import UseTable, { TData } from "@/components/shared/table/UseTable";
 import { useUserStore } from "@/lib/store/userStore";
 
 const headers = [
-  "data",
+  "date",
   "Node Type",
   "Price",
   "Rewards",
