@@ -22,7 +22,7 @@ import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { TTransactionResponse } from "@/types/transactionsHistory/transactionHistory";
 import { cn } from "@/lib/utils";
-import {  FaMoneyCheckDollar, FaRankingStar, FaSellsy } from "react-icons/fa6";
+import {  FaMoneyCheckDollar, FaRankingStar } from "react-icons/fa6";
 import { GrMoney } from "react-icons/gr";
 
 
