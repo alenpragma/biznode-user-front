@@ -132,20 +132,21 @@ export default function LoginPage() {
                 )}
                 <div className="w-full text-end">
                   <Link
-                    className="text-end text-[14px] font-medium "
-                    href="/forgot-password"
+                    className="text-end text-[14px] font-medium"
+                    href="/send-email"
                   >
                     Forgot Password?
                   </Link>
                 </div>
               </div>
-
-              <SubmitButton
-                width="full"
-                label="Login"
-                isLoading={isPending}
-                loadingLabel="Processing.."
-              />
+              <div className="w-full">
+                <SubmitButton
+                  width="full"
+                  label="Login"
+                  isLoading={isPending}
+                  loadingLabel="Processing.."
+                />
+              </div>
             </div>
           </GenericForm>
         </CardContent>

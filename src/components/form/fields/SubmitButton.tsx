@@ -9,6 +9,7 @@ type SubmitButtonProps = ButtonProps & {
   loadingLabel?: string;
   width?: "full" | "auto";
   loadingIconClass?: string;
+  className?: string;
 };
 
 /**
@@ -30,11 +31,12 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
   label = "Save Changes",
   loadingLabel = "Saving...",
   width = "full",
+  className,
   ...props
 }) => {
   return (
     <Button
-      className={cn("w-full", width === "auto" && "w-auto")}
+      className={cn("w-full cursor-pointer", width === "auto" && "w-auto", className)}
       type="submit"
       disabled={isLoading || disabled}
       {...props}
