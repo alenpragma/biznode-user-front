@@ -1,30 +1,30 @@
 "use client";
 
-import {
-  ChevronRight,
-  Users,
-  Award,
-  Server,
-  Cpu,
-  TrendingUp,
-  Wallet,
-} from "lucide-react";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
 import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
+import { useUserStore } from "@/lib/store/userStore";
+import { cn } from "@/lib/utils";
 import {
   TUserProfile,
   TUserProfileResponse,
 } from "@/types/dashboard/dashboardType";
-import { useEffect } from "react";
-import { useUserStore } from "@/lib/store/userStore";
-import LoadingContainer from "@/components/shared/loading/LoadingComponents";
-import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { TTransactionResponse } from "@/types/transactionsHistory/transactionHistory";
-import { cn } from "@/lib/utils";
-import {  FaMoneyCheckDollar, FaRankingStar } from "react-icons/fa6";
+import {
+  Award,
+  ChevronRight,
+  Cpu,
+  Server,
+  TrendingUp,
+  Users,
+  Wallet,
+} from "lucide-react";
+import Link from "next/link";
+import { useEffect } from "react";
+import { FaMoneyCheckDollar, FaRankingStar } from "react-icons/fa6";
 import { GrMoney } from "react-icons/gr";
-
+import { HiMiniWallet } from "react-icons/hi2";
 
 export default function DashboardPage() {
   const chartData = [
@@ -199,7 +199,7 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
             {[
               {
                 id: 1,
@@ -225,9 +225,22 @@ export default function DashboardPage() {
                 id: 3,
                 title: "Current Salary",
                 subtitle: "$0",
-                icon: <FaMoneyCheckDollar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />,
+                icon: (
+                  <FaMoneyCheckDollar className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                ),
                 link: "/dashboard/wallet",
                 gradient: "from-amber-400 to-lime-500",
+                border: "cyan-500",
+              },
+              {
+                id: 4,
+                title: "Micro Wallet",
+                subtitle: `${dashboard?.data.coin_wallet ?? 0}`,
+                icon: (
+                  <HiMiniWallet className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+                ),
+                link: "/dashboard/wallet",
+                gradient: "from-cyan-400 to-lime-500",
                 border: "cyan-500",
               },
             ].map((card) => (
@@ -248,7 +261,11 @@ export default function DashboardPage() {
                             {card.title}
                           </p>
                           <p className="text-gray-300 text-xs lg:text-sm">
-                            {card.subtitle}
+                            {card.title === "Micro Wallet" ? (
+                              <>{Number(card.subtitle).toFixed(3)}</>
+                            ) : (
+                              <> {card.subtitle}</>
+                            )}
                           </p>
                         </div>
                       </div>

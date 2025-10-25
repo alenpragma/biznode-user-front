@@ -22,6 +22,7 @@ export type TUserProfile = {
         created_at: string;
         updated_at: string;
     };
+    coin_wallet: string;
     usdt_wallet: string;
     bizt_wallet: string;
     teamInvest: number;
