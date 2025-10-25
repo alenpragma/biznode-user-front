@@ -1,25 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { Crown, Zap } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Crown, Zap } from "lucide-react";
+import { useState } from "react";
 // import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
-import { TNodeResponse } from "@/types/package/packageType";
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
-import { AxiosError } from "axios";
+import LoadingContainer from "@/components/shared/loading/LoadingComponents";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/components/shared/toast/ToastSuccess";
-import LoadingContainer from "@/components/shared/loading/LoadingComponents";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import axiosInstance from "@/lib/fetch/axiosConfig/axiosConfig";
+import { useGetData } from "@/lib/fetch/axiosConfig/FetchData";
 import { TBuyNode } from "@/types/buynode/buyNodeType";
+import { TNodeResponse } from "@/types/package/packageType";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export default function BuyNodePage() {
-  const [activeTab, setActiveTab] = useState("mini");
+  const [activeTab, setActiveTab] = useState("meme");
 
   const { data: nodePackage, isLoading } = useGetData<TNodeResponse>(
     ["node"],
@@ -60,8 +60,15 @@ export default function BuyNodePage() {
 
   if (isLoading) return <LoadingContainer />;
 
-  const nodeTypes = [...new Set(node?.map((item) => item.type))].reverse();
-  const filteredNodes = node?.filter((item) => item.type === activeTab);
+  const nodeTypes = [
+    ...new Set(
+      node?.map((item) => (item.type === "mini" ? "meme" : item.type))
+    ),
+  ].reverse();
+
+  const filteredNodes = node?.filter(
+    (item) => (item.type === "mini" ? "meme" : item.type) === activeTab
+  );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -110,7 +117,6 @@ export default function BuyNodePage() {
                       className="bg-gray-800 border-3 border-yellow-500 relative overflow-hidden shadow-2xl gap-4"
                     >
                       <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 to-orange-500" />
-
                       <CardHeader className="text-center">
                         <div className="flex justify-center">
                           <div className="w-16 lg:w-20  bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
@@ -125,10 +131,13 @@ export default function BuyNodePage() {
                         <Badge className="bg-yellow-500 text-black font-bold mb-2 text-xs lg:text-sm px-3 py-1">
                           {item.name}
                         </Badge>
-
                         <CardTitle className="text-3xl lg:text-4xl font-bold text-white">
-                          {item.type.charAt(0).toUpperCase() +
-                            item.type.slice(1)}{" "}
+                          {(item.type === "mini" ? "meme" : item.type)
+                            .charAt(0)
+                            .toUpperCase() +
+                            (item.type === "mini" ? "meme" : item.type).slice(
+                              1
+                            )}{" "}
                           Node
                         </CardTitle>
                       </CardHeader>
@@ -168,16 +177,34 @@ export default function BuyNodePage() {
 
                         <div className="grid grid-cols-2 text-sm lg:text-base gap-y-2 text-gray-300">
                           <div>
-                            <span className="font-semibold text-white">
-                              Block Reward:
-                            </span>{" "}
-                            {item.interest_rate}%
+                            {item.type === "micro" ? (
+                              <>
+                                {" "}
+                                <span className="font-semibold text-white">
+                                  Token Reward:
+                                </span>
+                                {` `}
+                                BIZT
+                              </>
+                            ) : (
+                              <>
+                                {" "}
+                                <span className="font-semibold text-white">
+                                  Token Reward:
+                                </span>{" "}
+                                {item.interest_rate}%{" "}
+                              </>
+                            )}
                           </div>
                           <div className="capitalize">
                             <span className="font-semibold text-white ">
                               Return:
                             </span>{" "}
-                            {item.return_type}
+                            {item.type !== "micro" ? (
+                              <>{item.return_type}</>
+                            ) : (
+                              <>{Number(10000).toLocaleString()}</>
+                            )}
                           </div>
                           <div>
                             <span className="font-semibold text-white">
@@ -198,7 +225,12 @@ export default function BuyNodePage() {
                               Duration:
                             </span>{" "}
                             <span>
-                              {item.type === "master" ? "5 Year" : "3 Years"}
+                              {item.type === "micro"
+                                ? "1 Year"
+                                : item.type === "master"
+                                ? "5 Years"
+                                : "3 Years"}
+                              {/* {item.type === "master" ? "5 Year" : "3 Years"} */}
                             </span>
                           </div>
                         </div>
